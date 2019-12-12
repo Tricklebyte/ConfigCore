@@ -1,5 +1,5 @@
 # ConfigCore
-Secure, centralized configuration for ASPNET.CORE applications
+Secure, centralized configuration for NET.CORE applications
 
 
 ## Objective
