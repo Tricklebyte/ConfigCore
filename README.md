@@ -15,12 +15,12 @@ Three overloads are available for adding the APISource and Provider to the other
 Adds the API Source to the configuration builder source chain prior to configuration build.
 
 ### Overloads
- AddApiSource(string, bool=false)      Simplest method, single required parameter: for the Environment Variable name containing 
+ AddApiSource(string, bool=false)      Simplest method, single required parameter for the Environment Variable name containing 
                                         for the URL of the Configuration URL
- AddApiSource(string, string, bool)
+ AddApiSource(string, string, bool)    One additional parameter for the application name to retreive settings for. Defaults to the application's assembly name if not specified.
  AddApiSource(IConfiguration, bool) 
 
-
+#### AddApiSource
 ### Config.Core.DbSource - Database Configuration Provider
 This custom configuration provider sources configuration data directly from a centralized configuration database.
 
