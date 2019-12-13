@@ -4,13 +4,14 @@ Secure, centralized configuration for NET.CORE applications
 ## Objectives
 * Manage application configuration settings from a secure, centralized database or API.
 * Remove sensitive configuration data from source code files.
-* Eliminate the need to install and maintain host variables.
+* Eliminate the need to install and maintain environment variables on multiple hosts.
 
 
 # ConfigCore.ApiSource - API Configuration Source/Provider
-Custom configuration provider uses an HTTP client to fetch configuration data from a REST API.
-Extension methods on IConfigurationBuilder
-Three overloads are available for adding the APISource and Provider to the other chained configuration providers during configuration build:
+Custom configuration provider uses an HTTP client to retrieve configuration data from a REST API.
+Extension methods on IConfigurationBuilder are used to add the API Configuration Source to the IConfigurationBuilder prior to calling Build. 
+When the configuration is built, the API Provider will use an HTTP Client to retrieve key/value settings pairs from the API and add them to the configuration like any other configuration provider. Settings from previous providers in the chain will be overwritten by the API sourced settings if the keys are the same. Use the ConfigCore.ApiSource with your other configuration providers, in the correct order for your desired precedence.  
+
 ## IConfigurationBuilder.AddApiSource Extension Method
 Adds the API Source to the configuration builder source chain prior to configuration build.
  Overloads
