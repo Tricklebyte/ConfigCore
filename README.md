@@ -7,17 +7,20 @@ Secure, centralized configuration for NET.CORE applications
 * Eliminate the need to install and maintain host variables.
 
 
-## ConfigCore.ApiSource - API Configuration Source/Provider
+# ConfigCore.ApiSource - API Configuration Source/Provider
 Custom configuration provider uses an HTTP client to fetch configuration data from a REST API.
 Extension methods on IConfigurationBuilder
 Three overloads are available for adding the APISource and Provider to the other chained configuration providers during configuration build:
-### IConfigurationBuilder.AddApiSource Extension Method
+## IConfigurationBuilder.AddApiSource Extension Method
 Adds the API Source to the configuration builder source chain prior to configuration build.
-
-### Overloads
- AddApiSource(string, bool=false)      Simplest method, single required parameter for the Environment Variable name containing 
-                                        for the URL of the Configuration URL
- AddApiSource(string, string, bool)    One additional parameter for the application name to retreive settings for. Defaults to the application's assembly name if not specified.
+ Overloads
+ 
+ ### AddApiSource 
+ 
+  Simplest method, single required parameter for name of an Environment Variable containing the URL of the Configuration API. Defaults are used for application Id and Authentication.
+  
+ ### AddApiSource(string, string, bool)  
+ One additional parameter for the application name to retreive settings for. Defaults to the application's assembly name if not specified.
  AddApiSource(IConfiguration, bool) 
 
 #### AddApiSource
