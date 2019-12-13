@@ -20,4 +20,4 @@ ConfigCore provides support for three custom application environments in additio
 * Test
 * QA
 
-## See the Wiki for usage instructions and examples
+## See the [Wiki](https://github.com/Tricklebyte/ConfigCore/wiki) for usage instructions and examples
