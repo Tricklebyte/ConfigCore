@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29319.158
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi", "ConfigApi\ConfigApi.csproj", "{468448AC-6607-4679-BECE-491838F88A2D}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigCore", "..\src\ConfigCore\ConfigCore.csproj", "{75AD40E9-7D3F-4E35-B8E1-F9F3DD5DBD44}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigClient_ApiCustom", "Clients\ConfigClient_ApiCustom\ConfigClient_ApiCustom.csproj", "{124C7F20-9282-4B65-9C9F-B5A9DCD8B6DE}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{468448AC-6607-4679-BECE-491838F88A2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{468448AC-6607-4679-BECE-491838F88A2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{468448AC-6607-4679-BECE-491838F88A2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{468448AC-6607-4679-BECE-491838F88A2D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75AD40E9-7D3F-4E35-B8E1-F9F3DD5DBD44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75AD40E9-7D3F-4E35-B8E1-F9F3DD5DBD44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75AD40E9-7D3F-4E35-B8E1-F9F3DD5DBD44}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -19,28 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\appsettingsAuthFailWindows.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\appsettingsAuthSecretNotFoundKey.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\appsettingsAuthSecretNotFoundCert.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\appsettingsAuthFailKey.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\appsettingsAuthFailCert.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\appsettingsCertNotInstalled.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsKey2.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsKey1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsKey1 - Copy.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsWin2.json">
@@ -145,15 +124,6 @@
     <None Update="TestCases\ApiSource\AddApiSource\OptParams\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\HttpHelper\expected3.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\HttpHelper\expected2.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\HttpHelper\expected1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="TestCases\ApiSource\HttpHelper\GetHttpRequest\expected3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -226,7 +196,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TestCases\ApiSource\AddApiSource\Config\InvalidURL\" />
     <Folder Include="TestCases\ApiSource\AddApiSource\OptParams\Good\" />
   </ItemGroup>
 

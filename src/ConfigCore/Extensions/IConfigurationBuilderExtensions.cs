@@ -12,30 +12,26 @@ namespace ConfigCore.Extensions
 {
     public static class IConfigurationBuilderExtensions
     {
-        
-		//DbSource
-        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar,  bool optional = false, int sqlCommandTimeout = 0)
+
+        //DbSource with with Environment variable parameters. Does not require pre-built configuration object. 
+        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar,string appId = null, int sqlCommandTimeout = 0,  bool optional = false)
         {
-            return builder.Add(new DbConfigSource(builder,connEnvVar,optional,sqlCommandTimeout));
+            return builder.Add(new DbConfigSource(builder, connEnvVar,appId, sqlCommandTimeout,  optional));
         }
-        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar, string appId, bool optional = false, int sqlCommandTimeout = 0)
-        {
-            return builder.Add(new DbConfigSource(builder, connEnvVar, appId, optional, sqlCommandTimeout));
-        }
+
+        //DbSource Configuration object parameter. Uses configuration settings to control the behaviour of DB Source and Provider.
         public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, IConfiguration config, bool optional = false)
         {
             return builder.Add(new DbConfigSource(builder, config,  optional));
         }
 		
-		//ApiSource
-		public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar,  bool optional = false)
+		//ApiSource with Environment variable parameters. Does not require pre-built configuration object. 
+		public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder,  string urlKeyVar, string authSecretVar = null, string authType =null, string appId = null, bool optional = false)
         {
-            return builder.Add(new ApiConfigSource(builder,urlKeyVar,optional));
+            return builder.Add(new ApiConfigSource(builder,urlKeyVar, authSecretVar,authType,appId, optional));
         }
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string appId, bool optional = false)
-        {
-            return builder.Add(new ApiConfigSource(builder, urlKeyVar, appId, optional));
-        }
+
+        //Api Source with Configuration object parameter. Uses configuration settings to control the behaviour of DB Source and Provider.
         public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, IConfiguration config, bool optional = false)
         {
             return builder.Add(new ApiConfigSource(builder, config,  optional));

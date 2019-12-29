@@ -3,33 +3,41 @@ using System;
 using System.Collections.Generic;
 using System.Net.Mail;
 using System.Text;
+using static ConfigCore.Models.Enums;
 
 namespace ConfigCore.Models
 {
     public class ApiSourceOptions
     {
-        
         public string AuthType { get; set; }
-        public string AuthClaimType { get; set; }
-        public string AuthClaimValue { get; set; }
+        public string AuthSecret { get; set; }
 
-        public string ConfigSettingUrlKey { get; set; }
-        public string ConfigSettingUrl { get; set; }
+        public string ConfigUrlKey { get; set; }
+        public string ConfigUrl { get; set; }
         public string AppId { get; set; }
+        bool _optional;
+      
 
-
-
-        public ApiSourceOptions(string configUrlVar, bool optional)
+        //Accepts parameters for basic configuration values, Add the ApiSource to the IConfigurationBuilder in a single step and does not require a pre-built configuration object as a paramter.
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <param name="configUrlVar">Name of Environment Variable containing the full URL of the Configuration API's get action (without parameters)</param>
+      /// <param name="authSecretVar"></param>
+      /// <param name="optional"></param>
+      /// <param name="authType"></param>
+      /// <param name="appId"></param>
+        public ApiSourceOptions(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
         {
-            SetConfigUrlFromEnvVar(configUrlVar, optional);
-            AddDefaults();
+            _optional = optional;
+            AuthType = authType;
+            AppId = appId;
+            SetDefaults();
+            SetConfigUrlFromEnvVar(configUrlVar);
+            SetAuthSecretFromEnvVar(authType,authSecretVar);
         }
-        public ApiSourceOptions(string configUrlVar, string appId, bool optional)
-        {
-            SetConfigUrlFromEnvVar(configUrlVar, optional);
-            AppId = AppId;
-            AddDefaults();
-        }
+
+        
         /// <summary>
         /// Accepts Configuration as parameter. Used to override default apiclient settings 
         /// </summary>
@@ -42,54 +50,77 @@ namespace ConfigCore.Models
             {
                     throw new Exception("ApiSource section not found in configuration");
             }
-            // if user did not supply value for urlKey, use default setting key
-            ConfigSettingUrlKey = apiSection["ConfigApiUrlKey"];
-            ConfigSettingUrl = config[ConfigSettingUrlKey];
+            // assign user setting options
+            ConfigUrlKey = apiSection["ConfigUrlKey"];
+            ConfigUrl = config[ConfigUrlKey];
             AuthType = apiSection["AuthType"];
-            AuthClaimType = apiSection["AuthClaimType"];
-            AuthClaimValue = apiSection["AuthClaimValue"];
+            AuthSecret = apiSection["AuthSecret"];
             AppId = apiSection["AppId"];
-
+         
+            
             //Add defaults for any required values that were not supplied
-            AddDefaults();
+            SetDefaults();
 
             //Set Full Configuration API URL including action and Parmater
-            ConfigSettingUrl = config[ConfigSettingUrlKey];
-            if (string.IsNullOrEmpty(ConfigSettingUrl))
-                throw new Exception($"Config API Url not found at configuration setting key: '{ConfigSettingUrlKey}'");
+            ConfigUrl = config[ConfigUrlKey];
+           
+            if (string.IsNullOrEmpty(ConfigUrl))
+                throw new Exception($"Configuration setting not found: '{ConfigUrlKey}'");
             else
-                ConfigSettingUrl += AppId;
+                // Verify trailing slash and add parameter to url string
+                ConfigUrl = ConfigUrl.TrimEnd('/') + @"/" + AppId;
+          
+            // Check if Authorization secret is required and present
+            if (AuthType == "Certificate" || AuthType == "ApiKey")
+            {
+                if (string.IsNullOrEmpty(AuthSecret))
+                {
+                    throw new Exception($"Authentication secret not found in configuration setting - 'ConfigOptions:ApiSource:AuthSecret'");
+                }
+            }
+
         }
 
         // Configuration API URL - by Environment Variable name
         // Use the Environment Variable name parameter to get the URL of the ConfigurationAPI.
-        public void SetConfigUrlFromEnvVar(string configUrlVar, bool optional)
+        public void SetConfigUrlFromEnvVar(string configUrlVar)
         {
-            ConfigSettingUrl = Environment.GetEnvironmentVariable(configUrlVar);
-            if (ConfigSettingUrl == null && optional == false)
+            ConfigUrl = Environment.GetEnvironmentVariable(configUrlVar);
+
+            if (ConfigUrl == null && _optional == false)
                 throw new Exception($"Unable to create Api Source Options, Environment Variable: '{configUrlVar}' not found.");
             else
-                AddDefaults();
-
-                ConfigSettingUrl += AppId;
+                SetDefaults();
+            // Verify trailing slash and add parameter to url string
+            ConfigUrl = ConfigUrl.TrimEnd('/') + "/" + AppId;
+            
         }
 
-        private void AddDefaults()
+        public void SetAuthSecretFromEnvVar(string authType, string authSecretVar)
         {
-            if (string.IsNullOrEmpty(ConfigSettingUrlKey))
-                ConfigSettingUrlKey = "ConfigOptions:ApiSource:ConfigApiUrl";
+            // Get Defaults must have already been called.
+
+            // If the authentication type requires a secret, verify the secret is there
+            if (authType == "ApiKey" || authType =="Certificate")
+            {
+                AuthSecret = Environment.GetEnvironmentVariable(authSecretVar);
+            
+            if (AuthSecret == null)
+                throw new Exception($"Environment Variable: '{authSecretVar}' was not found.");
+            }
+        }
+
+
+        private void SetDefaults()
+        {
+            if (string.IsNullOrEmpty(ConfigUrlKey))
+                ConfigUrlKey = ApiDefault.ConfigUrlKey;
 
             if (string.IsNullOrEmpty(AuthType))
                 AuthType = ApiDefault.AuthType;
 
-            if (string.IsNullOrEmpty(AuthClaimType))
-                AuthClaimType = ApiDefault.AuthClaimType;
-
-            if (string.IsNullOrEmpty(AuthClaimValue))
-                AuthClaimValue = ApiDefault.AuthClaimValue;
-
             if (string.IsNullOrEmpty(AppId))
-                AppId =  System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
+                AppId = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
         }
     }
 }

@@ -16,10 +16,10 @@ namespace ConfigCore.DbSource
 
        
         // Uses assembly name as AppId search value
-        public DbConfigSource(IConfigurationBuilder builder, string conKeyVar, bool optional, int sqlCommandTimeout)
+        public DbConfigSource(IConfigurationBuilder builder, string conKeyVar, int sqlCommandTimeout, bool optional)
         {
             _optional = optional;
- 
+            
         
             try
             {
@@ -38,7 +38,7 @@ namespace ConfigCore.DbSource
         }
 
         //
-        public DbConfigSource(IConfigurationBuilder builder, string conKeyVar, string appId, bool optional,int sqlCommandTimeout)
+        public DbConfigSource(IConfigurationBuilder builder, string conKeyVar, string appId, int sqlCommandTimeout, bool optional)
         {
            
             _optional = optional;
@@ -59,6 +59,7 @@ namespace ConfigCore.DbSource
             }
         }
         
+
         // Accepts configuration parameter for non-default database options
         public DbConfigSource(IConfigurationBuilder builder, IConfiguration config, bool optional)
         {

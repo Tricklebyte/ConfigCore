@@ -14,9 +14,8 @@ namespace ConfigCore.Models
     }
     public class ApiDefault
     {
-        public const string configUrlVar = "ConfigOptions:DbSource:ConnStringKey";
-        public const string AuthType = "None";
-        public const string AuthClaimType = ".";
-        public const string AuthClaimValue = ".";
+        public const string ConfigUrlKey = "ConfigOptions:ApiSource:ConfigUrl";
+        public const string AuthType = "Certificate";
+        
     }
 }

@@ -31,16 +31,16 @@ namespace ConfigCore.Tests
     {
         #region  Connection String Environment Variable Name Parameter
 
-        // test overload where environment variable is only parameter
+   
         // 
-        [InlineData("ConfigDb-Connection", "1",true)]
-        [InlineData("ConfigDb-Connection", "1", false)]
+        [InlineData("ConfigDb-Connection",null,0, true, "1")]
+        [InlineData("ConfigDb-Connection",null,0, false, "1")]
         [Theory]
-        public void EnvVar_Good(string conStringVar, string testCase, bool optional)
+        public void EnvVar_Good(string conStringVar, string appId,int sqlTOut, bool optional,string testCase)
         {
             var builder = new ConfigurationBuilder();
             //call AddDbSource extension method and build actual configuration
-            IConfiguration actual = builder.AddDbSource(conStringVar, optional).Build();
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId, sqlTOut, optional).Build();
             //convert to list for comparison
             var listActual = actual.GetConfigSettings();
             //get expected settings list from file
@@ -49,8 +49,8 @@ namespace ConfigCore.Tests
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
-        [InlineData("UnknownVar", true)]
-        [InlineData("UnknownVar", false)]
+        [InlineData("UnknownVar",  true)]
+        [InlineData("UnknownVar",  false)]
         [Theory]
         public void EnvVar_VarNotFound(string conStringVar, bool optional)
         {
@@ -58,7 +58,7 @@ namespace ConfigCore.Tests
             if (optional)
             {
                 // attempt to call .AddDbSource with a 
-                builder.AddDbSource(conStringVar, optional);
+                builder.AddDbSource(conStringVar,null,0,optional);
                 IConfiguration config;
                 config = builder.Build();
     
@@ -66,7 +66,7 @@ namespace ConfigCore.Tests
                 Assert.True(actualList.Count() == 0);
             }
             else
-                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, optional));
+                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, null, 0, optional));
         }
 
         [InlineData("ConfigDb-BadConnection", true)]
@@ -76,7 +76,7 @@ namespace ConfigCore.Tests
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
-            builder.AddDbSource(conStringVar, optional);
+            builder.AddDbSource(conStringVar,null,0, optional);
 
             if (optional)
             {
@@ -101,7 +101,7 @@ namespace ConfigCore.Tests
         {
             var builder = new ConfigurationBuilder();
             //build actual configuraiton
-            IConfiguration actual = builder.AddDbSource(conStringVar, appId, optional).Build();
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId,0,optional).Build();
             //convert actual configuration result to list for comparison
             var listActual = actual.GetConfigSettings();
             //get expected list of results from file
@@ -120,13 +120,13 @@ namespace ConfigCore.Tests
             var builder = new ConfigurationBuilder();
             if (optional)
             {
-                builder.AddDbSource(conStringVar, appId, optional);
+                builder.AddDbSource(conStringVar,appId,0,optional);
                 actual = builder.Build();
                 var actualList = actual.GetConfigSettings();
                 Assert.True(actualList.Count() == 0);
             }
             else
-                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, appId, optional));
+                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, appId,0, optional));
         }
 
         [InlineData("ConfigDb-BadConnection", "testhost", true)]
@@ -136,7 +136,7 @@ namespace ConfigCore.Tests
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
-            builder.AddDbSource(conStringVar, optional);
+            builder.AddDbSource(conStringVar,appId,0, optional);
 
             if (optional)
             {
@@ -156,7 +156,7 @@ namespace ConfigCore.Tests
         public void EnvVar_AppId_NoResults(string conStringVar, string appId, bool optional)
         {
             var builder = new ConfigurationBuilder();
-            IConfiguration actual = builder.AddDbSource(conStringVar, appId, optional).Build();
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId, 0,optional).Build();
             var listActual = actual.GetConfigSettings();
             Assert.True(listActual.Count() == 0);
         }
@@ -237,21 +237,25 @@ namespace ConfigCore.Tests
         {
             IConfiguration actual;
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\DbSource\\AddDbSource\\Config\\SectionNotFound\\appsettings{testCase}.json";
+            string jsonPath = $"TestCases\\DbSource\\AddDbSource\\Config\\ConnectFail\\appsettings{testCase}.json";
             // Get initial config containing non-default database settings
             var initialConfig = TestHelper.GetFileConfig(jsonPath);
             // Create the final builder 
             IConfigurationBuilder finalBuilder = new ConfigurationBuilder();
+                 // Add the DBSource to the final builder
+                finalBuilder.AddDbSource(initialConfig, optional);
+            
             if (optional)
             {
-                // Add the DBSource to the final builder
-                finalBuilder.AddDbSource(initialConfig, optional);
                 actual = finalBuilder.Build();
                 var listActual = actual.GetConfigSettings();
                 Assert.True(listActual.Count() == 0);
             }
             else
-                Assert.Throws<System.Exception>(() => finalBuilder.AddDbSource(initialConfig, optional));
+            {
+            Assert.Throws<System.Data.SqlClient.SqlException>(() => actual = finalBuilder.Build());
+            }
+           
         }
 
 

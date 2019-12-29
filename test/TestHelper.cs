@@ -15,17 +15,38 @@ namespace ConfigCore.Tests
 {
     public static class TestHelper
     {
-        public static List<ConfigSetting> GetListFromJsonFile(string path)
+        //public static List<ConfigSetting> GetSettingListFromJsonFile(string path)
+        //{
+        //    List<ConfigSetting> returnList = new List<ConfigSetting>();
+        //    using (StreamReader r = new StreamReader(path))
+        //    {
+        //        string json = r.ReadToEnd();
+        //        returnList = JsonConvert.DeserializeObject<List<ConfigSetting>>(json);
+        //    }
+        //    return returnList;
+        //}
+
+        //public static List<EnvVar> GetEnvVarListFromJsonFile(string path)
+        //{
+        //    List<EnvVar> returnList = new List<EnvVar>();
+        //    using (StreamReader r = new StreamReader(path))
+        //    {
+        //        string json = r.ReadToEnd();
+        //        returnList = JsonConvert.DeserializeObject<List<EnvVar>>(json);
+        //    }
+        //    return returnList;
+        //}
+
+        public static List<T> GetObjListFromJsonFile<T>(string path)
         {
-            List<ConfigSetting> returnList = new List<ConfigSetting>();
+            List<T> returnList = new List<T>();
             using (StreamReader r = new StreamReader(path))
             {
                 string json = r.ReadToEnd();
-                returnList = JsonConvert.DeserializeObject<List<ConfigSetting>>(json);
+                returnList = JsonConvert.DeserializeObject<List<T>>(json);
             }
             return returnList;
-        }
-
+        } 
         public static bool SettingsAreEqual(List<ConfigSetting> list1, List<ConfigSetting> list2)
         {
             list1 = list1.OrderBy(x => x.SettingKey).ThenBy(x => x.SettingValue).ToList<ConfigSetting>();
@@ -47,16 +68,32 @@ namespace ConfigCore.Tests
             return TestHelper.SettingsAreEqual(list1, list2);
         }
 
-
         public static IConfiguration GetFileConfig(string path)
         {
             var builder = new ConfigurationBuilder();
             builder.AddJsonFile(path, false);
             return builder.Build();
         }
-        public static string GetJsonFromList(List<ConfigSetting> list)
+
+        public static string GetJsonFromList<T>(List<T> list)
         {
             return JsonConvert.SerializeObject(list);
+        }
+
+        public static void CreateEnvVars(List<EnvVar> envVars)
+        {
+            foreach (var pair in envVars)
+            {
+                Environment.SetEnvironmentVariable(pair.Key, pair.Value);
+            }
+        }
+       
+        public static void DeleteEnvVars(List<EnvVar> envVars)
+        {
+            foreach (var pair in envVars)
+            {
+                Environment.SetEnvironmentVariable(pair.Key, null);
+            }
         }
     }
 }

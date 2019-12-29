@@ -13,10 +13,12 @@ namespace ConfigCore.ApiSource
 
     {
         private readonly HttpClient _client;
+        private readonly HttpRequestMessage _request;
         private readonly bool _optional;
-        public ApiConfigProvider(HttpClient client, bool optional)
+        public ApiConfigProvider(HttpClient client, HttpRequestMessage request, bool optional)
         {
             _client = client;
+            _request = request;
             _optional = optional;
         }
 
@@ -30,8 +32,7 @@ namespace ConfigCore.ApiSource
             };
             try
             {
-                //var responseStream = _client.GetStreamAsync("").Result;
-                var response = _client.GetAsync("").Result;
+                var response = _client.SendAsync(_request).Result;
                 response.EnsureSuccessStatusCode();
 
                 if (response.Content.Headers.ContentLength > 0)

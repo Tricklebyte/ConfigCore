@@ -11,7 +11,7 @@ namespace ConfigCore.Models
             Windows,
             ClientCertificate,
             ApiKey,
-            None
+            Anon
         }
     }
 }
