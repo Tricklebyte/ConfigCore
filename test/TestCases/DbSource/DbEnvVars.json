@@ -1,0 +1,4 @@
+{
+  "ConfigDb-Connection": "Server=(localdb)\\MSSQLLocalDB;Database=ConfigDb;Trusted_Connection=True;MultipleActiveResultSets=true",
+  "ConfigDb-BadConnection": "BadConnection"
+}

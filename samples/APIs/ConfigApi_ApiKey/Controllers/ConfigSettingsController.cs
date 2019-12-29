@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ConfigApi_ApiKey.Filters;
 using ConfigApi_ApiKey.Models;
 using ConfigCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace ConfigApi_ApiKey.Controllers
 {
-
-
     [ApiController]
     [Route("iapi/[controller]")]
+    [ApiKeyAuth]
     public class ConfigSettingsController : ControllerBase
     {
         List<ConfigEntity> _listSettings; 

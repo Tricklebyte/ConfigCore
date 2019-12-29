@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConfigApi_ApiKey.Filters
 {
+    [AttributeUsage(validOn:AttributeTargets.Class | AttributeTargets.Method)]
     public class ApiKeyAuthAttribute : Attribute, IAsyncActionFilter
     {
         private const string ApiKeyHeaderName = "X-API-Key";

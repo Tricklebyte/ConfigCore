@@ -199,6 +199,9 @@
     <None Update="TestCases\DbSource\DbEnvVars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestCases\DbSource\DbEnvVars.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\ConfigError\appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

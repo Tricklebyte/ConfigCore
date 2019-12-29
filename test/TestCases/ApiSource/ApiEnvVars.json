@@ -1,12 +1,45 @@
-{
-  "ConfigURL-Key": "https://localhost:5007/iapi/ConfigSettings",
-  "ConfigURL-Cert": "https://localhost:5005/iapi/ConfigSettings",
-  "ConfigURL-Win": "https://localhost:44397/iapi/ConfigSettings",
-  "ConfigURL-Anon": "https://localhost:5001/iapi/ConfigSettings",
-  "ConfigAuth-Key": "F56A8B8D2EF57B7D",
-  "ConfigAuth-KeyFail": "12345BadKey12345",
-  "ConfigAuth-Cert": "471249a6cbd7444ca239cdaecf63e3245a9fa6fd",
-  "ConfigAuth-CertFail": "a88728792a1332c50dca64878a0f2dfea5893990",
-  "ConfigAuth-CertNotFound": "12345BadThumbprint12345",
-  "ConfigApi-WrongUrl": "https://developers.google.com/"
-}
+[
+  {
+    "Key": "ConfigURL-Key",
+    "Value": "https://localhost:5007/iapi/ConfigSettings"
+  },
+  {
+    "Key": "ConfigURL-Cert",
+    "Value": "https://localhost:5005/iapi/ConfigSettings"
+  },
+  {
+    "Key": "ConfigURL-Win",
+    "Value": "https://localhost:44343/iapi/ConfigSettings"
+  },
+  {
+    "Key": "ConfigURL-Anon",
+    "Value": "https://localhost:5001/iapi/ConfigSettings"
+  },
+  {
+    "Key": "ConfigAuth-Key",
+    "Value": "F56A8B8D2EF57B7D"
+  },
+  {
+    "Key": "ConfigAuth-KeyFail",
+    "Value": "https://localhost:5005/iapi/ConfigSettings"
+  },
+  {
+    "Key": "ConfigAuth-Cert",
+    "Value": "471249a6cbd7444ca239cdaecf63e3245a9fa6fd"
+  },
+
+  {
+    "Key": "ConfigAuth-CertFail",
+    "Value": "a88728792a1332c50dca64878a0f2dfea5893990"
+  },
+  {
+    "Key": "ConfigAuth-CertNotFound",
+    "Value": "12345BadThumbprint12345"
+  },
+  {
+    "Key": "ConfigApi-WrongUrl",
+    "Value": "\"https://developers.google.com/"
+  }
+
+
+] 

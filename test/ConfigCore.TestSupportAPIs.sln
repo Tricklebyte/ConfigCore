@@ -5,21 +5,13 @@ VisualStudioVersion = 16.0.29319.158
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigCore", "..\src\ConfigCore\ConfigCore.csproj", "{DF4E7BC4-08AB-4449-B336-4AF8E9253B11}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Auth_Anon", "..\samples\APIs\ConfigApi_Auth_Anon\ConfigApi_Auth_Anon.csproj", "{F16BCD1B-CA7F-406F-8210-4F2B19F86F25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Anon", "..\samples\APIs\ConfigApi_Anon\ConfigApi_Anon.csproj", "{426111B2-BED4-4C39-A0AC-1FE32359E408}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Auth_ApiKey", "..\samples\APIs\ConfigApi_Auth_ApiKey\ConfigApi_Auth_ApiKey.csproj", "{D473A1D1-1D5F-45D4-BC2A-EF17939FBE5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_ApiKey", "..\samples\APIs\ConfigApi_ApiKey\ConfigApi_ApiKey.csproj", "{27CF2683-6B37-46CB-86A8-ADEA0F43B202}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Auth_Certificate", "..\samples\APIs\ConfigApi_Auth_Certificate\ConfigApi_Auth_Certificate.csproj", "{1B82FF36-CC05-42BE-939C-D3AB6F923824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Windows", "..\samples\APIs\ConfigApi_Windows\ConfigApi_Windows.csproj", "{B86D4FCF-8731-4B55-964B-87F42195BDFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Auth_Windows", "..\samples\APIs\ConfigApi_Auth_Windows\ConfigApi_Auth_Windows.csproj", "{42F824BF-8A35-4CC1-A3DB-F503C7EF8BD7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigApi_Anon", "..\samples\APIs\ConfigApi_Anon\ConfigApi_Anon.csproj", "{426111B2-BED4-4C39-A0AC-1FE32359E408}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigApi_Certificate", "ConfigApi_Certificate\ConfigApi_Certificate.csproj", "{F3AFE5BC-4BA8-458A-B96C-30A9BE066067}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigApi_ApiKey", "..\samples\APIs\ConfigApi_ApiKey\ConfigApi_ApiKey.csproj", "{27CF2683-6B37-46CB-86A8-ADEA0F43B202}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigApi_Windows", "..\samples\APIs\ConfigApi_Windows\ConfigApi_Windows.csproj", "{B86D4FCF-8731-4B55-964B-87F42195BDFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Certificate", "..\samples\APIs\ConfigApi_Certificate\ConfigApi_Certificate.csproj", "{6C1C9990-E5B3-4433-97DF-EA75F551F2C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,30 +23,10 @@ Global
 		{DF4E7BC4-08AB-4449-B336-4AF8E9253B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF4E7BC4-08AB-4449-B336-4AF8E9253B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF4E7BC4-08AB-4449-B336-4AF8E9253B11}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F16BCD1B-CA7F-406F-8210-4F2B19F86F25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F16BCD1B-CA7F-406F-8210-4F2B19F86F25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F16BCD1B-CA7F-406F-8210-4F2B19F86F25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F16BCD1B-CA7F-406F-8210-4F2B19F86F25}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D473A1D1-1D5F-45D4-BC2A-EF17939FBE5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D473A1D1-1D5F-45D4-BC2A-EF17939FBE5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D473A1D1-1D5F-45D4-BC2A-EF17939FBE5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D473A1D1-1D5F-45D4-BC2A-EF17939FBE5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B82FF36-CC05-42BE-939C-D3AB6F923824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B82FF36-CC05-42BE-939C-D3AB6F923824}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B82FF36-CC05-42BE-939C-D3AB6F923824}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B82FF36-CC05-42BE-939C-D3AB6F923824}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42F824BF-8A35-4CC1-A3DB-F503C7EF8BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42F824BF-8A35-4CC1-A3DB-F503C7EF8BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42F824BF-8A35-4CC1-A3DB-F503C7EF8BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42F824BF-8A35-4CC1-A3DB-F503C7EF8BD7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{426111B2-BED4-4C39-A0AC-1FE32359E408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{426111B2-BED4-4C39-A0AC-1FE32359E408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{426111B2-BED4-4C39-A0AC-1FE32359E408}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{426111B2-BED4-4C39-A0AC-1FE32359E408}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3AFE5BC-4BA8-458A-B96C-30A9BE066067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3AFE5BC-4BA8-458A-B96C-30A9BE066067}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3AFE5BC-4BA8-458A-B96C-30A9BE066067}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3AFE5BC-4BA8-458A-B96C-30A9BE066067}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27CF2683-6B37-46CB-86A8-ADEA0F43B202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27CF2683-6B37-46CB-86A8-ADEA0F43B202}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27CF2683-6B37-46CB-86A8-ADEA0F43B202}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +35,10 @@ Global
 		{B86D4FCF-8731-4B55-964B-87F42195BDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B86D4FCF-8731-4B55-964B-87F42195BDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B86D4FCF-8731-4B55-964B-87F42195BDFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C1C9990-E5B3-4433-97DF-EA75F551F2C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C1C9990-E5B3-4433-97DF-EA75F551F2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C1C9990-E5B3-4433-97DF-EA75F551F2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C1C9990-E5B3-4433-97DF-EA75F551F2C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

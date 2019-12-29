@@ -3,6 +3,7 @@ using ConfigCore.Data;
 using ConfigCore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -22,15 +23,25 @@ namespace ConfigApi_Auth_Windows
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {           
-         // END OF CONFIGURATION BUILD ======================================= 
-            services.AddControllers();
+        {
 
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
+            // Claim type is Microsoft claim type for AD Secruty Group Identifier
+            string claimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/groupsid";
+
+            // Claim Value is the SID of the allowed Windows Group
+            // This example is set to the well-known SID for the group BUILTIN\Users. 
+            //   For use in Production, change this to the sid of an actual security group.
+            string claimValue = "S-1-5-32-545";
+
+            //Add authorization, create policy to check SID of Windows Security Group.
+            // Note - policy must also be applied in the controller
+            services.AddAuthorization(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CONFIG API Sample - No Authentication", Version = "v1" });
+                options.AddPolicy("BuiltinUser", policy =>
+                                            policy.RequireClaim(claimType, claimValue));
             });
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,16 +51,7 @@ namespace ConfigApi_Auth_Windows
             {
                 app.UseDeveloperExceptionPage();
             }
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
-            app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-            });
-
+            app.UseAuthentication();
             app.UseHttpsRedirection();
 
             app.UseRouting();

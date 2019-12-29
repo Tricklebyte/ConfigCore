@@ -20,7 +20,8 @@ namespace ConfigCore.Tests
                     
         public ApiSourceFixture()
         {
-            _envVarList = TestHelper.GetObjListFromJsonFile<EnvVar>("\\TestCases\\ApiSource\\ApiEnvVars.json");
+            string path = Environment.CurrentDirectory + "\\TestCases\\ApiSource\\ApiEnvVars.json";
+            _envVarList = JsonConvert.DeserializeObject<List<EnvVar>>(File.ReadAllText(path));
             TestHelper.CreateEnvVars(_envVarList);
         }
 
@@ -32,7 +33,7 @@ namespace ConfigCore.Tests
 
 
 
-    public class ApiSourceTests
+    public class ApiSourceTests : IClassFixture<ApiSourceFixture>
     {
 
         #region AddApiSource Overloads with options parameters

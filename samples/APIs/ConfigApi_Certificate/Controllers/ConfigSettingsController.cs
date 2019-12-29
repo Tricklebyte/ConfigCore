@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using ConfigApi_Certificate.Models;
 using ConfigCore.ApiSource;
 using ConfigCore.Data;
 using ConfigCore.Models;
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace ConfigApi_Auth_Windows.Controllers
+namespace ConfigApi_Certificate.Controllers
 {
   
 
