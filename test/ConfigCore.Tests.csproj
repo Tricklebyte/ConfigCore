@@ -124,7 +124,7 @@
     <None Update="TestCases\ApiSource\AddApiSource\Config\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidUrl\appsettingsAnon1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidURL\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidUrl\appsettingsCert1.json">
@@ -223,11 +223,6 @@
     <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\Good\expected4.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TestCases\ApiSource\AddApiSource\Config\InvalidURL\" />
-    <Folder Include="TestCases\ApiSource\AddApiSource\OptParams\Good\" />
   </ItemGroup>
 
   <ItemGroup>
