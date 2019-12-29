@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace ConfigApi_Auth_Anon.Models
+namespace ConfigApi_Anon.Models
 {
     public class ConfigEntity
     {

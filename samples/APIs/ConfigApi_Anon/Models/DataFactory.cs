@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ConfigApi_Auth_Anon.Models
+namespace ConfigApi_Anon.Models
 {
     public class DataFactory
     {

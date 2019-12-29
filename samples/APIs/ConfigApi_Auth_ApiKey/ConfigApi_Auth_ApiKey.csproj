@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\..\src\ConfigCore\ConfigCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Filters\" />
+  </ItemGroup>
+
 </Project>
