@@ -39,6 +39,10 @@
   {
     "Key": "ConfigApi-WrongUrl",
     "Value": "\"https://developers.google.com/"
+  },
+  {
+    "Key": "ConfigApi-InvalidUrl",
+    "Value": "\"https://localhost:x/"
   }
 
 

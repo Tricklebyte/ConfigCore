@@ -26,8 +26,23 @@ namespace ConfigCore.Tests
     // 2.) ConfigDb-BadConnection - An incorrect connection string
     //                 test value: BadConnectionString
     // 
+    public class DbSourceFixture : IDisposable
+    {
+        //  create environment variables ############################################
+        List<EnvVar> _envVarList;
+        public DbSourceFixture()
+        {
+            string path = Environment.CurrentDirectory + "\\TestCases\\DbSource\\DbEnvVars.json";
+            _envVarList = JsonConvert.DeserializeObject<List<EnvVar>>(File.ReadAllText(path));
+            TestHelper.CreateEnvVars(_envVarList);
+        }
+        public void Dispose()
+        {
+            TestHelper.DeleteEnvVars(_envVarList);
+        }
+    }
 
-    public class DbSourceTests
+    public class DbSourceTests : DbSourceFixture
     {
         #region  Connection String Environment Variable Name Parameter
 

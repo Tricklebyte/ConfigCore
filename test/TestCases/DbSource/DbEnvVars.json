@@ -1,4 +1,10 @@
-{
-  "ConfigDb-Connection": "Server=(localdb)\\MSSQLLocalDB;Database=ConfigDb;Trusted_Connection=True;MultipleActiveResultSets=true",
-  "ConfigDb-BadConnection": "BadConnection"
-}
+[
+  {
+    "Key": "ConfigDb-Connection",
+    "Value": "Server=(localdb)\\MSSQLLocalDB;Database=ConfigDb;Trusted_Connection=True;MultipleActiveResultSets=true",
+  },
+  {
+    "Key": "ConfigDb-BadConnection",
+    "Value": "BadConnection"
+  }
+]
