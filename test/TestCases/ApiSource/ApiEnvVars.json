@@ -9,7 +9,8 @@
   },
   {
     "Key": "ConfigURL-Win",
-    "Value": "https://localhost:44343/iapi/ConfigSettings"
+    // "Value": "https://localhost:44343/iapi/ConfigSettings"
+     "Value": "https://localhost:5003/iapi/ConfigSettings"
   },
   {
     "Key": "ConfigURL-Anon",
@@ -28,9 +29,9 @@
     "Value": "471249a6cbd7444ca239cdaecf63e3245a9fa6fd"
   },
 
-  {// This is a certificate installed in the test environment but not trusted by the API host
+  { // This is a certificate installed in the test environment but not trusted by the API host
     "Key": "ConfigAuth-CertFail",
-    "Value": "5ca44cdfef961bb8c107665c1453227814b463fe"
+    "Value": "A38CDB31C6F3D1D68E8439CB82DED1C6B3321FC8"
   },
   {// This is a thumbprint that is not installed in the test environment
     "Key": "ConfigAuth-CertNotFound",

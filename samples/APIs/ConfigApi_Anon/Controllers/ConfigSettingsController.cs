@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ConfigApi_Anon.Models;
 using ConfigCore.ApiSource;
-using ConfigCore.Data;
 using ConfigCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

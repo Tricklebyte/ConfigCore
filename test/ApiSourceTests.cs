@@ -296,8 +296,8 @@ namespace ConfigCore.Tests
 
         #region API Cient Authentication with options parameters
 
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Certificate", null, true)]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Certificate", null, false)]
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Anon", null, true)]
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Anon", null, false)]
         [Theory]
         // uses a Certificate that is installed on the client but not accepted by the Host
         public void OptParams_Cert_AuthFail(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
@@ -313,11 +313,36 @@ namespace ConfigCore.Tests
                 Assert.True(listActual.Count == 0);
             }
             else
-                Assert.Throws<System.AggregateException>(() => actual = builder.Build());
+                Assert.Throws<System.Net.Http.HttpRequestException>(() => actual = builder.Build());
         }
 
+
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, true)]
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, false)]
+        [Theory]
         // Auth Secret parameter does not identify a locally installed Certificate
-        public void OptParams_CertNotInstalled()
+        public void OptParams_Cert_NotInstalled(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+
+
+            if (optional)
+            {
+                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count == 0);
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional));
+
+
+        }
+        // Auth Secret parameter does not identify a locally installed Certificate
+      
+        
+        public void OptParams_CertNoSecret()
         {
             throw new NotImplementedException();
         }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authentication.Negotiate;
 
 namespace ConfigApi_Windows
 {
@@ -26,6 +27,15 @@ namespace ConfigApi_Windows
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // CONFIGURE AUTHENTICATION ###############################################
+            // KESTREL
+            services.AddAuthentication(NegotiateDefaults.AuthenticationScheme).AddNegotiate();
+
+            //  IIS EXPRESS
+            //   services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
+
+            // CONFIGURE AUTHORIZATION ################################################
             // Claim type is Microsoft claim type for AD Secruty Group Identifier
             string claimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/groupsid";
 
@@ -41,7 +51,10 @@ namespace ConfigApi_Windows
                 options.AddPolicy("BuiltinUser", policy =>
                                             policy.RequireClaim(claimType, claimValue));
             });
-            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+         
+         
+            
+            
             services.AddMvc();
         }
 
