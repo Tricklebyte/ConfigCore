@@ -72,6 +72,9 @@ namespace ConfigCore.Tests
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
+
+        // TODO OptParams no URL Var supplied
+        
         // Environment Variable for ConfigURL not found. Will fail on adding ApiSource
         [InlineData("ConfigApi-UnknownVar", null, "Anon", null, true)]
         [InlineData("ConfigApi-UnknownVar", null, "Anon", null, false)]
@@ -81,7 +84,6 @@ namespace ConfigCore.Tests
         [InlineData("ConfigApi-UnknownVar", "ConfigAuth-Cert", "Certificate", null, false)]
         [InlineData("ConfigApi-UnknownVar", "ConfigAuth-Key", "ApiKey", null, true)]
         [InlineData("ConfigApi-UnknownVar", "ConfigAuth-Key", "ApiKey", null, false)]
-
         [Theory]
         public void OptParams_VarNotFound(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
         {
@@ -99,6 +101,30 @@ namespace ConfigCore.Tests
         }
 
 
+        // Environment Variable for ConfigURL not found. Will fail on adding ApiSource
+        [InlineData(null, null, "Anon", null, true)]
+        [InlineData(null, null, "Anon", null, false)]
+        [InlineData(null, null, "Windows", null, true)]
+        [InlineData(null, null, "Windows", null, false)]
+        [InlineData(null, "ConfigAuth-Cert", "Certificate", null, true)]
+        [InlineData(null, "ConfigAuth-Cert", "Certificate", null, false)]
+        [InlineData(null, "ConfigAuth-Key", "ApiKey", null, true)]
+        [InlineData(null, "ConfigAuth-Key", "ApiKey", null, false)]
+        [Theory]
+        public void OptParams_NoUrlVar(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        {
+            var builder = new ConfigurationBuilder();
+            if (optional)
+            {
+                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+                IConfiguration config;
+                config = builder.Build();
+                var actualList = config.GetConfigSettings();
+                Assert.True(actualList.Count == 0);
+            }
+            else
+                Assert.Throws<System.ArgumentNullException>(() => builder.AddApiSource(configUrlVar, null, authType, appId, optional));
+        }
 
         //Assigns a valid, incorrect Url. Will fail on connect, so error will be thrown on build.
         [InlineData("ConfigApi-WrongUrl", null, "Anon", null, true)]
@@ -154,9 +180,113 @@ namespace ConfigCore.Tests
         #endregion
 
 
+        #region API Cient Authentication with options parameters
+
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Certificate", null, true)]
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Certificate", null, false)]
+        [Theory]
+        // uses a Certificate that is installed on the client but not accepted by the Host
+        public void OptParams_Cert_AuthFail(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+
+            if (optional)
+            {
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count == 0);
+            }
+            else
+                Assert.Throws<System.AggregateException>(() => actual = builder.Build());
+        }
+
+
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, true)]
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, false)]
+        [Theory]
+        // Auth Secret parameter does not identify a locally installed Certificate
+        public void OptParams_Cert_NotInstalled(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+
+
+            if (optional)
+            {
+                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count == 0);
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional));
+        }
+
+
+
+
+        // Auth Secret parameter not supplied
+        [InlineData("ConfigURL-Cert", "", "Certificate", null, true)]
+        [InlineData("ConfigURL-Cert", "", "Certificate", null, false)]
+        [Theory]
+        public void OptParams_CertNoSecret(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            if (optional)
+            {
+                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count == 0);
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional));
+        }
+
+
+        [InlineData("ConfigURL-Key", "ConfigAuth-KeyFail", "ApiKey", null, true)]
+        [InlineData("ConfigURL-Cert", "ConfigAuth-KeyFail", "ApiKey", null, false)]
+        // Fails authentication with an invalid key value
+        public void OptParams_Key_AuthFail(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+
+            if (optional)
+            {
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count == 0);
+            }
+            else
+                Assert.Throws<System.Net.Http.HttpRequestException>(() => actual = builder.Build());
+        }
+
+        // Fails authentication - windows credentials not supplied to Host
+        public void OptParams_Windows_AuthFail()
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        // No parameter value supplied for Auth Secret
+        public void OptParams_Key_NoSecret()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        #endregion
+
+
         #region AddApiSource Overloads with IConfiguration Parameter
         // Loads settings from Configuration section "ConfigOptions:ApiSource" to override default comm and auth settings for the HTTP Client.
-
+        // Two good test cases for each authentication type, tested for optional true and false
         [InlineData("Anon", "1", true)]
         [InlineData("Anon", "1", false)]
         [InlineData("Anon", "2", true)]
@@ -294,136 +424,146 @@ namespace ConfigCore.Tests
         #endregion
 
 
-        #region API Cient Authentication with options parameters
-
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Anon", null, true)]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Anon", null, false)]
-        [Theory]
-        // uses a Certificate that is installed on the client but not accepted by the Host
-        public void OptParams_Cert_AuthFail(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
-        {
-            IConfiguration actual;
-            var builder = new ConfigurationBuilder();
-            builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
-
-            if (optional)
-            {
-                actual = builder.Build();
-                var listActual = actual.GetConfigSettings();
-                Assert.True(listActual.Count == 0);
-            }
-            else
-                Assert.Throws<System.Net.Http.HttpRequestException>(() => actual = builder.Build());
-        }
-
-
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, true)]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, false)]
-        [Theory]
-        // Auth Secret parameter does not identify a locally installed Certificate
-        public void OptParams_Cert_NotInstalled(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
-        {
-            IConfiguration actual;
-            var builder = new ConfigurationBuilder();
-
-
-            if (optional)
-            {
-                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
-                actual = builder.Build();
-                var listActual = actual.GetConfigSettings();
-                Assert.True(listActual.Count == 0);
-            }
-            else
-                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional));
-
-
-        }
-        // Auth Secret parameter does not identify a locally installed Certificate
-      
-        
-        public void OptParams_CertNoSecret()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        // Fails authentication with an invalid key value
-        public void OptParams_Key_AuthFail()
-        {
-            throw new NotImplementedException();
-        }
-
-        // Fails authentication - windows credentials not supplied to Host
-        public void OptParams_Windows_AuthFail()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        // No parameter value supplied for Auth Secret
-        public void OptParams_Key_NoSecret()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        #endregion
-
-
         #region Api Client Authentication with IConfiguration Parameter
 
 
         // uses a Certificate that is installed on the client but not accepted by the Host
-        [InlineData("1", true)]
-        [InlineData("1", false)]
+        // Will fail on Build
+        [InlineData("Cert", "1", true)]
+        [InlineData("Cert", "1", false)]
         [Theory]
-        public void Config_Cert_AuthFail(string testCase, bool optional)
+        public void Config_Auth_CertAuthFail(string testAuthType, string testCase, bool optional)
         {
-           
+            // Create path to appsettings file
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\AuthFail\\appsettings{testAuthType}{testCase}.json";
+
+            // Get initial config containing non-default database settings
+            var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
+
+            // Create the final builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            IConfiguration actualConfig;
+            builder.AddApiSource(initConfig, optional);
+
+            if (optional)
+            {
+                actualConfig = builder.Build();
+                var actualList = actualConfig.GetConfigSettings();
+                Assert.True(actualList.Count == 0);
+            }
+            else
+            {
+                Assert.Throws<System.AggregateException>(() => actualConfig = builder.Build());
+            }
         }
 
         // Fails authentication with an invalid key value
-        [InlineData("1", true)]
-        [InlineData("1", false)]
+        // Will fail on Build
+        [InlineData("Key", "1", true)]
+        [InlineData("Key", "1", false)]
         [Theory]
-        public void Config_Key_AuthFail(string testCase, bool optional)
+        public void Config_Auth_KeyAuthFail(string testAuthType, string testCase, bool optional)
         {
-            throw new NotImplementedException();
+            // Create path to appsettings file
+            string jsonPath = $"TestCases\\ApiSource\\Config\\AuthFail\\appsettings{testAuthType}{testCase}.json";
+
+            // Get initial config containing non-default database settings
+            var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
+
+            // Create the final builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            IConfiguration actualConfig;
+            builder.AddApiSource(initConfig, optional);
+
+            if (optional)
+            {
+                actualConfig = builder.Build();
+                var actualList = actualConfig.GetConfigSettings();
+                Assert.True(actualList.Count == 0);
+            }
+            else
+            {
+                Assert.Throws<System.AggregateException>(() => actualConfig = builder.Build());
+            }
+
+
         }
 
-        [InlineData("1", true)]
-        [InlineData("1", false)]
+
+        // Sends to Windows API URL, but with security config for Anon api
+        // Will fail on Build
+        [InlineData("Windows", "1", true)]
+        [InlineData("Windows", "1", false)]
         [Theory]
-        public void Config_Windows_AuthFail(string testCase, bool optional)
+        public void Config_AuthFail_Windows(string testAuthType, string testCase, bool optional)
         {
-            throw new NotImplementedException();
+            // Create path to appsettings file
+            string jsonPath = $"TestCases\\ApiSource\\Config\\AuthFail\\appsettings{testAuthType}{testCase}.json";
+
+            // Get initial config containing non-default database settings
+            var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
+
+            // Create the final builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            IConfiguration actualConfig;
+            builder.AddApiSource(initConfig, optional);
+
+            if (optional)
+            {
+                actualConfig = builder.Build();
+                var actualList = actualConfig.GetConfigSettings();
+                Assert.True(actualList.Count == 0);
+            }
+            else
+            {
+                Assert.Throws<System.AggregateException>(() => actualConfig = builder.Build());
+            }
         }
 
+        // Secret not found in Config for Certificate auth type
+        // will fail on AddApiSource
+        [InlineData("Cert","1", true)]
+        [InlineData("Cert", "2", false)]
+        [Theory]
+        public void Config_AuthFail_Cert_NoSecret(string testAuthType, string testCase, bool optional)
+        {
+            // Create path to appsettings file
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\AuthFail\\appsettings{testAuthType}{testCase}.json";
 
+            // Get initial config containing non-default database settings
+            var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
+
+            // Create the final builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            IConfiguration actualConfig;
+
+            if (optional)
+            {
+                builder.AddApiSource(initConfig, optional);
+                actualConfig = builder.Build();
+                var listActual = actualConfig.GetConfigSettings();
+                Assert.True(listActual.Count == 0);
+            }
+            else
+                Assert.Throws<System.UriFormatException>(() => builder.AddApiSource(initConfig, optional));
+        }
+
+        // Secret not found in Config for ApiKey auth type
+        // will fail on AddApiSource
         [InlineData("1", true)]
         [InlineData("2", false)]
         [Theory]
-        public void Config_Cert_NoSecret(string testCase, bool optional)
+        public void Config_AuthFail_Key_NoSecret(string testCase, bool optional)
         {
             throw new NotImplementedException();
         }
 
-
+        // Certificate is not installed on the client
+        //will fail on AddApiSource
         [InlineData("1", true)]
         [InlineData("2", false)]
         [Theory]
-        public void Config_Key_NoSecret(string testCase, bool optional)
-        {
-            throw new NotImplementedException();
-        }
-
-        [InlineData("1", true)]
-        [InlineData("2", false)]
-        [Theory]
-        public void Config_Cert_NotInstalled(string testCase, bool optional)
+        public void Config_AuthFail_Cert_NotInstalled(string testCase, bool optional)
         {
             throw new NotImplementedException();
         }
