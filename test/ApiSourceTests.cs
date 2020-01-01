@@ -373,7 +373,7 @@ namespace ConfigCore.Tests
             // Create path to appsettings file
             string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\ConnectFail\\appsettings{testAuthType}{testCase}.json";
 
-            // Get initial config containing non-default database settings
+            // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
 
             // Create the final builder 
@@ -402,7 +402,7 @@ namespace ConfigCore.Tests
             // Create path to appsettings file
             string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\InvalidUrl\\appsettings{testAuthType}{testCase}.json";
 
-            // Get initial config containing non-default database settings
+            // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
 
             // Create the final builder 
@@ -427,17 +427,23 @@ namespace ConfigCore.Tests
         #region Api Client Authentication with IConfiguration Parameter
 
 
-        // uses a Certificate that is installed on the client but not accepted by the Host
+        // Authentication Failure
         // Will fail on Build
-        [InlineData("Cert", "1", true)]
-        [InlineData("Cert", "1", false)]
+        [InlineData("AnonAuthFail", true)]
+        [InlineData("AnonAuthFail", false)]
+        [InlineData("CertAuthFail",  true)]
+        [InlineData("CertAuthFail",  false)]
+        [InlineData("KeyAuthFail", true)]
+        [InlineData("KeyAuthFail", false)]
+        [InlineData("WinAuthFail", true)]
+        [InlineData("WinAuthFail", false)]
         [Theory]
-        public void Config_Auth_CertAuthFail(string testAuthType, string testCase, bool optional)
+        public void Config_AuthFail(string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\AuthFail\\appsettings{testAuthType}{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\AuthFail\\{testCase}.json";
 
-            // Get initial config containing non-default database settings
+            // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
 
             // Create the final builder 
@@ -457,80 +463,20 @@ namespace ConfigCore.Tests
             }
         }
 
-        // Fails authentication with an invalid key value
-        // Will fail on Build
-        [InlineData("Key", "1", true)]
-        [InlineData("Key", "1", false)]
-        [Theory]
-        public void Config_Auth_KeyAuthFail(string testAuthType, string testCase, bool optional)
-        {
-            // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\Config\\AuthFail\\appsettings{testAuthType}{testCase}.json";
+     
 
-            // Get initial config containing non-default database settings
-            var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
-
-            // Create the final builder 
-            IConfigurationBuilder builder = new ConfigurationBuilder();
-            IConfiguration actualConfig;
-            builder.AddApiSource(initConfig, optional);
-
-            if (optional)
-            {
-                actualConfig = builder.Build();
-                var actualList = actualConfig.GetConfigSettings();
-                Assert.True(actualList.Count == 0);
-            }
-            else
-            {
-                Assert.Throws<System.AggregateException>(() => actualConfig = builder.Build());
-            }
-
-
-        }
-
-
-        // Sends to Windows API URL, but with security config for Anon api
-        // Will fail on Build
-        [InlineData("Windows", "1", true)]
-        [InlineData("Windows", "1", false)]
-        [Theory]
-        public void Config_AuthFail_Windows(string testAuthType, string testCase, bool optional)
-        {
-            // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\Config\\AuthFail\\appsettings{testAuthType}{testCase}.json";
-
-            // Get initial config containing non-default database settings
-            var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
-
-            // Create the final builder 
-            IConfigurationBuilder builder = new ConfigurationBuilder();
-            IConfiguration actualConfig;
-            builder.AddApiSource(initConfig, optional);
-
-            if (optional)
-            {
-                actualConfig = builder.Build();
-                var actualList = actualConfig.GetConfigSettings();
-                Assert.True(actualList.Count == 0);
-            }
-            else
-            {
-                Assert.Throws<System.AggregateException>(() => actualConfig = builder.Build());
-            }
-        }
-
-        // Secret not found in Config for Certificate auth type
+        // Unable to create HTTP Request - either no secret or certificate not found
         // will fail on AddApiSource
-        [InlineData("Cert","1", true)]
-        [InlineData("Cert", "2", false)]
+        [InlineData("CertNoSecret", true)]
+        [InlineData("CertNotInstalled", false)]
+        [InlineData("KeyNoSecret", true)]
         [Theory]
-        public void Config_AuthFail_Cert_NoSecret(string testAuthType, string testCase, bool optional)
+        public void Config_Auth_CreateRequestFail( string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\AuthFail\\appsettings{testAuthType}{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\CreateRequestFail\\appsettings{testCase}.json";
 
-            // Get initial config containing non-default database settings
+            // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
 
             // Create the final builder 
@@ -545,28 +491,11 @@ namespace ConfigCore.Tests
                 Assert.True(listActual.Count == 0);
             }
             else
-                Assert.Throws<System.UriFormatException>(() => builder.AddApiSource(initConfig, optional));
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(initConfig, optional));
         }
 
-        // Secret not found in Config for ApiKey auth type
-        // will fail on AddApiSource
-        [InlineData("1", true)]
-        [InlineData("2", false)]
-        [Theory]
-        public void Config_AuthFail_Key_NoSecret(string testCase, bool optional)
-        {
-            throw new NotImplementedException();
-        }
+       
 
-        // Certificate is not installed on the client
-        //will fail on AddApiSource
-        [InlineData("1", true)]
-        [InlineData("2", false)]
-        [Theory]
-        public void Config_AuthFail_Cert_NotInstalled(string testCase, bool optional)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
     }

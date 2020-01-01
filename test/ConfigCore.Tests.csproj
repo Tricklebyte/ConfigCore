@@ -19,28 +19,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Auth\KeyNoSecret.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\CreateRequestFail\KeyNoSecret.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Auth\KeyAuthFail.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\KeyAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Auth\CertNotInstalled.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\CreateRequestFail\CertNotInstalled.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Auth\CertNoSecret.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\CreateRequestFail\CertNoSecret.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Auth\WinAuthFail.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\WinAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Auth\CertAuthFail.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\CertAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Auth\AnonAuthFail.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\NoSecret\appsettingsAuthSecretNotFoundCert.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\AnonAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsKey2.json">
@@ -73,19 +70,16 @@
     <None Update="TestCases\ApiSource\ApiEnvVars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\NoSecret\appsettingsAuthSecretNotFoundCert.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\AnonConnFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\appsettingsAnon1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\CertConnFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\appsettingsCert1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\KeyConnFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\appsettingsKey1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\appsettingsWin1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\WinConnFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsAnon2.json">
@@ -224,11 +218,6 @@
       <PackagePath></PackagePath>
       <Pack>True</Pack>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="TestCases\ApiSource\AddApiSource\Config\ConnectFail\Cert\" />
-    <Folder Include="TestCases\ApiSource\AddApiSource\Config\ConnectFail\Anon\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
