@@ -149,7 +149,7 @@ namespace ConfigCore.Tests
                 Assert.True(listActual.Count == 0);
             }
             else
-                Assert.Throws<System.UriFormatException>(() => builder.AddApiSource(configUrlVar, null, authType, appId, optional));
+                Assert.Throws<System.UriFormatException>(() => builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional));
         }
         #endregion
 
@@ -259,7 +259,7 @@ namespace ConfigCore.Tests
             }
             else
             {
-                Assert.Throws<System.Net.Http.HttpRequestException>(() => actualConfig = builder.Build());
+                Assert.Throws<System.AggregateException>(() => actualConfig = builder.Build());
             }
         }
 
@@ -282,11 +282,9 @@ namespace ConfigCore.Tests
             if (optional)
             {
                 builder.AddApiSource(initConfig, optional);
-
                 actualConfig = builder.Build();
                 var listActual = actualConfig.GetConfigSettings();
                 Assert.True(listActual.Count == 0);
-
             }
             else
                 Assert.Throws<System.UriFormatException>(() => builder.AddApiSource(initConfig, optional));
@@ -299,23 +297,23 @@ namespace ConfigCore.Tests
         #region API Cient Authentication with options parameters
 
         [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Certificate", null, true)]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Certificate", null, true)]
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Certificate", null, false)]
         [Theory]
         // uses a Certificate that is installed on the client but not accepted by the Host
         public void OptParams_Cert_AuthFail(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
+            builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
 
             if (optional)
             {
-                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
                 actual = builder.Build();
                 var listActual = actual.GetConfigSettings();
                 Assert.True(listActual.Count == 0);
             }
             else
-                Assert.Throws<System.UriFormatException>(() => builder.AddApiSource(configUrlVar, null, authType, appId, optional));
+                Assert.Throws<System.AggregateException>(() => actual = builder.Build());
         }
 
         // Auth Secret parameter does not identify a locally installed Certificate
@@ -359,7 +357,7 @@ namespace ConfigCore.Tests
         [Theory]
         public void Config_Cert_AuthFail(string testCase, bool optional)
         {
-            throw new NotImplementedException();
+           
         }
 
         // Fails authentication with an invalid key value

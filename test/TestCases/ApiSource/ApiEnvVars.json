@@ -21,29 +21,27 @@
   },
   {
     "Key": "ConfigAuth-KeyFail",
-    "Value": "https://localhost:5005/iapi/ConfigSettings"
+    "Value": "12345BadKey12345"
   },
   {
     "Key": "ConfigAuth-Cert",
     "Value": "471249a6cbd7444ca239cdaecf63e3245a9fa6fd"
   },
 
-  {
+  {// This is a certificate installed in the test environment but not trusted by the API host
     "Key": "ConfigAuth-CertFail",
-    "Value": "a88728792a1332c50dca64878a0f2dfea5893990"
+    "Value": "5ca44cdfef961bb8c107665c1453227814b463fe"
   },
-  {
+  {// This is a thumbprint that is not installed in the test environment
     "Key": "ConfigAuth-CertNotFound",
     "Value": "12345BadThumbprint12345"
   },
   {
     "Key": "ConfigApi-WrongUrl",
-    "Value": "\"https://developers.google.com/"
+    "Value": "https://developers.google.com/"
   },
   {
     "Key": "ConfigApi-InvalidUrl",
-    "Value": "\"https://localhost:x/"
+    "Value": "https://localhost:x/"
   }
-
-
 ] 

@@ -61,6 +61,9 @@
     <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsAnon1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidURL\appsettingsAnon1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestCases\ApiSource\ApiEnvVars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -122,9 +125,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\ApiSource\AddApiSource\Config\Good\expected2.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidURL\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidUrl\appsettingsCert1.json">

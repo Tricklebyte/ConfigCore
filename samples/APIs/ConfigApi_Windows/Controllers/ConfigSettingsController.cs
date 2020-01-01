@@ -2,12 +2,13 @@
 using System.Linq;
 using ConfigApi_Windows.Models;
 using ConfigCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace ConfigApi_Windows.Controllers
 {
-
+    [Authorize(Policy = "BuiltinUser")]
     [ApiController]
     [Route("iapi/[controller]")]
     public class ConfigSettingsController : ControllerBase
