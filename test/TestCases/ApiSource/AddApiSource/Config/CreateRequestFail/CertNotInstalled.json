@@ -1,8 +1,8 @@
 {
   "ConfigOptions": {
     "ApiSource": {
-      "AuthType": "Anon",
-      "AuthSecret": "471249a6cbd7444ca239cdaecf63e3245a9fa6fd",
+      "AuthType": "Certificate",
+      "AuthSecret": "12345BadThumbprint12345",
       "ConfigUrlKey": null,
       "ConfigUrl": "https://localhost:5005/iapi/ConfigSettings/",
       "AppId": null

@@ -287,27 +287,27 @@ namespace ConfigCore.Tests
         #region AddApiSource Overloads with IConfiguration Parameter
         // Loads settings from Configuration section "ConfigOptions:ApiSource" to override default comm and auth settings for the HTTP Client.
         // Two good test cases for each authentication type, tested for optional true and false
-        [InlineData("Anon", "1", true)]
-        [InlineData("Anon", "1", false)]
-        [InlineData("Anon", "2", true)]
-        [InlineData("Anon", "2", false)]
-        [InlineData("Cert", "1", true)]
-        [InlineData("Cert", "1", false)]
-        [InlineData("Cert", "2", true)]
-        [InlineData("Cert", "2", false)]
-        [InlineData("Key", "1", true)]
-        [InlineData("Key", "1", false)]
-        [InlineData("Key", "2", true)]
-        [InlineData("Key", "2", false)]
-        [InlineData("Win", "1", true)]
-        [InlineData("Win", "1", false)]
-        [InlineData("Win", "2", true)]
-        [InlineData("Win", "2", false)]
+        [InlineData("AnonGood1", true)]
+        [InlineData("AnonGood1", false)]
+        [InlineData("AnonGood2", true)]
+        [InlineData("AnonGood2", false)]
+        [InlineData("CertGood1", true)]
+        [InlineData("CertGood1", false)]
+        [InlineData("CertGood2", true)]
+        [InlineData("CertGood2", false)]
+        [InlineData("KeyGood1", true)]
+        [InlineData("KeyGood1", false)]
+        [InlineData("KeyGood2", true)]
+        [InlineData("KeyGood2", false)]
+        [InlineData("WinGood1", true)]
+        [InlineData("WinGood1", false)]
+        [InlineData("WinGood2", true)]
+        [InlineData("WinGood2", false)]
         [Theory]
-        public void Config_Good(string testAuthType, string testCase, bool optional)
+        public void Config_Good(string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\Good\\appsettings{testAuthType}{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\Good\\{testCase}.json";
 
             // Get initial config containing non-default database settings
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -359,19 +359,19 @@ namespace ConfigCore.Tests
         }
 
         //Assigns a valid, incorrect Url. Will fail on connect, so error will be thrown on build.
-        [InlineData("Anon", "1", true)]
-        [InlineData("Anon", "1", false)]
-        [InlineData("Cert", "1", true)]
-        [InlineData("Cert", "1", false)]
-        [InlineData("Key", "1", true)]
-        [InlineData("Key", "1", false)]
-        [InlineData("Win", "1", true)]
-        [InlineData("Win", "1", false)]
+        [InlineData("AnonConnFail",  true)]
+        [InlineData("AnonConnFail", false)]
+        [InlineData("CertConnFail",  true)]
+        [InlineData("CertConnFail",  false)]
+        [InlineData("KeyConnFail",  true)]
+        [InlineData("KeyConnFail",  false)]
+        [InlineData("WinConnFail",  true)]
+        [InlineData("WinConnFail", false)]
         [Theory]
-        public void Config_ConnectFail(string testAuthType, string testCase, bool optional)
+        public void Config_ConnectFail( string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\ConnectFail\\appsettings{testAuthType}{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\ConnectFail\\{testCase}.json";
 
             // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -394,13 +394,14 @@ namespace ConfigCore.Tests
         }
 
         // Tries to assign an invalid URI value. Will fail on adding ApiSource
-        [InlineData("Anon", "1", true)]
-        [InlineData("Anon", "1", false)]
+        
+        [InlineData("AnonInvalidUrl",  true)]
+        [InlineData("AnonInvalidUrl",  false)]
         [Theory]
-        public void Config_InvalidUrl(string testAuthType, string testCase, bool optional)
+        public void Config_InvalidUrl( string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\InvalidUrl\\appsettings{testAuthType}{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\InvalidUrl\\{testCase}.json";
 
             // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -428,17 +429,47 @@ namespace ConfigCore.Tests
 
 
         // Authentication Failure
-        // Will fail on Build
-        [InlineData("AnonAuthFail", true)]
-        [InlineData("AnonAuthFail", false)]
-        [InlineData("CertAuthFail",  true)]
-        [InlineData("CertAuthFail",  false)]
-        [InlineData("KeyAuthFail", true)]
-        [InlineData("KeyAuthFail", false)]
+        // Will fail on Build with HTTPRequestException
+
+
+        [InlineData("CertAuthFail", true)]
+        [InlineData("CertAuthFail", false)]
         [InlineData("WinAuthFail", true)]
         [InlineData("WinAuthFail", false)]
         [Theory]
-        public void Config_AuthFail(string testCase, bool optional)
+        public void Config_AuthFail_RequestException(string testCase, bool optional)
+        {
+            // Create path to appsettings file
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\AuthFail\\{testCase}.json";
+
+            // Get initial config containing api connection and authentication info
+            var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
+
+            // Create the final builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+            IConfiguration actualConfig;
+            builder.AddApiSource(initConfig, optional);
+
+            if (optional)
+            {
+                actualConfig = builder.Build();
+                var actualList = actualConfig.GetConfigSettings();
+                Assert.True(actualList.Count == 0);
+            }
+            else
+            {
+                Assert.Throws<System.Net.Http.HttpRequestException>(() => actualConfig = builder.Build());
+            }
+        }
+
+        // Authentication Failure
+        // Will fail on Build with AggregateException
+        [InlineData("AnonAuthFail", true)]
+        [InlineData("AnonAuthFail", false)]
+        [InlineData("KeyAuthFail", true)]
+        [InlineData("KeyAuthFail", false)]
+        [Theory]
+        public void Config_AuthFail_AggregateException(string testCase, bool optional)
         {
             // Create path to appsettings file
             string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\AuthFail\\{testCase}.json";
@@ -463,18 +494,20 @@ namespace ConfigCore.Tests
             }
         }
 
-     
 
         // Unable to create HTTP Request - either no secret or certificate not found
         // will fail on AddApiSource
         [InlineData("CertNoSecret", true)]
+        [InlineData("CertNoSecret", false)]
+        [InlineData("CertNotInstalled", true)]
         [InlineData("CertNotInstalled", false)]
         [InlineData("KeyNoSecret", true)]
+        [InlineData("KeyNoSecret", false)]
         [Theory]
         public void Config_Auth_CreateRequestFail( string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\CreateRequestFail\\appsettings{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\CreateRequestFail\\{testCase}.json";
 
             // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -493,8 +526,6 @@ namespace ConfigCore.Tests
             else
                 Assert.Throws<System.Exception>(() => builder.AddApiSource(initConfig, optional));
         }
-
-       
 
         #endregion
 

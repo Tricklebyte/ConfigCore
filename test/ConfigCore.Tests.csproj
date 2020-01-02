@@ -40,31 +40,31 @@
     <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\AnonAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsKey2.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\KeyGood2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsKey1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\KeyGood1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsWin2.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\WinGood2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsWin1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\WinGood1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsCert2.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\CertGood2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsCert1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\CertGood1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsAnon2.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\AnonGood2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsAnon1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\AnonGood1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidURL\appsettingsAnon1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidURL\AnonInvalidUrl.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\ApiSource\ApiEnvVars.json">
@@ -82,28 +82,28 @@
     <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\WinConnFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsAnon2.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\AnonGood2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsCert2.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\CertGood2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsKey2.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\KeyGood2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsKey1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\KeyGood1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsWin2.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\WinGood2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsWin1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\WinGood1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsAnon1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\AnonGood1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\appsettingsCert1.json">
+    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\CertGood1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="TestCases\ApiSource\AddApiSource\Config\Good\expected1.json">
