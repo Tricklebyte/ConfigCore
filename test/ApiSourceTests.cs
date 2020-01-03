@@ -287,27 +287,27 @@ namespace ConfigCore.Tests
         #region AddApiSource Overloads with IConfiguration Parameter
         // Loads settings from Configuration section "ConfigOptions:ApiSource" to override default comm and auth settings for the HTTP Client.
         // Two good test cases for each authentication type, tested for optional true and false
-        [InlineData("AnonGood1", true)]
-        [InlineData("AnonGood1", false)]
-        [InlineData("AnonGood2", true)]
-        [InlineData("AnonGood2", false)]
-        [InlineData("CertGood1", true)]
-        [InlineData("CertGood1", false)]
-        [InlineData("CertGood2", true)]
-        [InlineData("CertGood2", false)]
-        [InlineData("KeyGood1", true)]
-        [InlineData("KeyGood1", false)]
-        [InlineData("KeyGood2", true)]
-        [InlineData("KeyGood2", false)]
-        [InlineData("WinGood1", true)]
-        [InlineData("WinGood1", false)]
-        [InlineData("WinGood2", true)]
-        [InlineData("WinGood2", false)]
+        [InlineData("AnonGood","1", true)]
+        [InlineData("AnonGood","1", false)]
+        [InlineData("AnonGood","2", true)]
+        [InlineData("AnonGood","2", false)]
+        [InlineData("CertGood", "1", true)]
+        [InlineData("CertGood", "1", false)]
+        [InlineData("CertGood","2", true)]
+        [InlineData("CertGood","2", false)]
+        [InlineData("KeyGood", "1", true)]
+        [InlineData("KeyGood", "1", false)]
+        [InlineData("KeyGood","2", true)]
+        [InlineData("KeyGood","2", false)]
+        [InlineData("WinGood", "1", true)]
+        [InlineData("WinGood", "1", false)]
+        [InlineData("WinGood", "2", true)]
+        [InlineData("WinGood","2", false)]
         [Theory]
-        public void Config_Good(string testCase, bool optional)
+        public void Config_Good(string testAuthType, string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\Good\\{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\Good\\{testAuthType}{testCase}.json";
 
             // Get initial config containing non-default database settings
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
