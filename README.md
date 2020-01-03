@@ -1,23 +1,23 @@
 # ConfigCore
-Secure, centralized configuration for ASPNET.CORE applications
+Secure, centralized configuration for NET.CORE applications
 
+## Objectives
+* Manage application configuration settings from a secure, centralized database or API.
+* Remove sensitive configuration data from source code files.
+* Eliminate the need to manage environment variable settings on multiple host servers.
 
-## Objective
-Manage configuration settings across multiple applications from a secure, centralized source.
+## ConfigCore.ApiSource - API Configuration Source/Provider
+Custom IConfigurationProvider which uses an HTTP client to retrieve configuration data from a REST API.
+Extension methods on IConfigurationBuilder are used to add the API Configuration Source to the IConfigurationBuilder prior to calling Build. 
+When the configuration is built, the API Provider will use an HTTP Client to retrieve key/value settings pairs from the API and add them to the configuration like any other configuration provider.
 
+## Config.Core.DbSource - Database Configuration Provider
+This custom configuration provider sources configuration data directly from a SQL Server database. Table and Column names used convention-based defaults for ease of configuration, but may also be overriden for flexibility.
 
-## Configuration Sources/Providers
-### [ConfigCore.ApiSource](http://www.google.com) - API Configuration Source/Provider
-This custom configuration provider uses an HTTP client to fetch configuration data from a centralized configuration API. This provides secure, central management of connection strings, authentication secrets, and other sensitive or distributed information.  
-### [Config.Core.DbSource](http://www.google.com)  -	Database Configuration Provider
-This custom configuration provider sources configuration data directly from a centralized configuration database.
 ## Environment Features
-ConfigCore provides support for three custom application environments in addition to the .NET CORE standard environments of Development, Staging, and Production. 
+ConfigCore provides support for three custom application environments in addition to the .NET CORE standard environments
 * Local
 * Test
 * QA
 
-The following extension methods on IHostEnvironment are provided:
-*	IsLocal(IHostEnvironment)
-*	IsTest(IHostEnvironment)
-*	IsQA(IHostEnvironment)
+## See the [Wiki](https://github.com/Tricklebyte/ConfigCore/wiki) for usage instructions and examples
