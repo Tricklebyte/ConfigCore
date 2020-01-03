@@ -15,7 +15,7 @@ namespace ConfigCore.Models
     public class ApiDefault
     {
         public const string ConfigUrlKey = "ConfigOptions:ApiSource:ConfigUrl";
-        public const string AuthType = "Certificate";
+        public const string AuthType = "Windows";
         
     }
 }
