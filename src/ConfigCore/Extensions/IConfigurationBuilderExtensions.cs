@@ -25,16 +25,30 @@ namespace ConfigCore.Extensions
             return builder.Add(new DbConfigSource(builder, config,  optional));
         }
 		
-		//ApiSource with Environment variable parameters. Does not require pre-built configuration object. 
-		public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder,  string urlKeyVar, string authSecretVar = null, string authType =null, string appId = null, bool optional = false)
+		//ApiSource with Environment variable parameters and all options. Does not require pre-built configuration object. 
+		public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType,   string authSecretVar,  string appId = null, bool optional = false)
         {
-            return builder.Add(new ApiConfigSource(builder,urlKeyVar, authSecretVar,authType,appId, optional));
+            return builder.Add(new ApiClientSource(builder,urlKeyVar, authType,authSecretVar,appId, optional));
         }
 
-        //Api Source with Configuration object parameter. Uses configuration settings to control the behaviour of DB Source and Provider.
+        //API Source Override with Single parameter for ConfigURL - used with Windows Auth and Default AppId
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar,  bool optional = false)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, null, optional));
+        }
+
+        //API Source Override with parameters for ConfigURL and App Id- used with Windows Auth and custom App Id 
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string appId, bool optional = false)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, appId, optional));
+        }
+
+
+
+        //Api Source with Configuration object parameter. Uses configuration settings 
         public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, IConfiguration config, bool optional = false)
         {
-            return builder.Add(new ApiConfigSource(builder, config,  optional));
+            return builder.Add(new ApiClientSource(builder, config,  optional));
         }
 
 

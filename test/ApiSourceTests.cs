@@ -16,8 +16,8 @@ namespace ConfigCore.Tests
     {
 
         //  create environment variables ############################################
-         List<EnvVar> _envVarList;       
-                    
+        List<EnvVar> _envVarList;
+
         public ApiSourceFixture()
         {
             string path = Environment.CurrentDirectory + "\\TestCases\\ApiSource\\ApiEnvVars.json";
@@ -46,51 +46,105 @@ namespace ConfigCore.Tests
         /// <param name="appId"></param>
         /// <param name="optional"></param>
         /// <param name="testCase"></param>
-        [InlineData("ConfigURL-Anon", null, "Anon", null, true, "1")]
-        [InlineData("ConfigURL-Anon", null, "Anon", null, false, "1")]
-        [InlineData("ConfigURL-Anon", null, "Anon", "CustomAppName", true, "2")]
-        [InlineData("ConfigURL-Anon", null, "Anon", "CustomAppName", false, "2")]
-        [InlineData("ConfigURL-Win", null, "Windows", null, true, "1")]
-        [InlineData("ConfigURL-Win", null, "Windows", null, false, "1")]
-        [InlineData("ConfigURL-Win", null, "Windows", "CustomAppName", true, "2")]
-        [InlineData("ConfigURL-Win", null, "Windows", "CustomAppName", false, "2")]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-Cert", "Certificate", null, true, "1")]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-Cert", "Certificate", null, false, "1")]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-Cert", "Certificate", "CustomAppName", true, "2")]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-Cert", "Certificate", "CustomAppName", false, "2")]
-        [InlineData("ConfigURL-Key", "ConfigAuth-Key", "ApiKey", null, true, "1")]
-        [InlineData("ConfigURL-Key", "ConfigAuth-Key", "ApiKey", null, false, "1")]
-        [InlineData("ConfigURL-Key", "ConfigAuth-Key", "ApiKey", "CustomAppName", true, "2")]
-        [InlineData("ConfigURL-Key", "ConfigAuth-Key", "ApiKey", "CustomAppName", false, "2")]
+        [InlineData("ConfigURL-Anon", "Anon", null, null, true, "1")]
+        [InlineData("ConfigURL-Anon", "Anon", null, null, false, "1")]
+        [InlineData("ConfigURL-Anon", "Anon", null, "CustomAppName", true, "2")]
+        [InlineData("ConfigURL-Anon", "Anon", null, "CustomAppName", false, "2")]
+        [InlineData("ConfigURL-Win", "Windows", null, null, true, "1")]
+        [InlineData("ConfigURL-Win", "Windows", null, null, false, "1")]
+        [InlineData("ConfigURL-Win", "Windows", null, "CustomAppName", true, "2")]
+        [InlineData("ConfigURL-Win", "Windows", null, "CustomAppName", false, "2")]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", null, true, "1")]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", null, false, "1")]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "CustomAppName", true, "2")]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "CustomAppName", false, "2")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", null, true, "1")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", null, false, "1")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "CustomAppName", true, "2")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "CustomAppName", false, "2")]
         [Theory]
-        public void OptParams_Good(string configUrlVar, string authSecretVar, string authType, string appId, bool optional, string testCase)
+        public void OptParams_Good(string configUrlVar, string authType, string authSecretVar, string appId, bool optional, string testCase)
         {
             var builder = new ConfigurationBuilder();
-            IConfiguration actual = builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional).Build();
+
+
+            IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional).Build();
+
+
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+        //Overload with single required parameter for the URL of the API. Uses Windows Auth by default, optional False by default
+        [InlineData("ConfigURL-Win", "1")]
+        [Theory]
+        public void OptParamsWinDef_Good(string configUrlVar, string testCase)
+        {
+
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddApiSource(configUrlVar).Build();
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+        //Overload with single required parameter for the URL of the API and one optional parameter for Optional. Uses Windows Auth by default.
+        [InlineData("ConfigURL-Win",true, "1")]
+        [Theory]
+        public void OptParamsWinDefOptional_Good(string configUrlVar, bool optional, string testCase)
+        {
+
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddApiSource(configUrlVar).Build();
             var listActual = actual.GetConfigSettings();
             var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
 
-        // TODO OptParams no URL Var supplied
-        
-        // Environment Variable for ConfigURL not found. Will fail on adding ApiSource
-        [InlineData("ConfigApi-UnknownVar", null, "Anon", null, true)]
-        [InlineData("ConfigApi-UnknownVar", null, "Anon", null, false)]
-        [InlineData("ConfigApi-UnknownVar", null, "Windows", null, true)]
-        [InlineData("ConfigApi-UnknownVar", null, "Windows", null, false)]
-        [InlineData("ConfigApi-UnknownVar", "ConfigAuth-Cert", "Certificate", null, true)]
-        [InlineData("ConfigApi-UnknownVar", "ConfigAuth-Cert", "Certificate", null, false)]
-        [InlineData("ConfigApi-UnknownVar", "ConfigAuth-Key", "ApiKey", null, true)]
-        [InlineData("ConfigApi-UnknownVar", "ConfigAuth-Key", "ApiKey", null, false)]
+        // Overload with parameters for URL environment variable name and non-default Application Id
+        [InlineData("ConfigURL-Win", "CustomAppName",  "2")]
         [Theory]
-        public void OptParams_VarNotFound(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        public void OptParamsWinAppId_Good(string configUrlVar, string appId,  string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddApiSource(configUrlVar, appId).Build();
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+        // Overload with parameters for URL environment variable name,  non-default Application Id, optional parameter
+        [InlineData("ConfigURL-Win", "CustomAppName", true, "2")]
+        [Theory]
+        public void OptParamsWinAppIdOpt_Good(string configUrlVar, string appId, bool optional, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddApiSource(configUrlVar, appId,optional).Build();
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+        // TODO OptParams no URL Var supplied
+
+        // Environment Variable for ConfigURL not found. Will fail on adding ApiSource
+        [InlineData("ConfigApi-UnknownVar", "Anon", null, null, true)]
+        [InlineData("ConfigApi-UnknownVar", "Anon", null, null, false)]
+        [InlineData("ConfigApi-UnknownVar", "Windows", null, null, true)]
+        [InlineData("ConfigApi-UnknownVar", "Windows", null, null, false)]
+        [InlineData("ConfigApi-UnknownVar", "Certificate", "ConfigAuth-Cert", null, true)]
+        [InlineData("ConfigApi-UnknownVar", "Certificate", "ConfigAuth-Cert", null, false)]
+        [InlineData("ConfigApi-UnknownVar", "ApiKey", "ConfigAuth-Key", null, true)]
+        [InlineData("ConfigApi-UnknownVar", "ApiKey", "ConfigAuth-Key", null, false)]
+        [Theory]
+        public void OptParams_VarNotFound(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
             var builder = new ConfigurationBuilder();
             if (optional)
             {
-                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+                builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional);
                 IConfiguration config;
                 config = builder.Build();
                 var actualList = config.GetConfigSettings();
@@ -101,22 +155,25 @@ namespace ConfigCore.Tests
         }
 
 
+
+
+
         // Environment Variable for ConfigURL not found. Will fail on adding ApiSource
-        [InlineData(null, null, "Anon", null, true)]
-        [InlineData(null, null, "Anon", null, false)]
-        [InlineData(null, null, "Windows", null, true)]
-        [InlineData(null, null, "Windows", null, false)]
-        [InlineData(null, "ConfigAuth-Cert", "Certificate", null, true)]
-        [InlineData(null, "ConfigAuth-Cert", "Certificate", null, false)]
-        [InlineData(null, "ConfigAuth-Key", "ApiKey", null, true)]
-        [InlineData(null, "ConfigAuth-Key", "ApiKey", null, false)]
+        [InlineData(null, "Anon", null, null, true)]
+        [InlineData(null, "Anon", null, null, false)]
+        [InlineData(null, "Windows", null, null, true)]
+        [InlineData(null, "Windows", null, null, false)]
+        [InlineData(null, "Certificate", "ConfigAuth-Cert", null, true)]
+        [InlineData(null, "Certificate", "ConfigAuth-Cert", null, false)]
+        [InlineData(null, "ApiKey", "ConfigAuth-Key", null, true)]
+        [InlineData(null, "ApiKey", "ConfigAuth-Key", null, false)]
         [Theory]
-        public void OptParams_NoUrlVar(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        public void OptParams_NoUrlVar(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
             var builder = new ConfigurationBuilder();
             if (optional)
             {
-                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+                builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional);
                 IConfiguration config;
                 config = builder.Build();
                 var actualList = config.GetConfigSettings();
@@ -127,20 +184,20 @@ namespace ConfigCore.Tests
         }
 
         //Assigns a valid, incorrect Url. Will fail on connect, so error will be thrown on build.
-        [InlineData("ConfigApi-WrongUrl", null, "Anon", null, true)]
-        [InlineData("ConfigApi-WrongUrl", null, "Anon", null, false)]
-        [InlineData("ConfigApi-WrongUrl", null, "Windows", null, true)]
-        [InlineData("ConfigApi-WrongUrl", null, "Windows", null, false)]
-        [InlineData("ConfigApi-WrongUrl", "ConfigAuth-Cert", "Certificate", null, true)]
-        [InlineData("ConfigApi-WrongUrl", "ConfigAuth-Cert", "Certificate", null, false)]
-        [InlineData("ConfigApi-WrongUrl", "ConfigAuth-Key", "ApiKey", null, true)]
-        [InlineData("ConfigApi-WrongUrl", "ConfigAuth-Key", "ApiKey", null, false)]
+        [InlineData("ConfigApi-WrongUrl", "Anon", null, null, true)]
+        [InlineData("ConfigApi-WrongUrl", "Anon", null, null, false)]
+        [InlineData("ConfigApi-WrongUrl", "Windows", null, null, true)]
+        [InlineData("ConfigApi-WrongUrl", "Windows", null, null, false)]
+        [InlineData("ConfigApi-WrongUrl", "Certificate", "ConfigAuth-Cert", null, true)]
+        [InlineData("ConfigApi-WrongUrl", "Certificate", "ConfigAuth-Cert", null, false)]
+        [InlineData("ConfigApi-WrongUrl", "ApiKey", "ConfigAuth-Key", null, true)]
+        [InlineData("ConfigApi-WrongUrl", "ApiKey", "ConfigAuth-Key", null, false)]
         [Theory]
-        public void OptParams_WrongUrl(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        public void OptParams_WrongUrl(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
-            builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+            builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional);
 
             if (optional)
             {
@@ -153,23 +210,23 @@ namespace ConfigCore.Tests
         }
 
         // Tries to assign an invalid URI value. Will fail on adding ApiSource
-        [InlineData("ConfigApi-InvalidUrl", null, "Anon", null, true)]
-        [InlineData("ConfigApi-InvalidUrl", null, "Anon", null, false)]
-        [InlineData("ConfigApi-InvalidUrl", null, "Windows", null, true)]
-        [InlineData("ConfigApi-InvalidUrl", null, "Windows", null, false)]
-        [InlineData("ConfigApi-InvalidUrl", "ConfigAuth-Cert", "Certificate", null, true)]
-        [InlineData("ConfigApi-InvalidUrl", "ConfigAuth-Cert", "Certificate", null, false)]
-        [InlineData("ConfigApi-InvalidUrl", "ConfigAuth-Key", "ApiKey", null, true)]
-        [InlineData("ConfigApi-InvalidUrl", "ConfigAuth-Key", "ApiKey", null, false)]
+        [InlineData("ConfigApi-InvalidUrl", "Anon", null, null, true)]
+        [InlineData("ConfigApi-InvalidUrl", "Anon", null, null, false)]
+        [InlineData("ConfigApi-InvalidUrl", "Windows", null, null, true)]
+        [InlineData("ConfigApi-InvalidUrl", "Windows", null, null, false)]
+        [InlineData("ConfigApi-InvalidUrl", "Certificate", "ConfigAuth-Cert", null, true)]
+        [InlineData("ConfigApi-InvalidUrl", "Certificate", "ConfigAuth-Cert", null, false)]
+        [InlineData("ConfigApi-InvalidUrl", "ApiKey", "ConfigAuth-Key", null, true)]
+        [InlineData("ConfigApi-InvalidUrl", "ApiKey", "ConfigAuth-Key", null, false)]
         [Theory]
-        public void OptParams_InvalidUrl(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        public void OptParams_InvalidUrl(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
 
             if (optional)
             {
-                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+                builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional);
                 actual = builder.Build();
                 var listActual = actual.GetConfigSettings();
                 Assert.True(listActual.Count == 0);
@@ -182,15 +239,15 @@ namespace ConfigCore.Tests
 
         #region API Cient Authentication with options parameters
 
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Certificate", null, true)]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertFail", "Certificate", null, false)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-CertFail", null, true)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-CertFail", null, false)]
         [Theory]
         // uses a Certificate that is installed on the client but not accepted by the Host
-        public void OptParams_Cert_AuthFail(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        public void OptParams_Cert_AuthFail(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
-            builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+            builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional);
 
             if (optional)
             {
@@ -207,7 +264,7 @@ namespace ConfigCore.Tests
         [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, false)]
         [Theory]
         // Auth Secret parameter does not identify a locally installed Certificate
-        public void OptParams_Cert_NotInstalled(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        public void OptParams_Cert_NotInstalled(string configUrlVar, string authType,string authSecretVar,  string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
@@ -223,34 +280,32 @@ namespace ConfigCore.Tests
             else
                 Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional));
         }
-
-
 
 
         // Auth Secret parameter not supplied
         [InlineData("ConfigURL-Cert", "", "Certificate", null, true)]
         [InlineData("ConfigURL-Cert", "", "Certificate", null, false)]
         [Theory]
-        public void OptParams_CertNoSecret(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        public void OptParams_CertNoSecret(string configUrlVar, string authType,string authSecretVar,  string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
             if (optional)
             {
-                builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional);
+                builder.AddApiSource(configUrlVar, authType,authSecretVar,  appId, optional);
                 actual = builder.Build();
                 var listActual = actual.GetConfigSettings();
                 Assert.True(listActual.Count == 0);
             }
             else
-                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authSecretVar, authType, appId, optional));
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional));
         }
 
 
         [InlineData("ConfigURL-Key", "ConfigAuth-KeyFail", "ApiKey", null, true)]
         [InlineData("ConfigURL-Cert", "ConfigAuth-KeyFail", "ApiKey", null, false)]
         // Fails authentication with an invalid key value
-        public void OptParams_Key_AuthFail(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        public void OptParams_Key_AuthFail(string configUrlVar, string authType,string authSecretVar,  string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
@@ -287,22 +342,22 @@ namespace ConfigCore.Tests
         #region AddApiSource Overloads with IConfiguration Parameter
         // Loads settings from Configuration section "ConfigOptions:ApiSource" to override default comm and auth settings for the HTTP Client.
         // Two good test cases for each authentication type, tested for optional true and false
-        [InlineData("AnonGood","1", true)]
-        [InlineData("AnonGood","1", false)]
-        [InlineData("AnonGood","2", true)]
-        [InlineData("AnonGood","2", false)]
+        [InlineData("AnonGood", "1", true)]
+        [InlineData("AnonGood", "1", false)]
+        [InlineData("AnonGood", "2", true)]
+        [InlineData("AnonGood", "2", false)]
         [InlineData("CertGood", "1", true)]
         [InlineData("CertGood", "1", false)]
-        [InlineData("CertGood","2", true)]
-        [InlineData("CertGood","2", false)]
+        [InlineData("CertGood", "2", true)]
+        [InlineData("CertGood", "2", false)]
         [InlineData("KeyGood", "1", true)]
         [InlineData("KeyGood", "1", false)]
-        [InlineData("KeyGood","2", true)]
-        [InlineData("KeyGood","2", false)]
+        [InlineData("KeyGood", "2", true)]
+        [InlineData("KeyGood", "2", false)]
         [InlineData("WinGood", "1", true)]
         [InlineData("WinGood", "1", false)]
         [InlineData("WinGood", "2", true)]
-        [InlineData("WinGood","2", false)]
+        [InlineData("WinGood", "2", false)]
         [Theory]
         public void Config_Good(string testAuthType, string testCase, bool optional)
         {
@@ -359,16 +414,16 @@ namespace ConfigCore.Tests
         }
 
         //Assigns a valid, incorrect Url. Will fail on connect, so error will be thrown on build.
-        [InlineData("AnonConnFail",  true)]
+        [InlineData("AnonConnFail", true)]
         [InlineData("AnonConnFail", false)]
-        [InlineData("CertConnFail",  true)]
-        [InlineData("CertConnFail",  false)]
-        [InlineData("KeyConnFail",  true)]
-        [InlineData("KeyConnFail",  false)]
-        [InlineData("WinConnFail",  true)]
+        [InlineData("CertConnFail", true)]
+        [InlineData("CertConnFail", false)]
+        [InlineData("KeyConnFail", true)]
+        [InlineData("KeyConnFail", false)]
+        [InlineData("WinConnFail", true)]
         [InlineData("WinConnFail", false)]
         [Theory]
-        public void Config_ConnectFail( string testCase, bool optional)
+        public void Config_ConnectFail(string testCase, bool optional)
         {
             // Create path to appsettings file
             string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\ConnectFail\\{testCase}.json";
@@ -394,11 +449,11 @@ namespace ConfigCore.Tests
         }
 
         // Tries to assign an invalid URI value. Will fail on adding ApiSource
-        
-        [InlineData("AnonInvalidUrl",  true)]
-        [InlineData("AnonInvalidUrl",  false)]
+
+        [InlineData("AnonInvalidUrl", true)]
+        [InlineData("AnonInvalidUrl", false)]
         [Theory]
-        public void Config_InvalidUrl( string testCase, bool optional)
+        public void Config_InvalidUrl(string testCase, bool optional)
         {
             // Create path to appsettings file
             string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\InvalidUrl\\{testCase}.json";
@@ -504,7 +559,7 @@ namespace ConfigCore.Tests
         [InlineData("KeyNoSecret", true)]
         [InlineData("KeyNoSecret", false)]
         [Theory]
-        public void Config_Auth_CreateRequestFail( string testCase, bool optional)
+        public void Config_Auth_CreateRequestFail(string testCase, bool optional)
         {
             // Create path to appsettings file
             string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\CreateRequestFail\\{testCase}.json";

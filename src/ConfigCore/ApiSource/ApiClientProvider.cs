@@ -9,13 +9,13 @@ using System.Text.Json;
 
 namespace ConfigCore.ApiSource
 {
-    public class ApiConfigProvider : ConfigurationProvider
+    public class ApiClientProvider : ConfigurationProvider
 
     {
         private readonly HttpClient _client;
         private readonly HttpRequestMessage _request;
         private readonly bool _optional;
-        public ApiConfigProvider(HttpClient client, HttpRequestMessage request, bool optional)
+        public ApiClientProvider(HttpClient client, HttpRequestMessage request, bool optional)
         {
             _client = client;
             _request = request;
