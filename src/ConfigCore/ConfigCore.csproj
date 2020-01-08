@@ -5,11 +5,15 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Description>Secure, centralized configuration for ASPNET.CORE applications</Description>
-    <RepositoryUrl>https://github.com/CoreConfigurator/ConfigCore</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Tricklebyte/ConfigCore</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
+    <PackageReleaseNotes>Support for Authentication Types: Anonymous, Windows, Certificate, and API Keys
+Replaced optional parameter methods with additional overrides for .AddApiSource
+Documentation and Samples updated - see source code repository
+</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />

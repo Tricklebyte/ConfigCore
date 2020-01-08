@@ -27,7 +27,7 @@ namespace ConfigCore.Models
       /// <param name="optional"></param>
       /// <param name="authType"></param>
       /// <param name="appId"></param>
-        public ApiSourceOptions(string configUrlVar, string authSecretVar, string authType, string appId, bool optional)
+        public ApiSourceOptions(string configUrlVar,string authType,  string authSecretVar, string appId, bool optional)
         {
             _optional = optional;
             AuthType = authType;

@@ -33,7 +33,7 @@ namespace ConfigCore.ApiSource
             try
             {
                 //Create the apiOptions object
-                ApiSourceOptions apiOptions = new ApiSourceOptions(configUrlVar, authSecretVar, authType, appId, _optional);
+                ApiSourceOptions apiOptions = new ApiSourceOptions(configUrlVar, authType,authSecretVar,  appId, _optional);
 
                 //Initialize the correct HTTP client for the Authentication type
                 _client = HttpClientHelper.GetHttpClient(apiOptions);
@@ -47,8 +47,6 @@ namespace ConfigCore.ApiSource
                 return;
             }
         }
-
-
 
         public ApiClientSource(IConfigurationBuilder builder,  IConfiguration config, bool optional)
         {

@@ -45,17 +45,14 @@ namespace ConfigCore.Tests
     public class DbSourceTests : DbSourceFixture
     {
         #region  Connection String Environment Variable Name Parameter
-
-   
         // 
-        [InlineData("ConfigDb-Connection",null,0, true, "1")]
-        [InlineData("ConfigDb-Connection",null,0, false, "1")]
+        [InlineData("ConfigDb-Connection", "1")]
         [Theory]
-        public void EnvVar_Good(string conStringVar, string appId,int sqlTOut, bool optional,string testCase)
+        public void EnvVar_Good(string conStringVar, string testCase)
         {
             var builder = new ConfigurationBuilder();
             //call AddDbSource extension method and build actual configuration
-            IConfiguration actual = builder.AddDbSource(conStringVar, appId, sqlTOut, optional).Build();
+            IConfiguration actual = builder.AddDbSource(conStringVar).Build();
             //convert to list for comparison
             var listActual = actual.GetConfigSettings();
             //get expected settings list from file
@@ -64,34 +61,73 @@ namespace ConfigCore.Tests
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
-        [InlineData("UnknownVar",  true)]
-        [InlineData("UnknownVar",  false)]
+        [InlineData("UnknownVar")]
         [Theory]
-        public void EnvVar_VarNotFound(string conStringVar, bool optional)
+        public void EnvVar_VarNotFound(string conStringVar)
+        {
+            var builder = new ConfigurationBuilder();
+            Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar));
+        }
+
+        [InlineData("ConfigDb-BadConnection")]
+        [Theory]
+        public void EnvVar_ConnectFail(string conStringVar)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddDbSource(conStringVar);
+            Assert.Throws<System.ArgumentException>(() => actual = builder.Build());
+        }
+
+        #endregion
+
+        #region Convar Optional
+
+        // 
+        [InlineData("ConfigDb-Connection", true, "1")]
+        [InlineData("ConfigDb-Connection", false, "1")]
+        [Theory]
+        public void EnvVarOpt_Good(string conStringVar, bool optional, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            //call AddDbSource extension method and build actual configuration
+            IConfiguration actual = builder.AddDbSource(conStringVar, optional).Build();
+            //convert to list for comparison
+            var listActual = actual.GetConfigSettings();
+            //get expected settings list from file
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\DbSource\\AddDbSource\\EnvVar\\Good\\expected{testCase}.json"));
+            //assert that lists are equal
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+        [InlineData("UnknownVar", true)]
+        [InlineData("UnknownVar", false)]
+        [Theory]
+        public void EnvVarOpt_VarNotFound(string conStringVar, bool optional)
         {
             var builder = new ConfigurationBuilder();
             if (optional)
             {
                 // attempt to call .AddDbSource with a 
-                builder.AddDbSource(conStringVar,null,0,optional);
+                builder.AddDbSource(conStringVar, optional);
                 IConfiguration config;
                 config = builder.Build();
-    
+
                 var actualList = config.GetConfigSettings();
                 Assert.True(actualList.Count() == 0);
             }
             else
-                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, null, 0, optional));
+                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, optional));
         }
 
         [InlineData("ConfigDb-BadConnection", true)]
         [InlineData("ConfigDb-BadConnection", false)]
         [Theory]
-        public void EnvVar_ConnectFail(string conStringVar, bool optional)
+        public void EnvVarOpt_ConnectFail(string conStringVar, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
-            builder.AddDbSource(conStringVar,null,0, optional);
+            builder.AddDbSource(conStringVar, optional);
 
             if (optional)
             {
@@ -105,18 +141,69 @@ namespace ConfigCore.Tests
 
         #endregion
 
-
         #region Connection String Environment Variable Name and AppId Parameters
 
+        // test overload with EnvVar and AppId parameters 
+        [InlineData("ConfigDb-Connection", "testhost", "1")]
+        [Theory]
+        public void EnvVar_AppId_Good(string conStringVar, string appId, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            //build actual configuraiton
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId).Build();
+            //convert actual configuration result to list for comparison
+            var listActual = actual.GetConfigSettings();
+            //get expected list of results from file
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\DbSource\\AddDbSource\\EnvVar_AppId\\Good\\expected{testCase}.json"));
+            // assert lists are equal.
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+        [InlineData("UnknownVar", "testhost")]
+        [Theory]
+        public void EnvVar_AppId_EnvVarNotFound(string conStringVar, string appId)
+        {
+            var builder = new ConfigurationBuilder();
+
+            Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, appId));
+        }
+
+        [InlineData("ConfigDb-BadConnection", "testhost")]
+        [Theory]
+        public void EnvVar_AppId_ConnectFail(string conStringVar, string appId)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddDbSource(conStringVar, appId);
+
+            Assert.Throws<System.ArgumentException>(() => actual = builder.Build());
+        }
+
+        [InlineData("ConfigDb-Connection", "UnknownApp")]
+        [Theory]
+        public void EnvVar_AppId_NoResults(string conStringVar, string appId)
+        {
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId).Build();
+            var listActual = actual.GetConfigSettings();
+            Assert.True(listActual.Count() == 0);
+        }
+
+
+        #endregion
+
+
+        #region Convar AppId Optional
         // test overload with EnvVar and AppId parameters 
         [InlineData("ConfigDb-Connection", "testhost", true, "1")]
         [InlineData("ConfigDb-Connection", "testhost", false, "1")]
         [Theory]
-        public void EnvVar_AppId_Good(string conStringVar, string appId, bool optional, string testCase)
+        public void EnvVarAppIdOpt_Good(string conStringVar, string appId, bool optional, string testCase)
         {
             var builder = new ConfigurationBuilder();
             //build actual configuraiton
-            IConfiguration actual = builder.AddDbSource(conStringVar, appId,0,optional).Build();
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId, optional).Build();
             //convert actual configuration result to list for comparison
             var listActual = actual.GetConfigSettings();
             //get expected list of results from file
@@ -129,29 +216,29 @@ namespace ConfigCore.Tests
         [InlineData("UnknownVar", "testhost", true)]
         [InlineData("UnknownVar", "testhost", false)]
         [Theory]
-        public void EnvVar_AppId_EnvVarNotFound(string conStringVar, string appId, bool optional)
+        public void EnvVarAppIdopt_EnvVarNotFound(string conStringVar, string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
             if (optional)
             {
-                builder.AddDbSource(conStringVar,appId,0,optional);
+                builder.AddDbSource(conStringVar, appId, optional);
                 actual = builder.Build();
                 var actualList = actual.GetConfigSettings();
                 Assert.True(actualList.Count() == 0);
             }
             else
-                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, appId,0, optional));
+                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, appId, optional));
         }
 
         [InlineData("ConfigDb-BadConnection", "testhost", true)]
         [InlineData("ConfigDb-BadConnection", "testhost", false)]
         [Theory]
-        public void EnvVar_AppId_ConnectFail(string conStringVar, string appId, bool optional)
+        public void EnvVar_AppIdOpt_ConnectFail(string conStringVar, string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
-            builder.AddDbSource(conStringVar,appId,0, optional);
+            builder.AddDbSource(conStringVar, appId, optional);
 
             if (optional)
             {
@@ -168,15 +255,277 @@ namespace ConfigCore.Tests
         [InlineData("ConfigDb-Connection", "UnknownApp", true)]
         [InlineData("ConfigDb-Connection", "UnknownApp", false)]
         [Theory]
-        public void EnvVar_AppId_NoResults(string conStringVar, string appId, bool optional)
+        public void EnvVar_AppIdOpt_NoResults(string conStringVar, string appId, bool optional)
         {
             var builder = new ConfigurationBuilder();
-            IConfiguration actual = builder.AddDbSource(conStringVar, appId, 0,optional).Build();
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId, 0, optional).Build();
             var listActual = actual.GetConfigSettings();
             Assert.True(listActual.Count() == 0);
         }
 
+        #endregion
 
+        #region Convar SqlTimeout
+        // test overload with EnvVar and AppId parameters 
+        [InlineData("ConfigDb-Connection", 0, "1")]
+        [Theory]
+        public void EnvVarSqlTo_Good(string conStringVar, int sqlTimeout, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            //build actual configuraiton
+            IConfiguration actual = builder.AddDbSource(conStringVar, sqlTimeout).Build();
+            //convert actual configuration result to list for comparison
+            var listActual = actual.GetConfigSettings();
+            //get expected list of results from file
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\DbSource\\AddDbSource\\EnvVar_AppId\\Good\\expected{testCase}.json"));
+            // assert lists are equal.
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+        [InlineData("UnknownVar", 0)]
+
+        [Theory]
+        public void EnvVarSqlTo_EnvVarNotFound(string conStringVar, int sqlTimeout)
+        {
+            var builder = new ConfigurationBuilder();
+            Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, sqlTimeout));
+        }
+
+        [InlineData("ConfigDb-BadConnection", 0)]
+        [Theory]
+        public void EnvVarSqlTo_ConnectFail(string conStringVar, int sqlTimeout)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddDbSource(conStringVar, sqlTimeout);
+
+            Assert.Throws<System.ArgumentException>(() => actual = builder.Build());
+        }
+
+        [InlineData("ConfigDb-Connection", 0)]
+
+        [Theory]
+        public void EnvVarSqlTo_NoResults(string conStringVar, int sqlTimeout)
+        {
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddDbSource(conStringVar, sqlTimeout).Build();
+            var listActual = actual.GetConfigSettings();
+            Assert.True(listActual.Count() == 0);
+        }
+
+        #endregion
+
+        #region Convar SqlTimeout Optional
+        // test overload with EnvVar and AppId parameters 
+        [InlineData("ConfigDb-Connection", 0,true,"1")]
+        [InlineData("ConfigDb-Connection", 0, false, "1")]
+        [Theory]
+        public void EnvVarSqlToOpt_Good(string conStringVar,int sqlTimeout, bool optional, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            //build actual configuraiton
+            IConfiguration actual = builder.AddDbSource(conStringVar, sqlTimeout, optional).Build();
+            //convert actual configuration result to list for comparison
+            var listActual = actual.GetConfigSettings();
+            //get expected list of results from file
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\DbSource\\AddDbSource\\EnvVar_AppId\\Good\\expected{testCase}.json"));
+            // assert lists are equal.
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+        [InlineData("UnknownVar",0, true)]
+        [InlineData("UnknownVar",0, false)]
+        [Theory]
+        public void EnvVarSqlToOpt_EnvVarNotFound(string conStringVar, int SqlTimeout, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            if (optional)
+            {
+                builder.AddDbSource(conStringVar, SqlTimeout, optional);
+                actual = builder.Build();
+                var actualList = actual.GetConfigSettings();
+                Assert.True(actualList.Count() == 0);
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, SqlTimeout, optional));
+        }
+
+        [InlineData("ConfigDb-BadConnection", 0, true)]
+        [InlineData("ConfigDb-BadConnection", 0, false)]
+        [Theory]
+        public void EnvVarSqlToOpt_ConnectFail(string conStringVar, int SqlTimeout, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddDbSource(conStringVar, SqlTimeout, optional);
+
+            if (optional)
+            {
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count() == 0);
+            }
+            else
+            {
+                Assert.Throws<System.ArgumentException>(() => actual = builder.Build());
+            }
+        }
+
+        [InlineData("ConfigDb-Connection", 0, true)]
+        [InlineData("ConfigDb-Connection", 0, false)]
+        [Theory]
+        public void EnvVarSqlToOpt_NoResults(string conStringVar, int sqlTimeout, bool optional)
+        {
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddDbSource(conStringVar, sqlTimeout, optional).Build();
+            var listActual = actual.GetConfigSettings();
+            Assert.True(listActual.Count() == 0);
+        }
+        #endregion
+
+       
+        #region Convar AppId SqlTimeout
+        // test overload with EnvVar and AppId parameters 
+        [InlineData("ConfigDb-Connection", "testhost", 0, "1")]
+        [InlineData("ConfigDb-Connection", "testhost", 0, "1")]
+        [Theory]
+        public void EnvVarAppIdSqlTo_Good(string conStringVar, string appId, int sqlTimeout, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            //build actual configuraiton
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId, sqlTimeout).Build();
+            //convert actual configuration result to list for comparison
+            var listActual = actual.GetConfigSettings();
+            //get expected list of results from file
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\DbSource\\AddDbSource\\EnvVar_AppId\\Good\\expected{testCase}.json"));
+            // assert lists are equal.
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+        [InlineData("UnknownVar", "testhost", true)]
+        [InlineData("UnknownVar", "testhost", false)]
+        [Theory]
+        public void EnvVarAppIdSqlTo_EnvVarNotFound(string conStringVar, string appId, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            if (optional)
+            {
+                builder.AddDbSource(conStringVar, appId, 0, optional);
+                actual = builder.Build();
+                var actualList = actual.GetConfigSettings();
+                Assert.True(actualList.Count() == 0);
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, appId, 0, optional));
+        }
+
+        [InlineData("ConfigDb-BadConnection", "testhost", true)]
+        [InlineData("ConfigDb-BadConnection", "testhost", false)]
+        [Theory]
+        public void EnvVarAppIdSqlTo_ConnectFail(string conStringVar, string appId, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddDbSource(conStringVar, appId, 0, optional);
+
+            if (optional)
+            {
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count() == 0);
+            }
+            else
+            {
+                Assert.Throws<System.ArgumentException>(() => actual = builder.Build());
+            }
+        }
+
+        [InlineData("ConfigDb-Connection", "UnknownApp", true)]
+        [InlineData("ConfigDb-Connection", "UnknownApp", false)]
+        [Theory]
+        public void EnvVarAppIdSqlTo_NoResults(string conStringVar, string appId, bool optional)
+        {
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId, 0, optional).Build();
+            var listActual = actual.GetConfigSettings();
+            Assert.True(listActual.Count() == 0);
+        }
+        #endregion
+
+
+        #region Convar AppId SqlTimeout Optional
+        // test overload with EnvVar and AppId parameters 
+        [InlineData("ConfigDb-Connection", "testhost", true, "1")]
+        [InlineData("ConfigDb-Connection", "testhost", false, "1")]
+        [Theory]
+        public void EnvVarAppIdSqlToOpt_Good(string conStringVar, string appId, bool optional, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            //build actual configuraiton
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId, 0, optional).Build();
+            //convert actual configuration result to list for comparison
+            var listActual = actual.GetConfigSettings();
+            //get expected list of results from file
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\DbSource\\AddDbSource\\EnvVar_AppId\\Good\\expected{testCase}.json"));
+            // assert lists are equal.
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+        [InlineData("UnknownVar", "testhost", true)]
+        [InlineData("UnknownVar", "testhost", false)]
+        [Theory]
+        public void EnvVarAppIdSqlToOpt_EnvVarNotFound(string conStringVar, string appId, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            if (optional)
+            {
+                builder.AddDbSource(conStringVar, appId, 0, optional);
+                actual = builder.Build();
+                var actualList = actual.GetConfigSettings();
+                Assert.True(actualList.Count() == 0);
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddDbSource(conStringVar, appId, 0, optional));
+        }
+
+        [InlineData("ConfigDb-BadConnection", "testhost", true)]
+        [InlineData("ConfigDb-BadConnection", "testhost", false)]
+        [Theory]
+        public void EnvVarAppIdSqlToOpt_ConnectFail(string conStringVar, string appId, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddDbSource(conStringVar, appId, 0, optional);
+
+            if (optional)
+            {
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count() == 0);
+            }
+            else
+            {
+                Assert.Throws<System.ArgumentException>(() => actual = builder.Build());
+            }
+        }
+
+        [InlineData("ConfigDb-Connection", "UnknownApp", true)]
+        [InlineData("ConfigDb-Connection", "UnknownApp", false)]
+        [Theory]
+        public void EnvVarAppIdSqlToOpt_NoResults(string conStringVar, string appId, bool optional)
+        {
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddDbSource(conStringVar, appId, 0, optional).Build();
+            var listActual = actual.GetConfigSettings();
+            Assert.True(listActual.Count() == 0);
+        }
         #endregion
 
 
@@ -244,11 +593,11 @@ namespace ConfigCore.Tests
         }
 
 
-        [InlineData("1", false )]
-        [InlineData("1", true )]
+        [InlineData("1", false)]
+        [InlineData("1", true)]
         [Theory]
         // test overload with Configuration Parameter
-        public void Config_ConnectFail(string testCase, bool optional )
+        public void Config_ConnectFail(string testCase, bool optional)
         {
             IConfiguration actual;
             // Create path to appsettings file
@@ -257,9 +606,9 @@ namespace ConfigCore.Tests
             var initialConfig = TestHelper.GetFileConfig(jsonPath);
             // Create the final builder 
             IConfigurationBuilder finalBuilder = new ConfigurationBuilder();
-                 // Add the DBSource to the final builder
-                finalBuilder.AddDbSource(initialConfig, optional);
-            
+            // Add the DBSource to the final builder
+            finalBuilder.AddDbSource(initialConfig, optional);
+
             if (optional)
             {
                 actual = finalBuilder.Build();
@@ -268,9 +617,9 @@ namespace ConfigCore.Tests
             }
             else
             {
-            Assert.Throws<System.Data.SqlClient.SqlException>(() => actual = finalBuilder.Build());
+                Assert.Throws<System.Data.SqlClient.SqlException>(() => actual = finalBuilder.Build());
             }
-           
+
         }
 
 

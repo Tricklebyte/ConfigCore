@@ -1,0 +1,75 @@
+url
+url,optional
+url,appId
+url,appId,optional
+url,authtype,authsecret
+url,authtype,authsecret,optional
+url,authtype,authsecret,appId
+url,authtype,authesecret,appId,optional
+
+config
+config,optional
+
+* **AuthType** parameter is not present so Windows Authentication is used by default.
+* **AuthSecretVar** parameter is not required because the Authentication type is not Certificate or APIKey.
+* **AppId** parameter is not present so the assembly name of the client will be used by default. 
+* **Optional** parameter is not present, so this configuration source is required. 
+
+
+
+#### EXAMPLE 1 - Windows / Anonymous Authentication with default AppId and default Optional
+
+```C#
+ public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args).ConfigureAppConfiguration(config =>
+            {   
+                config.AddApiSource("CONFIGAPI-URL");
+            })
+        ... 
+```
+
+**Example Requirements:**
+* Environment Variable "CONFIGAPI-URL" must be found on Client.
+* The API must be configured for Windows Authentication or Anonymous access.
+* When using Windows Authentication, the client must be executing as a Windows profile that can authenticate with the API host
+
+**Example Parameters:**
+* **ConfigUrlVar** parameter specifies the name of the Client Environment Variable where the URL is stored for the API. 
+* The client search filter value passed to the API will default to the assembly name of the client.
+* Optional will default to true, so this configuration source is required.
+
+
+#### EXAMPLE 2 - Windows/Anonymous Authentication With Custom Application Id
+
+```C#
+ public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args).ConfigureAppConfiguration(config =>
+            {   
+                config.AddApiSource("CONFIGAPI-URL","97104");
+            })
+               .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+           ...
+```
+
+**Example Requirements:**
+* Environment Variables "CONFIGAPI-URL" and "CONFIGAPI-AUTHSECRET must be present on Client.
+* API must be configured to require Certificate Authentication
+* Client Root Certificate must be trusted by Host.
+
+**Example Parameters:**
+* **ConfigUrlVar** parameter "CONFIGAPI-URL" specifies the name of the Client Environment Variable where the URL is stored. The Environment Variable value must be the full URL path to the API method action without parameter values.
+* **authType** parameter "Certificate" specifies Client Certificate Authentication
+* **authSecretVar** parameter "CONFIGAPI-AUTHSECRET" specifies the name of the Client Environment Variable where the thumbprint of the Client Certificate is stored. This parameter is required in this example because authType is set to "Certificate". A certificate must be found in the Client's Personal Certificate store that matches this thumbprint.
+* **appId** parameter "97104" is set to a custom value that the API will use to select and return configuration settings for this client only. 
+* **optional** parameter is not present, so it will default to false. 
+
+
+
+ | **Parameter**   | **Type** | **Description** | **Valid Values** | 
+ | ----------- | ---- | -------------------- | ------------- | 
+ | configUrlVar | string | Name of Environment Variable containing the URL of the configuration API. | The Configuration API URL value must include the full base address and method route without parameters. (http://localhost:5000/ConfigSettings/)  | 
+ | AppId | string | Used as the search filter parameter when calling the API. The API should return settings for this client only, based on the value of AppId. | any string | 
+ | Optional | bool | Indicates if this configuration source is optional. When set to false, an exception will be thrown if the APISource fails to connect to the API.  | true, false | 

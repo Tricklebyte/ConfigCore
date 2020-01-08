@@ -70,7 +70,7 @@ namespace ConfigCore.Tests
 
             IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional).Build();
 
-
+          
             var listActual = actual.GetConfigSettings();
             var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
@@ -78,6 +78,7 @@ namespace ConfigCore.Tests
 
         //Overload with single required parameter for the URL of the API. Uses Windows Auth by default, optional False by default
         [InlineData("ConfigURL-Win", "1")]
+        [InlineData("ConfigURL-Anon", "1")]
         [Theory]
         public void OptParamsWinDef_Good(string configUrlVar, string testCase)
         {
@@ -91,6 +92,7 @@ namespace ConfigCore.Tests
 
         //Overload with single required parameter for the URL of the API and one optional parameter for Optional. Uses Windows Auth by default.
         [InlineData("ConfigURL-Win",true, "1")]
+        [InlineData("ConfigURL-Anon", true,"1")]
         [Theory]
         public void OptParamsWinDefOptional_Good(string configUrlVar, bool optional, string testCase)
         {
@@ -105,6 +107,7 @@ namespace ConfigCore.Tests
 
         // Overload with parameters for URL environment variable name and non-default Application Id
         [InlineData("ConfigURL-Win", "CustomAppName",  "2")]
+        [InlineData("ConfigURL-Anon", "CustomAppName", "2")]
         [Theory]
         public void OptParamsWinAppId_Good(string configUrlVar, string appId,  string testCase)
         {
@@ -117,6 +120,7 @@ namespace ConfigCore.Tests
 
         // Overload with parameters for URL environment variable name,  non-default Application Id, optional parameter
         [InlineData("ConfigURL-Win", "CustomAppName", true, "2")]
+        [InlineData("ConfigURL-Anon", "CustomAppName", true, "2")]
         [Theory]
         public void OptParamsWinAppIdOpt_Good(string configUrlVar, string appId, bool optional, string testCase)
         {
@@ -283,8 +287,8 @@ namespace ConfigCore.Tests
 
 
         // Auth Secret parameter not supplied
-        [InlineData("ConfigURL-Cert", "", "Certificate", null, true)]
-        [InlineData("ConfigURL-Cert", "", "Certificate", null, false)]
+        [InlineData("ConfigURL-Cert","Certificate", "",  null, true)]
+        [InlineData("ConfigURL-Cert","Certificate", "",  null, false)]
         [Theory]
         public void OptParams_CertNoSecret(string configUrlVar, string authType,string authSecretVar,  string appId, bool optional)
         {
