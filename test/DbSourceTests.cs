@@ -303,16 +303,8 @@ namespace ConfigCore.Tests
             Assert.Throws<System.ArgumentException>(() => actual = builder.Build());
         }
 
-        [InlineData("ConfigDb-Connection", 0)]
-
-        [Theory]
-        public void EnvVarSqlTo_NoResults(string conStringVar, int sqlTimeout)
-        {
-            var builder = new ConfigurationBuilder();
-            IConfiguration actual = builder.AddDbSource(conStringVar, sqlTimeout).Build();
-            var listActual = actual.GetConfigSettings();
-            Assert.True(listActual.Count() == 0);
-        }
+   
+       
 
         #endregion
 
@@ -374,16 +366,6 @@ namespace ConfigCore.Tests
             }
         }
 
-        [InlineData("ConfigDb-Connection", 0, true)]
-        [InlineData("ConfigDb-Connection", 0, false)]
-        [Theory]
-        public void EnvVarSqlToOpt_NoResults(string conStringVar, int sqlTimeout, bool optional)
-        {
-            var builder = new ConfigurationBuilder();
-            IConfiguration actual = builder.AddDbSource(conStringVar, sqlTimeout, optional).Build();
-            var listActual = actual.GetConfigSettings();
-            Assert.True(listActual.Count() == 0);
-        }
         #endregion
 
        
