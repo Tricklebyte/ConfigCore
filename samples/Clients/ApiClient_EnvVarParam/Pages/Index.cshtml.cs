@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace ConfigClient_ApiDefault.Pages
+namespace ApiClient_EnvVarParam.Pages
 {
     public class IndexModel : PageModel
     {
