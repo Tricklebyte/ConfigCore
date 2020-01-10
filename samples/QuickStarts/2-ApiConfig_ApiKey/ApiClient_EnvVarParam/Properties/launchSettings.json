@@ -12,7 +12,10 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CONFIG-AUTHKEY": "F56A8B8D2EF57B7D",
+        "CONFIG-URL": "https://localhost:5007/iapi/ConfigSettings"
+
       }
     },
     "ConfigClient_ApiDefault": {
