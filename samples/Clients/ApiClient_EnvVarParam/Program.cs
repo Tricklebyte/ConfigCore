@@ -42,7 +42,7 @@ namespace ConfigClient_ApiDefault
             {                
                 // Build app configuration using ApiSource.
                 // Note: In a real project, you would also include other sources and order them for desired precedence.
-                config.AddApiSource("CONFIGAPI-URL");
+                config.AddApiSource("ConfigURL-Anon");
 
                 // There is also an overload that allows you to specify a non-default application name
                //config.AddApiSource("CONFIGAPI-URL","CustomAppName");
