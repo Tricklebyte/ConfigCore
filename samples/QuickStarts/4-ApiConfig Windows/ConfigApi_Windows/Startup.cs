@@ -36,7 +36,7 @@ namespace ConfigApi_Windows
 
 
             // CONFIGURE AUTHORIZATION ################################################
-            // Claim type is Microsoft claim type for AD Secruty Group Identifier
+            // Claim type is Microsoft claim type for AD Security Group Identifier
             string claimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/groupsid";
 
             // Claim Value is the SID of the allowed Windows Group

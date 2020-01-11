@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using ConfigCore.Extensions;
 using Microsoft.Extensions.Logging;
 
-namespace ConfigClient_ApiDefault
+namespace ConfigApiClient_Windows
 {
     public class Program
     {
@@ -45,9 +45,8 @@ namespace ConfigClient_ApiDefault
                 // 
                 // See overload methods for specifying non-default values for application ID and Authentication settings
                 // 
-                config.AddApiSource("CONFIGAPI-URL");
+                config.AddApiSource("ConfigURL-Win");
                 
-     
 
                 // For overriding all other default settings like authentication options, see sample projects ConfigClient_ApiCustom and ConfigClient_ApiStartup
 
