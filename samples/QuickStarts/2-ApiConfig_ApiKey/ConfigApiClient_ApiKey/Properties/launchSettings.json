@@ -13,11 +13,12 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ConfigURL-Cert": "https://localhost:5005/iapi/ConfigSettings",
-        "ConfigAuth-Cert": "471249a6cbd7444ca239cdaecf63e3245a9fa6fd"
+        "CONFIG-AUTHKEY": "F56A8B8D2EF57B7D",
+        "CONFIG-URL": "https://localhost:5007/iapi/ConfigSettings"
+
       }
     },
-    "ApiClient_EnvVarParam": {
+    "ConfigApiClient_ApiKey": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",

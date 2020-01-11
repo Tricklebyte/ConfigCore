@@ -8,7 +8,7 @@ using Microsoft.Extensions.Hosting;
 using ConfigCore.Extensions;
 using Microsoft.Extensions.Logging;
 
-namespace ConfigClient_ApiDefault
+namespace ConfigApiClient_Anon
 {
     public class Program
     {
@@ -42,7 +42,12 @@ namespace ConfigClient_ApiDefault
             {                
                 // Build app configuration using ApiSource.
                 // Note: In a real project, you would also include other sources and order them for desired precedence.
-                config.AddApiSource("ConfigURL-Cert","Certificate","ConfigAuth-Cert");
+                config.AddApiSource("ConfigURL-Anon");
+
+                // There is also an overload that allows you to specify a non-default application name
+               //config.AddApiSource("CONFIGAPI-URL","CustomAppName");
+
+                // For overriding all other default settings like authentication options, see sample projects ConfigClient_ApiCustom and ConfigClient_ApiStartup
 
             })
                 .ConfigureWebHostDefaults(webBuilder =>

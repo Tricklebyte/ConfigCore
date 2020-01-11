@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_ApiKey", "ConfigApi_ApiKey\ConfigApi_ApiKey.csproj", "{FDEACD59-7AE6-470E-9917-D4D42A5918BC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClient_EnvVarParam", "ApiClient_EnvVarParam\ApiClient_EnvVarParam.csproj", "{AF9D72A4-8523-406D-B2F3-7B90D00FD010}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApiClient_ApiKey", "ConfigApiClient_ApiKey\ConfigApiClient_ApiKey.csproj", "{5DF8D709-93C1-4FF3-BCB3-01F9245E1272}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{FDEACD59-7AE6-470E-9917-D4D42A5918BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDEACD59-7AE6-470E-9917-D4D42A5918BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDEACD59-7AE6-470E-9917-D4D42A5918BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AF9D72A4-8523-406D-B2F3-7B90D00FD010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AF9D72A4-8523-406D-B2F3-7B90D00FD010}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AF9D72A4-8523-406D-B2F3-7B90D00FD010}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AF9D72A4-8523-406D-B2F3-7B90D00FD010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DF8D709-93C1-4FF3-BCB3-01F9245E1272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DF8D709-93C1-4FF3-BCB3-01F9245E1272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DF8D709-93C1-4FF3-BCB3-01F9245E1272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DF8D709-93C1-4FF3-BCB3-01F9245E1272}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

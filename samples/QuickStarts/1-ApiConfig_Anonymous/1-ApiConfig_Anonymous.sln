@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Anon", "ConfigApi_Anon\ConfigApi_Anon.csproj", "{A8D13861-0AE2-4BCE-909D-95E7CF8DC3E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClient_EnvVarParam", "..\..\Clients\ApiClient_EnvVarParam\ApiClient_EnvVarParam.csproj", "{6291787B-E911-4558-9B59-5529F508567C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApiClient_Anon", "ConfigApiClient_Anon\ConfigApiClient_Anon.csproj", "{06B7B9DF-FF57-4DA8-B003-DBCBDC8C0135}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{A8D13861-0AE2-4BCE-909D-95E7CF8DC3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8D13861-0AE2-4BCE-909D-95E7CF8DC3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8D13861-0AE2-4BCE-909D-95E7CF8DC3E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6291787B-E911-4558-9B59-5529F508567C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6291787B-E911-4558-9B59-5529F508567C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6291787B-E911-4558-9B59-5529F508567C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6291787B-E911-4558-9B59-5529F508567C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06B7B9DF-FF57-4DA8-B003-DBCBDC8C0135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06B7B9DF-FF57-4DA8-B003-DBCBDC8C0135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06B7B9DF-FF57-4DA8-B003-DBCBDC8C0135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06B7B9DF-FF57-4DA8-B003-DBCBDC8C0135}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
