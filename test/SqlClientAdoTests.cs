@@ -13,10 +13,9 @@ namespace ConfigCore.Tests
 {
     public class SqlClientAdoTests
     {
-        [InlineData("Server = (localdb)\\MSSQLLocalDB;Database = ConfigDb;Trusted_Connection = True;MultipleActiveResultSets = true","ConfigSetting", "AppId", "SettingKey","SettingValue", "ConfigClient_DbDefault","1")]
-        [InlineData("Server = (localdb)\\MSSQLLocalDB;Database = ConfigDb;Trusted_Connection = True;MultipleActiveResultSets = true", "ConfigSetting", "AppId", "SettingKey", "SettingValue", "ConfigClient_DbCustom","2")]
-        [InlineData("Server = (localdb)\\MSSQLLocalDB;Database = ConfigDb;Trusted_Connection = True;MultipleActiveResultSets = true", "ConfigSetting", "AppId", "SettingKey", "SettingValue", "testhost", "3")]
-        [InlineData("Server = (localdb)\\MSSQLLocalDB;Database = ConfigDb;Trusted_Connection = True;MultipleActiveResultSets = true", "ConfigSetting", "AppId", "SettingKey", "SettingValue", "CustomAppName", "4")]
+        [InlineData("Server = (localdb)\\MSSQLLocalDB;Database = ConfigDb;Trusted_Connection = True;MultipleActiveResultSets = true","ConfigSetting", "AppId", "SettingKey","SettingValue", "ConfigDbClient","1")]
+        [InlineData("Server = (localdb)\\MSSQLLocalDB;Database = ConfigDb;Trusted_Connection = True;MultipleActiveResultSets = true", "ConfigSetting", "AppId", "SettingKey", "SettingValue", "testhost", "2")]
+        [InlineData("Server = (localdb)\\MSSQLLocalDB;Database = ConfigDb;Trusted_Connection = True;MultipleActiveResultSets = true", "ConfigSetting", "AppId", "SettingKey", "SettingValue", "CustomAppName", "3")]
         [Theory]
         public void GetDbRows_Good(string connString, string tableName, string appIdCol, string keyCol, string valCol, string appIdVal, string testCase)
         {

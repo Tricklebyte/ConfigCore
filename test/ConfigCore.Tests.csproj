@@ -208,9 +208,6 @@
     <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\Good\expected3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\Good\expected4.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>

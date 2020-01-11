@@ -1,32 +1,32 @@
 [
   {
-    "Id": 11,
-    "AppId": "testhost",
+    "Id": 16,
+    "AppId": "CustomAppName",
     "SettingKey": "Setting1",
-    "SettingValue": "Setting 1 - Value for test host"
+    "SettingValue": "Setting 1 - Value for CustomAppName"
   },
   {
-    "Id": 12,
-    "AppId": "testhost",
+    "Id": 17,
+    "AppId": "CustomAppName",
     "SettingKey": "Setting2",
-    "SettingValue": "Setting 2 - Value for test host"
+    "SettingValue": "Setting 2 - Value for CustomAppName"
   },
   {
-    "Id": 13,
-    "AppId": "testhost",
+    "Id": 18,
+    "AppId": "CustomAppName",
     "SettingKey": "Setting3",
-    "SettingValue": "Setting 3 - Value for test host"
+    "SettingValue": "Setting 3 - Value for CustomAppName"
   },
   {
-    "Id": 14,
-    "AppId": "testhost",
+    "Id": 19,
+    "AppId": "CustomAppName",
     "SettingKey": "Setting4",
-    "SettingValue": "Setting 4 - Value for test host"
+    "SettingValue": "Setting 4 - Value for CustomAppName"
   },
   {
-    "Id": 15,
-    "AppId": "testhost",
+    "Id": 20,
+    "AppId": "CustomAppName",
     "SettingKey": "Setting5",
-    "SettingValue": "Setting 5 - Value for test host"
+    "SettingValue": "Setting 5 - Value for CustomAppName"
   }
 ]
