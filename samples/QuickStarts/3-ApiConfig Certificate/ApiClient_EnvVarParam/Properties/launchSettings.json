@@ -17,7 +17,7 @@
         "ConfigAuth-Cert": "471249a6cbd7444ca239cdaecf63e3245a9fa6fd"
       }
     },
-    "ApiClient_EnvVarParam": {
+    "ConfigApiClient_Certificate": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:5001;http://localhost:5000",

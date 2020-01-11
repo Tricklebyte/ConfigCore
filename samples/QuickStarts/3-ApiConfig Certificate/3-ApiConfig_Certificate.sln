@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiClient_EnvVarParam", "ApiClient_EnvVarParam\ApiClient_EnvVarParam.csproj", "{B2AB0E92-5BE1-4868-9CB8-A7E6488D79F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApiClient_Certificate", "ApiClient_EnvVarParam\ConfigApiClient_Certificate.csproj", "{B2AB0E92-5BE1-4868-9CB8-A7E6488D79F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Certificate", "ConfigApi_Certificate\ConfigApi_Certificate.csproj", "{11CC43EE-13C9-4F4E-A4AE-7E7FBC000796}"
 EndProject
