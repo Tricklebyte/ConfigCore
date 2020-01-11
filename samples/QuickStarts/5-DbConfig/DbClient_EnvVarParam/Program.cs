@@ -7,24 +7,33 @@ using System;
 namespace DbConfigClient_StartupFile
 
 {
-    /// Sample Client for  ConfigCore.DbSource custom configuration srource and provider. The Provider gets configuration settings from a SQL server database.
-    /// The DB search is filtered by AppId, which by default will be the current Project/Assemply name.
-    /// This example loads configuration database options first, then loads the full configuration using these pre-loaded options.
-    /// This is required when using non-default table and column names, a non-default AppId, or when needing to set the SQL Command Timeout.
-    /// These settings must be found in Configuration section ConfigOptions:DbSource.
-    /// Load a config containing these settings first, then pass it into the AddDbSource extension method of IConfigurationBuilder.
-    ///
+    /// Sample Client for  ConfigCore.DbSource custom configuration source and provider. The Provider gets app configuration settings from a SQL server database during configuration build using ADO.NET.
+    /// The DB search is filtered by AppId, which by default will be the current Project/Assemply name. A custom application Id may be supplied using overloaded methods.
+
+    /// BASIC METHOD: AddDbSource(string) : Load configuration in a single step using only the name of the Environment Variable holding the connection string. Default values are used for Application Id, Table and Column names, and S
+    //                              
+    /// OVERLOAD with IConfiguration Parameter  AddDbSource(IConfiguration): 
+    /// Load a 'Pre-config' configuration first to customize the options for connecting to the database when building the final IConfiguration.
+    /// This is required when using non-default table and column names.
+    /// Load a config containing these settings first, then pass the configuration object into the AddDbSource extension method of IConfigurationBuilder.
+    /// These settings must be found in Config section ConfigOptions:DbSource, and they may be sourced from other configuration sources like appsettings files, environment variables, and command line arguments.
+    /// This override method may also be called from the Startup File using the default configuration supplied by DI. 
     /// 
-    /// NOTE: To load the DBSource with default settings using just the name of the ConnectionString Environment Variable, see example client DbConfigClient_DefaultDb
     public class Program
     {
         private static IConfiguration _preConfig { get; set; }
         public static void Main(string[] args)
         {
-            // Creates initial configuration using just the Json provider.
+            
+            // DBConfig OPTION 2 ONLY : OVERLOAD FOR ICONFIGURATION OBJECT PARAMETER   =======================
+            // Creates initial IConfiguration object that will be used as a parameter for the final configuration builder.
             // Additional providers may also be specified if needed
             // The resulting config must contain section ConfigOptions:DbSource
-            _preConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+
+            // _preConfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        
+            
+            
             CreateHostBuilder(args).Build().Run();
         }
     
@@ -35,11 +44,16 @@ namespace DbConfigClient_StartupFile
             // Build app configuration using DbSource.
             // Note: In a real project, you would include other sources and order them for desired precedence.
 
-            //... other config sources ....
+            //... Preceding config sources ....
+            
+            // DBConfig OPTION 1: Environment Variable Name Parameter
+            config.AddDbSource("ConfigDb-Connection");
 
-            config.AddDbSource(_preConfig, false);
+            // DbConfig OPTION 2: IConfiguration Parameter
+            // config.AddDbSource(_preConfig);
 
-            //... other config sources ...
+
+            //... Subsequent config sources ...
         })
         .ConfigureWebHostDefaults(webBuilder =>
         {

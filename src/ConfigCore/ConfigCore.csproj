@@ -7,13 +7,17 @@
     <Description>Secure, centralized configuration for ASPNET.CORE applications</Description>
     <RepositoryUrl>https://github.com/Tricklebyte/ConfigCore</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0</Version>
-    <PackageReleaseNotes>Support for Authentication Types: Anonymous, Windows, Certificate, and API Keys
-Replaced optional parameter methods with additional overrides for .AddApiSource
-Documentation and Samples updated - see source code repository
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.0</Version>
+    <PackageReleaseNotes>IConfigurationBuilder.AddDbSource Extension Method - replaced optional parameters with method overloads.
+All method signatures are now stable, no future breaking changes are expected.
+
+Updated Sample Projects, Quickstart Solutions, and Wiki documentation have been posted to the Github source code repository.
+
 </PackageReleaseNotes>
+    <PackageIcon>ConfigIcon.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
@@ -27,6 +31,13 @@ Documentation and Samples updated - see source code repository
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+    <None Include="Icons\ConfigIcon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Icons\" />
   </ItemGroup>
 
 </Project>

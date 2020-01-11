@@ -63,10 +63,6 @@ namespace ConfigCore.Extensions
 
 
 
-
-
-
-
         //DbSource Configuration object parameter. Uses configuration settings to control the behaviour of DB Source and Provider.
         public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, IConfiguration config, bool optional = false)
         {
