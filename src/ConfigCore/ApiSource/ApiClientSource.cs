@@ -1,7 +1,7 @@
 ﻿
 using ConfigCore;
+using Microsoft.Extensions.Hosting;
 using ConfigCore.Models;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ namespace ConfigCore.ApiSource
 {
     public class ApiClientSource : IConfigurationSource
     {
-        IHostingEnvironment _env;
+     //   IWebHostEnvironment _env;
         IConfiguration _config;
         bool _optional;
         HttpClient _client;
