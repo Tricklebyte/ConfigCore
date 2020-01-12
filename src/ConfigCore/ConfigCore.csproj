@@ -1,19 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <Description>Secure, centralized configuration for ASPNET.CORE applications</Description>
+    <Description>Secure, centralized configuration for ASPNET.CORE applications.</Description>
     <RepositoryUrl>https://github.com/Tricklebyte/ConfigCore</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
-    <Version>1.2.0</Version>
-    <PackageReleaseNotes>IConfigurationBuilder.AddDbSource Extension Method - replaced optional parameters with method overloads.
-All method signatures are now stable, no future breaking changes are expected.
-
-Updated Sample Projects, Quickstart Solutions, and Wiki documentation have been posted to the Github source code repository.
+    <AssemblyVersion>1.3.0.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
+    <Version>1.3.0</Version>
+    <PackageReleaseNotes>.NET CORE version 3.1
 
 </PackageReleaseNotes>
     <PackageIcon>ConfigIcon.png</PackageIcon>
@@ -28,6 +25,7 @@ Updated Sample Projects, Quickstart Solutions, and Wiki documentation have been 
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE.md">

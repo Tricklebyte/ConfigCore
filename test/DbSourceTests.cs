@@ -1,18 +1,12 @@
 using ConfigCore.Models;
 using ConfigCore.Extensions;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.Json;
 using Xunit;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
-using Xunit.Sdk;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Internal;
-using ConfigCore.Tests;
 
 namespace ConfigCore.Tests
 {
@@ -372,7 +366,7 @@ namespace ConfigCore.Tests
         #region Convar AppId SqlTimeout
         // test overload with EnvVar and AppId parameters 
         [InlineData("ConfigDb-Connection", "testhost", 0, "1")]
-        [InlineData("ConfigDb-Connection", "testhost", 0, "1")]
+        [InlineData("ConfigDb-Connection", "CustomAppName", 0, "2")]
         [Theory]
         public void EnvVarAppIdSqlTo_Good(string conStringVar, string appId, int sqlTimeout, string testCase)
         {
