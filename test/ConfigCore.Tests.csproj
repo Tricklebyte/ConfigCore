@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\ConfigCore\ConfigCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="TestCases\ApiSource\AddApiSource\Config\CreateRequestFail\KeyNoSecret.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -215,6 +211,10 @@
       <PackagePath></PackagePath>
       <Pack>True</Pack>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\ConfigCore\ConfigCore.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
