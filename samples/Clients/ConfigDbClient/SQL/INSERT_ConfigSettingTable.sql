@@ -1,3 +1,6 @@
+-- ConfigCore Samples
+-- Insert setting values for unit testing and demo client
+
 SET IDENTITY_INSERT [dbo].[ConfigSetting] ON
 INSERT INTO [dbo].[ConfigSetting] ([Id], [AppId], [SettingKey], [SettingValue]) VALUES (1, N'ConfigDbClient', N'Setting1', N'Setting 1 - Value for ConfigDbClient')
 INSERT INTO [dbo].[ConfigSetting] ([Id], [AppId], [SettingKey], [SettingValue]) VALUES (2, N'ConfigDbClient', N'Setting2', N'Setting 2 - Value for ConfigDbClient')
