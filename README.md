@@ -7,7 +7,7 @@ Secure, centralized configuration for NET.CORE applications
 * Eliminate the need to manage environment variable settings on multiple host servers.
 
 ## ConfigCore.ApiSource - API Configuration Source/Provider
-Custom IConfigurationProvider which uses an HTTP client to retrieve configuration data from a REST API.
+Custom IConfigurationProvider uses an HTTP client to retrieve configuration data from a REST API.
 Extension methods on IConfigurationBuilder are used to add the API Configuration Source to the IConfigurationBuilder prior to calling Build. 
 When the configuration is built, the API Provider will use an HTTP Client to retrieve key/value settings pairs from the API and add them to the configuration like any other configuration provider.
 
@@ -20,4 +20,4 @@ ConfigCore provides support for three custom application environments in additio
 * Test
 * QA
 
-## See the [Wiki](https://github.com/Tricklebyte/ConfigCore/wiki) for usage instructions and examples
+## See the [Wiki](https://github.com/Tricklebyte/ConfigCore/wiki) for documentation. Sample apis, clients, and complete quickstart solutions are provided for multiple authentication types.
