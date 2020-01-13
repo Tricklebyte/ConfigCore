@@ -20,4 +20,6 @@ ConfigCore provides support for three custom application environments in additio
 * Test
 * QA
 
-## See the [Wiki](https://github.com/Tricklebyte/ConfigCore/wiki) for documentation. Sample apis, clients, and complete quickstart solutions are provided for multiple authentication types.
+## See the [Wiki](https://github.com/Tricklebyte/ConfigCore/wiki) for documentation. 
+
+Sample APIs, clients, and complete quickstart solutions are provided for multiple authentication types.
