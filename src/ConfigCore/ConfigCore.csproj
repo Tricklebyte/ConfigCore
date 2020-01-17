@@ -7,10 +7,10 @@
     <Description>Secure, centralized configuration for ASPNET.CORE applications.</Description>
     <RepositoryUrl>https://github.com/Tricklebyte/ConfigCore</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <AssemblyVersion>1.3.0.0</AssemblyVersion>
-    <FileVersion>1.3.0.0</FileVersion>
-    <Version>1.3.0</Version>
-    <PackageReleaseNotes>.NET CORE version 3.1
+    <AssemblyVersion>1.3.1.0</AssemblyVersion>
+    <FileVersion>1.3.1.0</FileVersion>
+    <Version>1.3.1</Version>
+    <PackageReleaseNotes>Additional dependencies updated for .NET CORE 3.1
 
 </PackageReleaseNotes>
     <PackageIcon>ConfigIcon.png</PackageIcon>
@@ -18,13 +18,13 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
+    <PackageTags>Configuration</PackageTags>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.1" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>

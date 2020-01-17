@@ -51,24 +51,7 @@ namespace ConfigCore
         }
         
         
-        
-        /// <summary>
-        /// Initialize windows authorization services (only for APIs that will use integrated authentication to authorize clients)
-        /// <param name="services"></param>
-        /// <param name="initConfig"></param>
-        /// <param name="environment"></param>
-        /// </summary>
-        //public static void AddApiWinAuthServices(this IServiceCollection services, IConfiguration initConfig, IHostingEnvironment environment)
-        //{
-        //    string claimType = initConfig["WindowsAuth:RoleClaimType"];
-        //    string claimValue = initConfig["WindowsAuth:RoleClaimValue"];
-        //    services.AddAuthorization(options =>
-        //    {
-        //        options.AddPolicy("WindowsGroupPolicy", policy => policy.RequireClaim(claimType, claimValue));
-
-        //    });
-        //    services.AddAuthentication(IISDefaults.AuthenticationScheme);
-        //}
+       
 
         
 

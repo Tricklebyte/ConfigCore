@@ -3,7 +3,7 @@ using ConfigCore.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data.SqlClient;
+using  Microsoft.Data.SqlClient;
 using System.Text;
 
 namespace ConfigCore.DbSource

@@ -593,7 +593,7 @@ namespace ConfigCore.Tests
             }
             else
             {
-                Assert.Throws<System.Data.SqlClient.SqlException>(() => actual = finalBuilder.Build());
+                Assert.Throws<Microsoft.Data.SqlClient.SqlException>(() => actual = finalBuilder.Build());
             }
 
         }
@@ -623,7 +623,7 @@ namespace ConfigCore.Tests
                 Assert.True(listActual.Count() == 0);
             }
             else
-                Assert.Throws<System.Data.SqlClient.SqlException>(() => actual = finalBuilder.Build());
+                Assert.Throws<Microsoft.Data.SqlClient.SqlException>(() => actual = finalBuilder.Build());
         }
 
         #endregion
