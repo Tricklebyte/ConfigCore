@@ -19,6 +19,7 @@
     <OutputType>Library</OutputType>
     <StartupObject />
     <PackageTags>Configuration</PackageTags>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="1.1.0" />
@@ -39,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Icons\" />
+    <Folder Include="Cryptography\" />
   </ItemGroup>
 
 </Project>

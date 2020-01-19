@@ -1,0 +1,18 @@
+[
+  {
+    "SettingKey": "ConnectionStrings:DefaultConnection",
+    "SettingValue": "Server = (localdb)\\mssqllocaldb;Database=ConfigDb;Trusted_Connection=True;MultipleActiveResultSets=True;"
+  },
+  {
+    "SettingKey": "ConfigOptions:Cryptography:ClientScope",
+    "SettingValue": "SharedAccessClientSecret"
+  },
+  {
+    "SettingKey": "ConfigOptions:Cryptography:EncValPrefix",
+    "SettingValue": "<(*_*)>"
+  },
+  {
+    "SettingKey": "ConfigOptions:Cryptography:KeyStore",
+    "SettingValue": "\\\\localhost\\Share\\temp-keys"
+  }
+]

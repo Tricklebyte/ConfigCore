@@ -144,6 +144,9 @@
     <None Update="TestCases\ApiSource\HttpHelper\GetHttpRequest\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestCases\DbSource\AddDbSource\Config\ConnectFail\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -204,6 +207,15 @@
     <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\Good\expected3.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestCases\IConfigurationExtensions\Decrypt\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\IConfigurationExtensions\Decrypt\appsettings1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\IConfigurationExtensions\GetConfigSettings\appsettings1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -215,6 +227,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\ConfigCore\ConfigCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestCases\CryptoHelper\ProtectUnprotect\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
