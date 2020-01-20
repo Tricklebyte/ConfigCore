@@ -21,6 +21,8 @@ namespace ConfigCore.CryptoConsole
             // build a local configuration that contains the plain-text encryption configuration settings.
             config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
+            // use the settings in the initial configuration to initialize Microsoft DPAPI
+            // This can also be done in Startup.ConfigureServices using the standard Configuration from DI
             serviceCollection.AddDataProtectionServices(config);
             var serviceProvider = serviceCollection.BuildServiceProvider();
             crypto = serviceProvider.GetRequiredService<ICryptoHelper>();

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29521.150
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigCore.CryptoConsole", "..\..\Crytography\CryptoConsole\ConfigCore.CryptoConsole.csproj", "{1B910A41-D698-4A9D-9ABC-5ABA7EFC5ACC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EncryptedConfigClient", "..\..\Clients\EncryptedConfigClient\EncryptedConfigClient.csproj", "{0C559AF2-55A8-40C9-AA2C-720587262904}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B910A41-D698-4A9D-9ABC-5ABA7EFC5ACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B910A41-D698-4A9D-9ABC-5ABA7EFC5ACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B910A41-D698-4A9D-9ABC-5ABA7EFC5ACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B910A41-D698-4A9D-9ABC-5ABA7EFC5ACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C559AF2-55A8-40C9-AA2C-720587262904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C559AF2-55A8-40C9-AA2C-720587262904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C559AF2-55A8-40C9-AA2C-720587262904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C559AF2-55A8-40C9-AA2C-720587262904}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE656309-F1FE-40C4-BD6B-19C2EFA456D0}
+	EndGlobalSection
+EndGlobal
