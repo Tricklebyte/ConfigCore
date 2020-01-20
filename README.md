@@ -14,6 +14,12 @@ When the configuration is built, the API Provider will use an HTTP Client to ret
 ## Config.Core.DbSource - Database Configuration Provider
 This custom configuration provider sources configuration data directly from a SQL Server database. Table and Column names used convention-based defaults for ease of configuration, but may also be overriden for flexibility.
 
+## Cryptography Features
+ConfigCore uses Microsoft Data Protection to encrypt sensitive configuration data at rest, and decrypt it after the settings are loaded by the application.
+Console application **CryptoConsole** is provided to encrypt configuration settings that  may be used in any configuration source. See samples\Cryptography
+* IConfiguration Extension Method **IConfiguration.Decrypt** decrypts  encrypted values found in the configuration after it is loaded. 
+* A UNC file share is required for key storage and must be accessible by all clients wishing to encrypt or decrypt.* 
+
 ## Environment Features
 ConfigCore provides support for three custom application environments in addition to the .NET CORE standard environments
 * Local
