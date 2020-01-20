@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\ConfigCore\ConfigCore.csproj" />
+    <ProjectReference Include="..\..\..\..\src\ConfigCore\ConfigCore.csproj" />
   </ItemGroup>
 
 
