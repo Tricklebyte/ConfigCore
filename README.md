@@ -18,7 +18,7 @@ This custom configuration provider sources configuration data directly from a SQ
 ConfigCore uses Microsoft Data Protection to encrypt sensitive configuration data at rest, and decrypt it after the settings are loaded by the application.
 * Console application **CryptoConsole** is provided to encrypt configuration settings that  may be used in any configuration source. See [Samples/Cryptography/CryptoConsole](https://github.com/Tricklebyte/ConfigCore/tree/master/samples/Crytography/CryptoConsole)
 * IConfiguration Extension Method **IConfiguration.Decrypt** decrypts  encrypted values found in the configuration after it is loaded. 
-* A UNC file share is required for key storage and must be accessible by all clients wishing to encrypt or decrypt.
+* A UNC file share is required for key storage and must be accessible by all clients wishing to encrypt or decrypt. The encryption keys are also protected by DPAPI.
 
 ## Environment Features
 ConfigCore provides support for three custom application environments in addition to the .NET CORE standard environments
