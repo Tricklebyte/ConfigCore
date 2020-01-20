@@ -1,9 +1,6 @@
-﻿
-using ConfigCore.Cryptography;
-using Microsoft.AspNetCore.Hosting;
+﻿using ConfigCore.Cryptography;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
 
 namespace ConfigCore.CryptoConsole
