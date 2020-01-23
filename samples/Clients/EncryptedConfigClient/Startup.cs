@@ -36,6 +36,8 @@ namespace EncryptedConfigClient
             //  DECRYPT the configuration values - Setting values will be decrypted if they begin with the Encrypted Value Prefix (EncValPrefix)
             Configuration.Decrypt(crypto);
 
+            // Use decrypted configuration to initialize other services like data access, authentication, and authorization
+
             services.AddRazorPages();
         }
 

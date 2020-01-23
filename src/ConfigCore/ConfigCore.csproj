@@ -4,15 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <Description>Secure, centralized configuration for ASPNET.CORE applications.</Description>
+    <Description>Secure, centralized, configuration for ASPNET.CORE applications.</Description>
     <RepositoryUrl>https://github.com/Tricklebyte/ConfigCore</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <AssemblyVersion>1.3.1.0</AssemblyVersion>
-    <FileVersion>1.3.1.0</FileVersion>
-    <Version>1.3.1</Version>
-    <PackageReleaseNotes>Additional dependencies updated for .NET CORE 3.1
-
-</PackageReleaseNotes>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0</Version>
+    <PackageReleaseNotes>New Cryptograpy Features!
+Encrypt and Decrypt settings in all configuration sources</PackageReleaseNotes>
     <PackageIcon>ConfigIcon.png</PackageIcon>
     <PackageIconUrl />
     <ApplicationIcon />
@@ -40,7 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Icons\" />
-    <Folder Include="Cryptography\" />
   </ItemGroup>
 
 </Project>

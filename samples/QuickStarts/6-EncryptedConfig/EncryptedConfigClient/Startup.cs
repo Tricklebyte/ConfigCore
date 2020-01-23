@@ -28,9 +28,11 @@ namespace EncryptedConfigClient
             // These configuration values are required to initialize encyrption services, so they must be in plain text.
             services.AddDataProtectionServices(Configuration);
            
-          // Get the    
+          // Get the DPAPI Service provider which a dependency of CryptoHelper  
             var serviceProvider = services.BuildServiceProvider();
 
+
+            //Add ICryptoHelper, with its dependency, to DI
             ICryptoHelper crypto = serviceProvider.GetRequiredService<ICryptoHelper>();
            
             //  DECRYPT the configuration values - Setting values will be decrypted if they begin with the Encrypted Value Prefix (EncValPrefix)
