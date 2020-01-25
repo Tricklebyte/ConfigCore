@@ -1,31 +1,5 @@
 # ConfigCore
-Secure, centralized configuration for NET.CORE applications
 
-## Objectives
-* Manage application configuration settings from a secure, centralized database or API.
-* Remove sensitive configuration data from source code files.
-* Eliminate the need to manage environment variable settings on multiple host servers.
-
-## ConfigCore.ApiSource - API Configuration Source/Provider
-Custom IConfigurationProvider uses an HTTP client to retrieve configuration data from a REST API.
-Extension methods on IConfigurationBuilder are used to add the API Configuration Source to the IConfigurationBuilder prior to calling Build. 
-When the configuration is built, the API Provider will use an HTTP Client to retrieve key/value settings pairs from the API and add them to the configuration like any other configuration provider.
-
-## Config.Core.DbSource - Database Configuration Provider
-This custom configuration provider sources configuration data directly from a SQL Server database. Table and Column names used convention-based defaults for ease of configuration, but may also be overriden for flexibility.
-
-## Cryptography Features
-ConfigCore uses Microsoft Data Protection to encrypt sensitive configuration data prior to storage in the configuration source. The configuration settings are decrypted by the client after being loaded from DI.
-* **ConfigCore.ICryptoHelper** encrypts configuration values that  may be used in any configuration source. 
-* Sample Console application **CryptoConsole** is also provided. It is a working application that is ready to use for encrypting (and decrypting) settings. See [Samples/Cryptography/CryptoConsole](https://github.com/Tricklebyte/ConfigCore/tree/master/samples/Crytography/CryptoConsole)
-* IConfiguration Extension Method **IConfiguration.Decrypt** is executed on the Client after configuration build. It decrypts all encrypted values found in the configuration. The decrypted configuration may then be used to initialize other services, etc...
-* A UNC file share is required for key storage and must be accessible by all clients wishing to encrypt or decrypt. The encryption keys are automatically created, managed, and protected by DPAPI.
-
-## Environment Features
-ConfigCore provides support for three custom application environments in addition to the .NET CORE standard environments
-* Local
-* Test
-* QA
 
 ## See the [Wiki](https://github.com/Tricklebyte/ConfigCore/wiki) for documentation. 
 
