@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ConfigApi_Certificate.Models;
-using ConfigCore.ApiSource;
 using ConfigCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace ConfigApi_Certificate.Controllers
 {
-  
+
 
     [ApiController]
     [Route("iapi/[controller]")]

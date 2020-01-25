@@ -1,8 +1,7 @@
+using ConfigCore.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using ConfigCore.Extensions;
-using System;
 
 namespace DbConfigClient_StartupFile
 
