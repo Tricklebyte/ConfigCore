@@ -70,7 +70,7 @@ namespace ConfigCore.Tests
 
             IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional).Build();
 
-          
+
             var listActual = actual.GetConfigSettings();
             var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
@@ -91,14 +91,14 @@ namespace ConfigCore.Tests
         }
 
         //Overload with single required parameter for the URL of the API and one optional parameter for Optional. Uses Windows Auth by default.
-        [InlineData("ConfigURL-Win",true, "1")]
-        [InlineData("ConfigURL-Anon", true,"1")]
+        [InlineData("ConfigURL-Win", true, "1")]
+        [InlineData("ConfigURL-Anon", true, "1")]
         [Theory]
         public void OptParamsWinDefOptional_Good(string configUrlVar, bool optional, string testCase)
         {
 
             var builder = new ConfigurationBuilder();
-            IConfiguration actual = builder.AddApiSource(configUrlVar).Build();
+            IConfiguration actual = builder.AddApiSource(configUrlVar, optional).Build();
             var listActual = actual.GetConfigSettings();
             var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
@@ -106,10 +106,10 @@ namespace ConfigCore.Tests
 
 
         // Overload with parameters for URL environment variable name and non-default Application Id
-        [InlineData("ConfigURL-Win", "CustomAppName",  "2")]
+        [InlineData("ConfigURL-Win", "CustomAppName", "2")]
         [InlineData("ConfigURL-Anon", "CustomAppName", "2")]
         [Theory]
-        public void OptParamsWinAppId_Good(string configUrlVar, string appId,  string testCase)
+        public void OptParamsWinAppId_Good(string configUrlVar, string appId, string testCase)
         {
             var builder = new ConfigurationBuilder();
             IConfiguration actual = builder.AddApiSource(configUrlVar, appId).Build();
@@ -125,7 +125,7 @@ namespace ConfigCore.Tests
         public void OptParamsWinAppIdOpt_Good(string configUrlVar, string appId, bool optional, string testCase)
         {
             var builder = new ConfigurationBuilder();
-            IConfiguration actual = builder.AddApiSource(configUrlVar, appId,optional).Build();
+            IConfiguration actual = builder.AddApiSource(configUrlVar, appId, optional).Build();
             var listActual = actual.GetConfigSettings();
             var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
@@ -268,7 +268,7 @@ namespace ConfigCore.Tests
         [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, false)]
         [Theory]
         // Auth Secret parameter does not identify a locally installed Certificate
-        public void OptParams_Cert_NotInstalled(string configUrlVar, string authType,string authSecretVar,  string appId, bool optional)
+        public void OptParams_Cert_NotInstalled(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
@@ -287,16 +287,16 @@ namespace ConfigCore.Tests
 
 
         // Auth Secret parameter not supplied
-        [InlineData("ConfigURL-Cert","Certificate", "",  null, true)]
-        [InlineData("ConfigURL-Cert","Certificate", "",  null, false)]
+        [InlineData("ConfigURL-Cert", "Certificate", "", null, true)]
+        [InlineData("ConfigURL-Cert", "Certificate", "", null, false)]
         [Theory]
-        public void OptParams_CertNoSecret(string configUrlVar, string authType,string authSecretVar,  string appId, bool optional)
+        public void OptParams_CertNoSecret(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
             if (optional)
             {
-                builder.AddApiSource(configUrlVar, authType,authSecretVar,  appId, optional);
+                builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional);
                 actual = builder.Build();
                 var listActual = actual.GetConfigSettings();
                 Assert.True(listActual.Count == 0);
@@ -309,7 +309,7 @@ namespace ConfigCore.Tests
         [InlineData("ConfigURL-Key", "ConfigAuth-KeyFail", "ApiKey", null, true)]
         [InlineData("ConfigURL-Cert", "ConfigAuth-KeyFail", "ApiKey", null, false)]
         // Fails authentication with an invalid key value
-        public void OptParams_Key_AuthFail(string configUrlVar, string authType,string authSecretVar,  string appId, bool optional)
+        public void OptParams_Key_AuthFail(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
@@ -325,19 +325,49 @@ namespace ConfigCore.Tests
                 Assert.Throws<System.Net.Http.HttpRequestException>(() => actual = builder.Build());
         }
 
+        [Theory]
+        [InlineData("ConfigURL-Win", "ApiKey", "ConfigAuth-Key", null, true)]
+        [InlineData("ConfigURL-Win", "ApiKey", "ConfigAuth-Key", null, false)]
         // Fails authentication - windows credentials not supplied to Host
-        public void OptParams_Windows_AuthFail()
+        // using the windows url, with APIKey headers
+        public void OptParams_Windows_AuthFail(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
-            throw new NotImplementedException();
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional);
+
+            if (optional)
+            {
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count == 0);
+            }
+            else
+                Assert.Throws<System.Net.Http.HttpRequestException>(() => actual = builder.Build());
         }
 
 
-
+        [Theory]
+        [InlineData("ConfigURL-ApiKey", "ApiKey", null, null, true)]
+        [InlineData("ConfigURL-ApiKey", "ApiKey", null, null, false)]
         // No parameter value supplied for Auth Secret
-        public void OptParams_Key_NoSecret()
+        public void OptParams_Key_NoSecret(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
-            throw new NotImplementedException();
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+        
+
+            if (optional)
+            {
+                builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional);
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(listActual.Count == 0);
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional));
         }
+
 
 
         #endregion
@@ -590,3 +620,4 @@ namespace ConfigCore.Tests
 
     }
 }
+

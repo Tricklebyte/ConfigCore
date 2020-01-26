@@ -297,17 +297,17 @@ namespace ConfigCore.Tests
             Assert.Throws<System.ArgumentException>(() => actual = builder.Build());
         }
 
-   
-       
+
+
 
         #endregion
 
         #region Convar SqlTimeout Optional
         // test overload with EnvVar and AppId parameters 
-        [InlineData("ConfigDb-Connection", 0,true,"1")]
+        [InlineData("ConfigDb-Connection", 0, true, "1")]
         [InlineData("ConfigDb-Connection", 0, false, "1")]
         [Theory]
-        public void EnvVarSqlToOpt_Good(string conStringVar,int sqlTimeout, bool optional, string testCase)
+        public void EnvVarSqlToOpt_Good(string conStringVar, int sqlTimeout, bool optional, string testCase)
         {
             var builder = new ConfigurationBuilder();
             //build actual configuraiton
@@ -321,8 +321,8 @@ namespace ConfigCore.Tests
         }
 
 
-        [InlineData("UnknownVar",0, true)]
-        [InlineData("UnknownVar",0, false)]
+        [InlineData("UnknownVar", 0, true)]
+        [InlineData("UnknownVar", 0, false)]
         [Theory]
         public void EnvVarSqlToOpt_EnvVarNotFound(string conStringVar, int SqlTimeout, bool optional)
         {
@@ -362,7 +362,7 @@ namespace ConfigCore.Tests
 
         #endregion
 
-       
+
         #region Convar AppId SqlTimeout
         // test overload with EnvVar and AppId parameters 
         [InlineData("ConfigDb-Connection", "testhost", 0, "1")]
@@ -511,12 +511,12 @@ namespace ConfigCore.Tests
         // These initial settings would be loaded first using another builder before the final configuration builder builds the complete output.
         // The prebuild could simplyTestCases\\DbSource\\AddDbSource\\Config_Env be a configuration builder that is run in Program.cs prior to calling .ConfigureAppConfiguration
         // The prebuild could also come from the default configuration loaded into DTestCases\\DbSource\\AddDbSource\\CI in the Startup class, where the final builder would be called in ConfigureServices.
-
+        [Theory]
         [InlineData("1", false)]
         [InlineData("1", true)]
         [InlineData("2", false)]
         [InlineData("2", true)]
-        [Theory]
+
         public void Config_Good(string testCase, bool optional)
         {
             // Create path to appsettings file
@@ -542,10 +542,10 @@ namespace ConfigCore.Tests
 
         }
 
-
+        [Theory]
         [InlineData("1", false)]
         [InlineData("1", true)]
-        [Theory]
+
         // test overload with Configuration Parameter
         public void Config_SectionNotFound(string testCase, bool optional)
         {
@@ -568,10 +568,10 @@ namespace ConfigCore.Tests
                 Assert.Throws<System.Exception>(() => finalBuilder.AddDbSource(initialConfig, optional));
         }
 
-
+        [Theory]
         [InlineData("1", false)]
         [InlineData("1", true)]
-        [Theory]
+
         // test overload with Configuration Parameter
         public void Config_ConnectFail(string testCase, bool optional)
         {
@@ -598,12 +598,11 @@ namespace ConfigCore.Tests
 
         }
 
-
-        [InlineData("testhost", false, "1")]
-        [InlineData("testhost", true, "1")]
         [Theory]
+        [InlineData("1", false)]
+        [InlineData("1", true)]
         // test overload with Configuration parameter
-        public void Config_QueryFail(string appId, bool optional, string testCase)
+        public void Config_QueryFail(string testCase, bool optional)
         {
             IConfiguration actual;
             // Create path to appsettings file

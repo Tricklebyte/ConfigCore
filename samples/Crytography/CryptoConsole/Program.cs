@@ -45,39 +45,28 @@ namespace ConfigCore.CryptoConsole
         }
         internal void UserLoop()
         {
-            string message = null;
             string[] options;
-            string inputMain = null;
-            string inputName = null;
-            string inputValue = null;
-            string inputConfirm = null;
-            string plainVal = null;
-            string encVal = null;
             string optionString = null;
-            string input = null;
             string _encValPrefix = _prefix;
 
 
         Start:
             while (true)
             {
-                message =
-                    "\n-- Enter [E] to Encrypt a configuration setting\n"
-                    + "-- Enter [D] to Secrypt a configuration setting\n"
-                    + "-- Enter [X] to Exit\n\n";
+                string message =
+        "\n-- Enter [E] to Encrypt a configuration setting\n"
+        + "-- Enter [D] to Secrypt a configuration setting\n"
+        + "-- Enter [X] to Exit\n\n";
                 options = new string[] { "E", "D", "X" };
 
-                inputMain = GetUserChoice(message, options).ToUpper();
+                string inputMain = GetUserChoice(message, options).ToUpper();
                 if (inputMain == "X")
                 {
                     return;
                 }
 
                 // if we are still here, then we wil either encrypt or decrypt a value
-                string settingKey = "";
-                string settingValue = "";
-
-                // Ask the user to confirm the name of the setting
+                // Ask the user to enter the name of the setting
                 if (inputMain == "E")
                 {
                     optionString = "ENCRYPT";
@@ -93,22 +82,22 @@ namespace ConfigCore.CryptoConsole
                     message = $"Enter the full key of the setting to be {optionString}ED";
 
                     //Get User Confirmation
-                    inputName = GetUserInput(message);
+                    string inputName = GetUserInput(message);
 
                     message = $"Enter the value to be {optionString}ED";
 
-                    inputValue = GetUserInput(message);
+                    string inputValue = GetUserInput(message);
 
                     try
                     {
                         if (optionString == "ENCRYPT")
                         {
-                            encVal = _crypto.Protect(inputName, inputValue, _encValPrefix);
+                            string encVal = _crypto.Protect(inputName, inputValue, _encValPrefix);
                             message = $"\nOperation Success!\n\nSettingName: {inputName}\nDecrypted Value:{inputValue}\nEncrypted Value:\n{encVal}";
                         }
                         if (optionString == "DECRYPT")
                         {
-                            plainVal = _crypto.Unprotect(inputName, inputValue, _encValPrefix);
+                            string plainVal = _crypto.Unprotect(inputName, inputValue, _encValPrefix);
                             message = $"\nOperation Success.\nSettingName: '{inputName}'\nEncrypted Value:'\n{inputValue}'\nDecrypted Value: '{plainVal}'";
                         }
                     }

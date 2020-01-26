@@ -25,10 +25,9 @@ namespace ConfigCore.Cryptography
 
 
         //Encrypt string value
-        public virtual string Protect(string purpose, string plainText, string encValPrefix = "")
+        public virtual string Protect(string purpose, string plainText, string encValPrefix )
         {
             string response = "";
-            string protectedText = "";
             var protector = _provider.CreateProtector(purpose);
 
             try
@@ -54,7 +53,7 @@ namespace ConfigCore.Cryptography
 
       
         //Decrypt string value
-        public string Unprotect(string purpose, string encryptedValue, string encValPrefix = "")
+        public string Unprotect(string purpose, string encryptedValue, string encValPrefix)
         {
             string response = "";
 

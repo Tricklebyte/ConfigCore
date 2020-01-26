@@ -30,7 +30,6 @@ namespace EncryptedConfigClient
           // Get the DPAPI Service provider which a dependency of CryptoHelper  
             var serviceProvider = services.BuildServiceProvider();
 
-
             //Add ICryptoHelper, with its dependency, to DI
             ICryptoHelper crypto = serviceProvider.GetRequiredService<ICryptoHelper>();
            
