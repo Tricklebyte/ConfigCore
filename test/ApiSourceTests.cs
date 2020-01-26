@@ -16,7 +16,7 @@ namespace ConfigCore.Tests
     {
 
         //  create environment variables ############################################
-        List<EnvVar> _envVarList;
+        readonly List<EnvVar> _envVarList;
 
         public ApiSourceFixture()
         {

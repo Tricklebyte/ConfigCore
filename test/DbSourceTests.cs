@@ -23,7 +23,7 @@ namespace ConfigCore.Tests
     public class DbSourceFixture : IDisposable
     {
         //  create environment variables ############################################
-        List<EnvVar> _envVarList;
+        readonly List<EnvVar> _envVarList;
         public DbSourceFixture()
         {
             string path = Environment.CurrentDirectory + "\\TestCases\\DbSource\\DbEnvVars.json";

@@ -9,7 +9,7 @@ namespace ConfigCore.Cryptography
 {
     public class CryptoHelper : ICryptoHelper
     {
-        private IDataProtectionProvider _provider;
+        private readonly IDataProtectionProvider _provider;
 
         // Create byte array for additional entropy when using Protect method.
         // static byte[] s_aditionalEntropy = { 9, 8, 7, 6, 5 };

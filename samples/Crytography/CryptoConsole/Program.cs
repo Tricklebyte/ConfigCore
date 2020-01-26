@@ -36,8 +36,8 @@ namespace ConfigCore.CryptoConsole
     }
     public class StringEncryptor
     {
-        ICryptoHelper _crypto   ;
-        string _prefix;
+        readonly ICryptoHelper _crypto   ;
+        readonly string _prefix;
         public StringEncryptor(string encPrefix, ICryptoHelper crypto)
         {
             _prefix = encPrefix;
