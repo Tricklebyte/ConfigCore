@@ -1,4 +1,5 @@
-﻿using ConfigCore.Models;
+﻿using ConfigCore.Extensions;
+using ConfigCore.Models;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;

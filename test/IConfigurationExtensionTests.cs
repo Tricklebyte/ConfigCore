@@ -1,4 +1,5 @@
 ﻿using ConfigCore.Cryptography;
+using ConfigCore.Extensions;
 using ConfigCore.Models;
 using Newtonsoft.Json;
 using System;

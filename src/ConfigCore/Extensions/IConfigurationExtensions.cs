@@ -8,7 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
-namespace ConfigCore
+namespace ConfigCore.Extensions
 {
     public static class IConfigurationExtensions
     {

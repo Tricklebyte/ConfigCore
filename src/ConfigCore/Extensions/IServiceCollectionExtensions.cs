@@ -6,7 +6,7 @@ using System.Linq;
 using Microsoft.AspNetCore.DataProtection;
 using ConfigCore.Cryptography;
 
-namespace ConfigCore
+namespace ConfigCore.Extensions
 {
     public static class IServiceCollectionExtensions
     {
