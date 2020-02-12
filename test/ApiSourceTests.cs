@@ -308,6 +308,7 @@ namespace ConfigCore.Tests
 
         [InlineData("ConfigURL-Key", "ConfigAuth-KeyFail", "ApiKey", null, true)]
         [InlineData("ConfigURL-Cert", "ConfigAuth-KeyFail", "ApiKey", null, false)]
+        [Theory]
         // Fails authentication with an invalid key value
         public void OptParams_Key_AuthFail(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
         {
@@ -322,7 +323,7 @@ namespace ConfigCore.Tests
                 Assert.True(listActual.Count == 0);
             }
             else
-                Assert.Throws<System.Net.Http.HttpRequestException>(() => actual = builder.Build());
+                Assert.Throws<System.AggregateException>(() => actual = builder.Build());
         }
 
         [Theory]
