@@ -79,14 +79,14 @@ namespace ConfigCore.Extensions
         //API Source Override with Single parameter for ConfigURL - used with Windows Auth and Default AppId
         public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, null, false));
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, "", false));
         }
 
         //URL,OPTIONAL
         //API Source Override with Single parameter for ConfigURL - used with Windows Auth and Default AppId
         public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, bool optional)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, null, optional));
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, "", optional));
         }
 
         //URL,APPID
@@ -106,13 +106,13 @@ namespace ConfigCore.Extensions
         //URL,AUTHT,AUTHS
         public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, null, false));
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, "", false));
         }
 
         //URL,AUTHT,AUTHS,OPTIONAL
         public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, bool optional)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, null, optional));
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar,"", optional));
         }
 
         //URL,AUTHT,AUTHS,APPID
@@ -126,8 +126,28 @@ namespace ConfigCore.Extensions
             return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, appId, optional));
         }
 
+   //URL,PARAMS
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, Dictionary<string,string> qParams)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar,null,null,qParams,false));
+        }
 
+        //URL,PARAMS,OPTIONAL
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, Dictionary<string, string> qParams, bool optional)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, qParams, optional));
+        }
 
+        //URL,AUTHT,AUTHS,PARAMS
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, Dictionary<string, string> qParams)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, qParams, false));
+        }
+        //URL.PARMS,AUTHT,ATHS,PARAMS,OPTIONAL
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, Dictionary<string, string> qParams, bool optional)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, qParams, optional));
+        }
 
 
 

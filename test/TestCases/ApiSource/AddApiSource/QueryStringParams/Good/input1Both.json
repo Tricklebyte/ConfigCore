@@ -1,0 +1,41 @@
+{
+  "Input": [
+    {
+      "Name": "appId",
+      "Value": null
+    },
+    {
+      "Name": "SettingKey",
+      "Value": "Setting1"
+    },
+
+    {
+      "Name": "SettingKey",
+      "Value": "Setting3"
+    },
+    {
+      "Name": "SettingKey",
+      "Value": "Setting5"
+    }
+  ],
+
+
+  "Expected": [
+    {
+      "SettingKey": "Setting1",
+      "SettingValue": "Setting 1 - Value for test host"
+    },
+
+    {
+      "SettingKey": "Setting3",
+      "SettingValue": "Setting 3 - Value for test host"
+    },
+
+    {
+      "SettingKey": "Setting5",
+      "SettingValue": "Setting 5 - Value for test host"
+    }
+  ]
+}
+
+//string authType, string authSecretVar, string P1Name, string P1Val, string P2Name, string P2Val, string P3Name, string P3Val,

@@ -618,6 +618,37 @@ namespace ConfigCore.Tests
 
         #endregion
 
+        #region AddApiSource Overloads with Query String Parameters
+        // Exact Match, AND
+
+        //URL, Dict
+        [Theory]
+        [InlineData("ConfigURL-Anon", "Anon", null,"1", true)]
+        [InlineData("ConfigURL-Anon", "Anon", null, "1", false)]
+        [InlineData("ConfigURL-Anon", "Anon", null, "2", true)]
+        [InlineData("ConfigURL-Anon", "Anon", null, "2", false)]
+        public void QParams_Good(string configUrlVar, string authType, string authSecret,string testCase, bool optional)
+        {
+            var builder = new ConfigurationBuilder();
+          //  var listParams = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\QueryStringParams\\Good\\input{testCase}.json"));
+            Dictionary<string,string> dictParams = JsonConvert.DeserializeObject<Dictionary<string,string>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\QueryStringParams\\Good\\input{testCase}.json"));
+
+            IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecret, dictParams, optional).Build();
+
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\OptParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+        //RUL, Dict, OPT
+        //URL, AUTHT, AUTHS, DICT
+        //URL, AUTHT, AUTHS, DICT, OPT
+
+
+        //QParams - illegal character in parameter name
+        //QParams - illegal Paramter value
+        //QParams - Empty Dictionary
+        #endregion
     }
 }
 

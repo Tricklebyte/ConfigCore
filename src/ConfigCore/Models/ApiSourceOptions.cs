@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
@@ -15,6 +16,7 @@ namespace ConfigCore.Models
         public string ConfigUrlKey { get; set; }
         public string ConfigUrl { get; set; }
         public string AppId { get; set; }
+
         bool _optional;
       
 
@@ -34,9 +36,22 @@ namespace ConfigCore.Models
             AppId = appId;
             SetDefaults();
             SetConfigUrlFromEnvVar(configUrlVar);
-            SetAuthSecretFromEnvVar(authType,authSecretVar);
+            string[] rparams = { AppId};
+            SetRouteParameters(rparams);
+            SetAuthSecretFromEnvVar(authSecretVar);
         }
 
+        public ApiSourceOptions (string configUrlVar,string authType,  string authSecretVar, Dictionary<string,string> qParams, bool optional) {
+            _optional = optional;
+            AuthType = authType;
+        
+            SetDefaults();
+            SetConfigUrlFromEnvVar(configUrlVar);
+           
+            SetQueryParameters(qParams);
+
+            SetAuthSecretFromEnvVar(authSecretVar);
+        }
         
         /// <summary>
         /// Accepts Configuration as parameter. Used to override default apiclient settings 
@@ -63,12 +78,11 @@ namespace ConfigCore.Models
 
             //Set Full Configuration API URL including action and Parmater
             ConfigUrl = config[ConfigUrlKey];
-           
+            SetRouteParameters(new string[] { AppId });
+            
             if (string.IsNullOrEmpty(ConfigUrl))
                 throw new Exception($"Configuration setting not found: '{ConfigUrlKey}'");
-            else
-                // Verify trailing slash and add parameter to url string
-                ConfigUrl = ConfigUrl.TrimEnd('/') + @"/" + AppId;
+          
           
             // Check if Authorization secret is required and present
             if (AuthType == "Certificate" || AuthType == "ApiKey")
@@ -89,19 +103,18 @@ namespace ConfigCore.Models
 
             if (ConfigUrl == null && _optional == false)
                 throw new Exception($"Unable to create Api Source Options, Environment Variable: '{configUrlVar}' not found.");
-            else
+            else { 
                 SetDefaults();
-            // Verify trailing slash and add parameter to url string
-            ConfigUrl = ConfigUrl.TrimEnd('/') + "/" + AppId;
-            
+         
+            }
         }
 
-        public void SetAuthSecretFromEnvVar(string authType, string authSecretVar)
+        public void SetAuthSecretFromEnvVar(string authSecretVar)
         {
             // Get Defaults must have already been called.
 
             // If the authentication type requires a secret, verify the secret is there
-            if (authType == "ApiKey" || authType =="Certificate")
+            if (AuthType == "ApiKey" || AuthType =="Certificate")
             {
                 AuthSecret = Environment.GetEnvironmentVariable(authSecretVar);
             
@@ -110,7 +123,20 @@ namespace ConfigCore.Models
             }
         }
 
-
+        public void SetQueryParameters(Dictionary<string,string> qParams)
+        {
+            // if query paramaters have been supplied, add them as query string parameters
+            
+            var newUrl = new Uri(QueryHelpers.AddQueryString(ConfigUrl, qParams));
+            ConfigUrl = newUrl.ToString();
+        }
+       
+        public void SetRouteParameters(string [] rParams)
+        {
+            for(int i = 0;i<rParams.Length;i++)
+            ConfigUrl = ConfigUrl.TrimEnd('/') + "/" + rParams[i];
+        }
+        
         private void SetDefaults()
         {
             if (string.IsNullOrEmpty(ConfigUrlKey))

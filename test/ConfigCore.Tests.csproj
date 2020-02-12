@@ -63,6 +63,21 @@
     <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidURL\AnonInvalidUrl.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\input1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\input2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\input1Both.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestCases\ApiSource\ApiEnvVars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

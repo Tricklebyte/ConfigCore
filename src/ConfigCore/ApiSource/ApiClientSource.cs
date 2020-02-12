@@ -66,6 +66,28 @@ namespace ConfigCore.ApiSource
                 return;
             }
         }
+        public ApiClientSource(IConfigurationBuilder builder, string configUrlVar, string authType, string authSecretVar, Dictionary<string,string> qParams, bool optional)
+        {
+            _optional = optional;
+            
+            
+            try
+            {
+                //Create the apiOptions object
+                ApiSourceOptions apiOptions = new ApiSourceOptions(configUrlVar, authType, authSecretVar, qParams, optional);
+                //Initialize the correct HTTP client for the Authentication type
+                _client = HttpClientHelper.GetHttpClient(apiOptions);
+                _request = HttpClientHelper.GetHttpRequest(apiOptions);
+            }
+            catch (Exception e)
+            {
+                if (!optional)
+                    throw e;
+                return;
+            }
+        }
+
+       
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         { 
