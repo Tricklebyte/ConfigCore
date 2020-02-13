@@ -16,6 +16,7 @@ namespace ConfigCore.Models
         public string ConfigUrlKey { get; set; }
         public string ConfigUrl { get; set; }
         public string AppId { get; set; }
+        public BearerConfig BearerConfig { get; set; }
 
         bool _optional;
       
@@ -52,9 +53,26 @@ namespace ConfigCore.Models
 
             SetAuthSecretFromEnvVar(authSecretVar);
         }
-        
+
+        // Bearer Token Config Options parameter
+        public ApiSourceOptions(string configUrlVar, BearerConfig bConfig, string appId, bool optional) {
+       
+            _optional = optional;
+            BearerConfig = bConfig;
+            AuthType = "Bearer";
+            AppId = appId;
+            SetDefaults();
+            SetConfigUrlFromEnvVar(configUrlVar);
+            string[] rparams = { AppId };
+            SetRouteParameters(rparams);
+            ValidateBearerConfig();
+            //Check for valid Bearer token settings
+        }
+
+        public ApiSourceOptions(string configUrlVar, BearerConfig bConfig, Dictionary<string, string> qParams, bool optional) { }
+
         /// <summary>
-        /// Accepts Configuration as parameter. Used to override default apiclient settings 
+        /// Accepts Configuration as parameter. Used to override default api client settings 
         /// </summary>
         /// <param name="config"></param>
         /// <param name="optional"></param>
@@ -92,6 +110,25 @@ namespace ConfigCore.Models
                     throw new Exception($"Authentication secret not found in configuration setting - 'ConfigOptions:ApiSource:AuthSecret'");
                 }
             }
+
+        }
+
+
+        public void ValidateBearerConfig()
+        {
+            string ErrMsg="";
+            if (String.IsNullOrEmpty(BearerConfig.Authority))
+                ErrMsg += "Bearer Token Authority URL not found.\n";
+            if (!Uri.IsWellFormedUriString(BearerConfig.Authority, UriKind.Absolute))
+                ErrMsg += "Bearer Token Authority URL not well formed.\n";
+            if (String.IsNullOrEmpty(BearerConfig.ClientId))
+                ErrMsg += "Bearer Token Client Id not found.\n";
+            if (String.IsNullOrEmpty(BearerConfig.ClientSecret))
+                ErrMsg += "Bearer Token Client Secret not found.\n";
+            if (String.IsNullOrEmpty(BearerConfig.Scope))
+                ErrMsg += "Bearer Token Scope not found.\n";
+            if (ErrMsg.Length>1)
+                throw (new System.ArgumentException(ErrMsg));
 
         }
 

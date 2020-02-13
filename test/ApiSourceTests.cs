@@ -158,10 +158,6 @@ namespace ConfigCore.Tests
                 Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, null, authType, appId, optional));
         }
 
-
-
-
-
         // Environment Variable for ConfigURL not found. Will fail on adding ApiSource
         [InlineData(null, "Anon", null, null, true)]
         [InlineData(null, "Anon", null, null, false)]
@@ -368,8 +364,6 @@ namespace ConfigCore.Tests
             else
                 Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authType, authSecretVar, appId, optional));
         }
-
-
 
         #endregion
 
@@ -641,15 +635,42 @@ namespace ConfigCore.Tests
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
-        //RUL, Dict, OPT
-        //URL, AUTHT, AUTHS, DICT
-        //URL, AUTHT, AUTHS, DICT, OPT
 
 
         //QParams - illegal character in parameter name
         //QParams - illegal Paramter value
         //QParams - Empty Dictionary
         #endregion
+
+        #region BearerTokenAuthentication
+        [InlineData("ConfigURL-Bearer","https://demo.identityserver.io", "m2m.short", "secret","api","testhost","1",true)]
+        [InlineData("ConfigURL-Bearer","https://demo.identityserver.io", "m2m.short", "secret", "api", "testhost", "1", false)]
+        [Theory]
+        public void JwtBearer_OptParams_Good(string configUrlVar, string authority,string clientId, string clientSecret, string scope,string appId, string testCase, bool optional)
+        {
+            // Create path to appsettings file
+      //      string jsonPath = $"TestCases\\ApiSource\\AddApiSource\\Config\\Good\\{testCase}.json";
+
+          
+            // Create the  builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+
+            BearerConfig bConfig = new BearerConfig { Authority = authority, ClientId = clientId, ClientSecret=clientSecret, Scope = scope};
+
+            // Add the DBSource to the final builder
+            builder.AddApiSource(configUrlVar,bConfig,appId, optional);
+
+            // Build the final config
+            var actual = builder.Build();
+
+            // Convert to lists and compare
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\AddApiSource\\Config\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+        #endregion
+
+
     }
 }
 

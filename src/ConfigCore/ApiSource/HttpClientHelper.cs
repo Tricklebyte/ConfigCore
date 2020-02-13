@@ -1,4 +1,5 @@
 ﻿using ConfigCore.Models;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System;
@@ -44,7 +45,11 @@ namespace ConfigCore.ApiSource
                     returnClient = new HttpClient() { BaseAddress = baseAddress };
                     break;
 
-
+                case "Bearer":
+                    returnClient = new HttpClient() { BaseAddress = baseAddress };
+                    returnClient.SetBearerToken(GetBearerToken(options.BearerConfig));
+                    
+                    break;
                 case "Windows":
                      handler = new HttpClientHandler
                     {
@@ -80,12 +85,38 @@ namespace ConfigCore.ApiSource
                 case "Windows":
                 case "Certificate":
                 case "Anon":
+                case "Bearer":
                     break;
             }
 
             return request;
 
+        }
 
+         static string GetBearerToken(BearerConfig bConfig) {
+            var client = new HttpClient();
+            var disco = client.GetDiscoveryDocumentAsync(bConfig.Authority).Result;
+            if (disco.IsError)
+            {
+                throw new Exception($"Get Discovery Document Error: {disco.Exception.Message}");
+            }
+
+            var tokenResponse =  client.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+
+                ClientId = bConfig.ClientId,
+                ClientSecret = bConfig.ClientSecret,
+                Scope = bConfig.Scope
+            }).Result;
+
+            if (tokenResponse.IsError)
+            {
+                throw new Exception($"Get Token Error: {tokenResponse.Error}");
+               
+            }
+
+            return tokenResponse.AccessToken;
         }
 
     }

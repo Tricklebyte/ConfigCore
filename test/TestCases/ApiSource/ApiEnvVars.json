@@ -10,11 +10,15 @@
   {
     "Key": "ConfigURL-Win",
     // "Value": "https://localhost:44343/iapi/ConfigSettings"
-     "Value": "https://localhost:5003/iapi/ConfigSettings"
+    "Value": "https://localhost:5003/iapi/ConfigSettings"
   },
   {
     "Key": "ConfigURL-Anon",
     "Value": "https://localhost:5001/iapi/ConfigSettings"
+  },
+  {
+    "Key": "ConfigURL-Bearer",
+    "Value": "https://localhost:5009/iapi/ConfigSettings"
   },
   {
     "Key": "ConfigAuth-Key",
@@ -33,7 +37,7 @@
     "Key": "ConfigAuth-CertFail",
     "Value": "A38CDB31C6F3D1D68E8439CB82DED1C6B3321FC8"
   },
-  {// This is a thumbprint that is not installed in the test environment
+  { // This is a thumbprint that is not installed in the test environment
     "Key": "ConfigAuth-CertNotFound",
     "Value": "12345BadThumbprint12345"
   },

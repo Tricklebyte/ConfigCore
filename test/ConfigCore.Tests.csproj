@@ -63,6 +63,12 @@
     <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidURL\AnonInvalidUrl.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="TestCases\ApiSource\AddApiSource\JwtBearer\Good\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestCases\ApiSource\AddApiSource\JwtBearer\Good\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -245,6 +251,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="TestCases\ApiSource\AddApiSource\JwtBearer\AuthFail\" />
+    <Folder Include="TestCases\ApiSource\AddApiSource\JwtBearer\ConnectFail\" />
+    <Folder Include="TestCases\ApiSource\AddApiSource\JwtBearer\InvalidConfig\" />
     <Folder Include="TestCases\CryptoHelper\ProtectUnprotect\" />
   </ItemGroup>
 

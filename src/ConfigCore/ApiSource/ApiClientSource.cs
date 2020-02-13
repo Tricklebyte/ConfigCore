@@ -66,10 +66,31 @@ namespace ConfigCore.ApiSource
                 return;
             }
         }
+
+
+        public ApiClientSource(IConfigurationBuilder builder, string configUrlVar, BearerConfig bConfig,string appId = null, bool optional = false)
+        {
+            _optional = optional;
+            try
+            {
+                //Create the apiOptions object
+                ApiSourceOptions apiOptions = new ApiSourceOptions(configUrlVar,bConfig,appId, optional);
+                //Initialize the correct HTTP client for the Authentication type
+                _client = HttpClientHelper.GetHttpClient(apiOptions);
+                _request = HttpClientHelper.GetHttpRequest(apiOptions);
+            }
+            catch (Exception e)
+            {
+                if (!optional)
+                    throw e;
+                return;
+            }
+        }
+
+
         public ApiClientSource(IConfigurationBuilder builder, string configUrlVar, string authType, string authSecretVar, Dictionary<string,string> qParams, bool optional)
         {
             _optional = optional;
-            
             
             try
             {
@@ -87,17 +108,32 @@ namespace ConfigCore.ApiSource
             }
         }
 
-       
+        public ApiClientSource(IConfigurationBuilder builder, string configUrlVar, BearerConfig bconfig, Dictionary<string, string> qParams, bool optional)
+        {
+            _optional = optional;
 
+            try
+            {
+                //Create the apiOptions object
+                ApiSourceOptions apiOptions = new ApiSourceOptions(configUrlVar, bconfig, qParams, optional);
+                //Initialize the correct HTTP client for the Authentication type
+                _client = HttpClientHelper.GetHttpClient(apiOptions);
+                _request = HttpClientHelper.GetHttpRequest(apiOptions);
+            }
+            catch (Exception e)
+            {
+                if (!optional)
+                    throw e;
+                return;
+            }
+        }
+      
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         { 
             //TODO pass httpclient
             return new ApiClientProvider(_client, _request,_optional);
         }
 
-        private void SetClient()
-        {
-
-        }
+   
     }
 }

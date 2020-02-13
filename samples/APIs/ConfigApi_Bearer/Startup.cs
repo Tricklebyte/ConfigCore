@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace ConfigApi_Anon
+namespace ConfigApi_Bearer
 {
     public class Startup
     {
@@ -20,8 +20,18 @@ namespace ConfigApi_Anon
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-          
+           
             services.AddControllers();
+
+            //ADD JWTBearer online Identityserver demo
+            services.AddAuthentication("Bearer")
+            .AddJwtBearer("Bearer", options =>
+            {
+                options.Authority = "https://demo.identityserver.io";
+                options.RequireHttpsMetadata = false;
+
+                options.Audience = "api";
+            });
 
         }
 
@@ -38,7 +48,10 @@ namespace ConfigApi_Anon
 
             app.UseRouting();
 
+            //use  JWTBearer
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
