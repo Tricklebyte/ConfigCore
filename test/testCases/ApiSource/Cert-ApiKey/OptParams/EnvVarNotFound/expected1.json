@@ -1,0 +1,8 @@
+[
+
+  {
+    "SettingKey": "ConfigurationMetaData:ApiSource:ExceptionMessage",
+    "SettingValue": "Unable to create Api Source Options, Environment Variable: 'ConfigApi-UnknownVar' not found or is empty."
+  }
+
+]

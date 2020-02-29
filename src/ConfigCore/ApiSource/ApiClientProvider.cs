@@ -15,36 +15,51 @@ namespace ConfigCore.ApiSource
         private readonly HttpClient _client;
         private readonly HttpRequestMessage _request;
         private readonly bool _optional;
-        public ApiClientProvider(HttpClient client, HttpRequestMessage request, bool optional)
+        private readonly string _apiClientSourceError;
+        public ApiClientProvider(HttpClient client, HttpRequestMessage request, bool optional,string apiClientSourceError)
         {
             _client = client;
             _request = request;
             _optional = optional;
+            _apiClientSourceError = apiClientSourceError;
         }
 
         public override void Load()
         {
             List<ConfigSetting> settingList = new List<ConfigSetting>();
-
+            HttpResponseMessage response = null;
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
             };
-            try
-            {
-                var response = _client.SendAsync(_request).Result;
-                response.EnsureSuccessStatusCode();
 
-                if (response.Content.Headers.ContentLength > 0)
+            if (string.IsNullOrEmpty(_apiClientSourceError))
+            {
+                try
                 {
-                    var json = response.Content.ReadAsStringAsync().Result;
-                    settingList = JsonSerializer.Deserialize<List<ConfigSetting>>(json,options);
+                    response = _client.SendAsync(_request).Result;
+                    response.EnsureSuccessStatusCode();
+
+                    if (response.Content.Headers.ContentLength > 0)
+                    {
+                        var json = response.Content.ReadAsStringAsync().Result;
+                        settingList = JsonSerializer.Deserialize<List<ConfigSetting>>(json, options);
+                    }
+                }
+                catch (Exception e)
+                {
+                    if (!_optional)
+                        throw (e);
+                    else
+                    {
+                        Data.Add("ConfigurationMetaData:ApiSource:RequestURI", _client.BaseAddress.AbsoluteUri);
+                        Data.Add("ConfigurationMetaData:ApiSource:ExceptionMessage", e.Message.ToString());
+                    }
                 }
             }
-            catch (Exception e)
+            else
             {
-                if (!_optional)
-                    throw (e);
+                Data.Add("ConfigurationMetaData:ApiSource:ExceptionMessage", _apiClientSourceError);
             }
 
             if (settingList != null && settingList.Count > 0)

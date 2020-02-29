@@ -40,7 +40,6 @@ namespace ConfigCore.DbSource
         //
         public DbConfigSource(IConfigurationBuilder builder, string conKeyVar, string appId, int sqlCommandTimeout, bool optional)
         {
-           
             _optional = optional;
        
             try
@@ -79,6 +78,7 @@ namespace ConfigCore.DbSource
                 return;
             }
         }
+
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {

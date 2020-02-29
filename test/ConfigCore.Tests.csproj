@@ -4,237 +4,512 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
-    <PackageReference Include="coverlet.collector" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="1.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\CreateRequestFail\KeyNoSecret.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\AuthFail\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\KeyAuthFail.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\AuthFail\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\CreateRequestFail\CertNotInstalled.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\AuthFail\input2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\CreateRequestFail\CertNoSecret.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\ConnectFail\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\WinAuthFail.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\Good\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\CertAuthFail.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\Good\input2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\AuthFail\AnonAuthFail.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\Good\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\KeyGood2.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\KeyGood1.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\InvalidURL\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\WinGood2.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\SectionNotFound\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\WinGood1.json">
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\WrongUrl\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\CertGood2.json">
+    <None Update="testCases\ApiSource\Anon-Win\OptParams\EnvVarNotFound\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\CertGood1.json">
+    <None Update="testCases\ApiSource\Anon-Win\OptParams\InvalidUrl\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\AnonGood2.json">
+    <None Update="testCases\ApiSource\Anon-Win\OptParams\NullUrlVarParam\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\AnonGood1.json">
+    <None Update="testCases\ApiSource\Anon-Win\QueryParams\Good\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidURL\AnonInvalidUrl.json">
+    <None Update="testCases\ApiSource\Anon-Win\QueryParams\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\JwtBearer\Good\expected1.json">
+    <None Update="testCases\ApiSource\Anon-Win\QueryParams\Good\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\JwtBearer\Good\expected2.json">
+    <None Update="testCases\ApiSource\Anon-Win\QueryParams\Good\input2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\expected2.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\AuthFail\AnonAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\input1.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\AuthFail\WinAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\input2.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\ConnectFail\AnonConnFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\input1Both.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\ConnectFail\WinConnFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\QueryStringParams\Good\expected1.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\InvalidURL\AnonInvalidUrl.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\ApiEnvVars.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\SectionNotFound\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\AnonConnFail.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\EnvVars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\CertConnFail.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\AuthFail\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\KeyConnFail.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\ConnectFail\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\ConnectFail\WinConnFail.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\EnvVarNotFound\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\AnonGood2.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\WrongUrl\WrongUrlExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\CertGood2.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\QueryParams\Good\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\KeyGood2.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\QueryParams\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\KeyGood1.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\QueryParams\Good\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\WinGood2.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\QueryParams\Good\input2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\WinGood1.json">
+    <None Update="testCases\ApiSource\Certificate\ConfigParameter\AuthFail\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\AnonGood1.json">
+    <None Update="testCases\ApiSource\Certificate\ConfigParameter\ConnectFail\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\CertGood1.json">
+    <None Update="testCases\ApiSource\Certificate\ConfigParameter\CreateRequestFail\NoCert.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\expected1.json">
+    <None Update="testCases\ApiSource\Certificate\ConfigParameter\CreateRequestFail\CertNotInstalled.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\Good\expected2.json">
+    <None Update="testCases\ApiSource\Certificate\ConfigParameter\InvalidURL\AnonInvalidUrl.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidUrl\appsettingsCert1.json">
+    <None Update="testCases\ApiSource\Certificate\ConfigParameter\SectionNotFound\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidUrl\appsettingsKey1.json">
+    <None Update="testCases\ApiSource\Certificate\OptParams\AuthFail\WinAuthFailExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\InvalidUrl\appsettingsWin1.json">
+    <None Update="testCases\ApiSource\Certificate\OptParams\ConnectFail\ConnectFailExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\Config\SectionNotFound\appsettings1.json">
+    <None Update="testCases\ApiSource\Certificate\OptParams\WrongUrl\WrongUrlExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\OptParams\Good\expected1.json">
+    <None Update="testCases\ApiSource\Windows\ConfigParameter\Good\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\AddApiSource\OptParams\Good\expected2.json">
+    <None Update="testCases\ApiSource\Windows\ConfigParameter\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\HttpHelper\expected3.json">
+    <None Update="testCases\ApiSource\Windows\ConfigParameter\Good\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\HttpHelper\expected2.json">
+    <None Update="testCases\ApiSource\Windows\ConfigParameter\Good\input2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\HttpHelper\expected1.json">
+    <None Update="testCases\Old\ApiSource\CertKey\CertKeyEnvVars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\HttpHelper\GetHttpRequest\expected3.json">
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\AuthFail\CertAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\HttpHelper\GetHttpRequest\expected2.json">
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\AuthFail\KeyAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\ApiSource\HttpHelper\GetHttpRequest\expected1.json">
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\ConnectFail\CertConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\ConnectFail\KeyConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\CreateRequestFail\CertNoSecret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\CreateRequestFail\CertNotInstalled.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\CreateRequestFail\KeyNoSecret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\Good\input1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\Good\input2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\Good\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\ConfigParam\Good\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\QueryParams\ConnectFail\CertConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\QueryParams\ConnectFail\KeyConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\QueryParams\CreateRequestFail\CertNoSecret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\QueryParams\CreateRequestFail\CertNotInstalled.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\QueryParams\CreateRequestFail\KeyNoSecret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\QueryParams\Good\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\QueryParams\Good\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\OptParams\CreateRequestFail\KeyNoSecret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\OptParams\AuthFail\KeyAuthFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\OptParams\CreateRequestFail\CertNotInstalled.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\OptParams\CreateRequestFail\CertNoSecret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\OptParams\Good\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\OptParams\Good\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\AuthFail\AnonAuthFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\AuthFail\WinAuthFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\ConnectFail\AnonConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\ConnectFail\WinConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\InvalidURL\AnonInvalidUrl.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\SectionNotFound\appsettings1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\EnvVars.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\AuthFail\input1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\ConnectFail\CertConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\ConnectFail\KeyConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\CreateRequestFail\CertNoSecret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\CreateRequestFail\CertNotInstalled.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\CreateRequestFail\KeyNoSecret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\AuthFail\input1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\ConnectFail\input1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\InvalidURL\input1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Anon-Win\ConfigParam\SectionNotFound\input1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Anon-Win\EnvVars.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\AuthFail\WinAuthFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\OptParams\AuthFail\CertAuthFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\AuthFail\AnonAuthFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\KeyGood2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\KeyGood1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\WinGood2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\WinGood1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\CertGood2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\CertGood1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\AnonGood2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\AnonGood1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\InvalidURL\AnonInvalidUrl.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\QueryParams\Good\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\QueryParams\Good\input1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\QueryParams\Good\input2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\QueryParams\Good\input1Both.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\QueryParams\Good\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Anon-Win\OptParams\AuthFail\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Anon-Win\OptParams\ConnectFail\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Anon-Win\OptParams\WrongUrl\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\ApiEnvVars.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\ConnectFail\AnonConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\OptParams\ConnectFail\CertConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\CertKey\OptParams\ConnectFail\KeyConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\ConnectFail\WinConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\AnonGood2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\CertGood2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\KeyGood2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\KeyGood1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\WinGood2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\WinGood1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\AnonGood1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\CertGood1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\Good\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\Config\SectionNotFound\appsettings1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\OptParams\Good\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\Old\ApiSource\inproc\OptParams\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\Config\ConnectFail\appsettings1.json">
+    <None Update="testCases\ApiSource\JwtBearer\OptParams\AuthFail\WinAuthFailExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\Config\Good\appsettings1.json">
+    <None Update="testCases\ApiSource\JwtBearer\OptParams\ConnectFail\ConnectFailExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\Config\Good\appsettings2.json">
+    <None Update="testCases\ApiSource\JwtBearer\OptParams\WrongUrl\WrongUrlExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\Config\Good\expected1.json">
+    <None Update="testCases\ApiSource\Windows\ConfigParameter\AuthFail\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\Config\Good\expected2.json">
+    <None Update="testCases\ApiSource\Windows\ConfigParameter\ConnectFail\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\Config\QueryFail\appsettings1.json">
+    <None Update="testCases\ApiSource\Windows\ConfigParameter\InvalidURL\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\Config\SectionNotFound\appsettings1.json">
+    <None Update="testCases\ApiSource\Windows\ConfigParameter\SectionNotFound\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\EnvVar\Good\expected1.json">
+    <None Update="testCases\ApiSource\Windows\OptParams\AuthFail\WinAuthFailExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\EnvVar\Good\expected2.json">
+    <None Update="testCases\ApiSource\Windows\OptParams\ConnectFail\ConnectFailExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\EnvVar_AppId\Good\expected1.json">
+    <None Update="testCases\ApiSource\Windows\OptParams\WrongUrl\WrongUrlExpected.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\AddDbSource\EnvVar_AppId\Good\expected2.json">
+    <None Update="testCases\DbSource\AddDbSource\Config\ConnectFail\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\DbEnvVars.json">
+    <None Update="testCases\DbSource\AddDbSource\Config\Good\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\DbEnvVars.json">
+    <None Update="testCases\DbSource\AddDbSource\Config\Good\appsettings2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\ConfigError\appsettings.json">
+    <None Update="testCases\DbSource\AddDbSource\Config\Good\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\ConfigError\expected1.json">
+    <None Update="testCases\DbSource\AddDbSource\Config\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\DbError\appsettings.json">
+    <None Update="testCases\DbSource\AddDbSource\Config\QueryFail\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\DbError\expected1.json">
+    <None Update="testCases\DbSource\AddDbSource\Config\SectionNotFound\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\Good\expected1.json">
+    <None Update="testCases\DbSource\AddDbSource\EnvVar\Good\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\Good\expected2.json">
+    <None Update="testCases\DbSource\AddDbSource\EnvVar\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\DbSource\SqlClientAdo\GetDbRows\Good\expected3.json">
+    <None Update="testCases\DbSource\AddDbSource\EnvVar_AppId\Good\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\IConfigurationExtensions\Decrypt\expected1.json">
+    <None Update="testCases\DbSource\AddDbSource\EnvVar_AppId\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\IConfigurationExtensions\Decrypt\appsettings1.json">
+    <None Update="testCases\DbSource\DbEnvVars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="TestCases\IConfigurationExtensions\GetConfigSettings\appsettings1.json">
+    <None Update="testCases\DbSource\DbEnvVars.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\DbSource\SqlClientAdo\GetDbRows\ConfigError\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\DbSource\SqlClientAdo\GetDbRows\ConfigError\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\DbSource\SqlClientAdo\GetDbRows\DbError\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\DbSource\SqlClientAdo\GetDbRows\DbError\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\DbSource\SqlClientAdo\GetDbRows\Good\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\DbSource\SqlClientAdo\GetDbRows\Good\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\DbSource\SqlClientAdo\GetDbRows\Good\expected3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\IConfigurationExtensions\Decrypt\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\IConfigurationExtensions\Decrypt\appsettings1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\IConfigurationExtensions\GetConfigSettings\appsettings1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -251,10 +526,38 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TestCases\ApiSource\AddApiSource\JwtBearer\AuthFail\" />
-    <Folder Include="TestCases\ApiSource\AddApiSource\JwtBearer\ConnectFail\" />
-    <Folder Include="TestCases\ApiSource\AddApiSource\JwtBearer\InvalidConfig\" />
-    <Folder Include="TestCases\CryptoHelper\ProtectUnprotect\" />
+    <Folder Include="testCases\ApiSource\Anon-Win\QueryParams\AuthFail\" />
+    <Folder Include="testCases\ApiSource\Anon-Win\QueryParams\WrongUrl\" />
+    <Folder Include="testCases\ApiSource\Anon-Win\QueryParams\ConnectFail\" />
+    <Folder Include="testCases\ApiSource\Anon-Win\QueryParams\InvalidUrl\" />
+    <Folder Include="testCases\ApiSource\Cert-ApiKey\ConfigParameter\CreateRequestFail\" />
+    <Folder Include="testCases\ApiSource\Cert-ApiKey\ConfigParameter\Good\" />
+    <Folder Include="testCases\ApiSource\Cert-ApiKey\ConfigParameter\WrongUrl\" />
+    <Folder Include="testCases\ApiSource\Cert-ApiKey\OptParams\InvalidURL\" />
+    <Folder Include="testCases\ApiSource\Certificate\ConfigParameter\Good\" />
+    <Folder Include="testCases\ApiSource\Certificate\ConfigParameter\WrongUrl\" />
+    <Folder Include="testCases\ApiSource\Certificate\OptParams\Good\" />
+    <Folder Include="testCases\ApiSource\Certificate\OptParams\InvalidURL\" />
+    <Folder Include="testCases\ApiSource\Certificate\QueryParams\" />
+    <Folder Include="testCases\ApiSource\JwtBearer\ConfigParam\Good\" />
+    <Folder Include="testCases\Old\ApiSource\CertKey\ConfigParam\InvalidURL\" />
+    <Folder Include="testCases\Old\ApiSource\CertKey\QueryParams\AuthFail\" />
+    <Folder Include="testCases\Old\ApiSource\CertKey\QueryParams\InvalidURL\" />
+    <Folder Include="testCases\Old\ApiSource\CertKey\OptParams\InvalidURL\" />
+    <Folder Include="testCases\ApiSource\JwtBearer\ConfigParameter\CreateRequestFail\" />
+    <Folder Include="testCases\ApiSource\JwtBearer\ConfigParameter\WrongUrl\" />
+    <Folder Include="testCases\ApiSource\JwtBearer\ConfigParam\InvalidURL\" />
+    <Folder Include="testCases\ApiSource\JwtBearer\OptParams\Good\" />
+    <Folder Include="testCases\ApiSource\JwtBearer\OptParams\InvalidURL\" />
+    <Folder Include="testCases\ApiSource\JwtBearer\QueryParams\" />
+    <Folder Include="testCases\ApiSource\Anon-Win\OptParams\Good\" />
+    <Folder Include="testCases\Old\ApiSource\inproc\Config\CreateRequestFail\" />
+    <Folder Include="testCases\ApiSource\Windows\ConfigParameter\CreateRequestFail\" />
+    <Folder Include="testCases\ApiSource\Windows\ConfigParameter\WrongUrl\" />
+    <Folder Include="testCases\ApiSource\Windows\OptParams\Good\" />
+    <Folder Include="testCases\ApiSource\Windows\OptParams\InvalidURL\" />
+    <Folder Include="testCases\ApiSource\Windows\QueryParams\" />
+    <Folder Include="testCases\CryptoHelper\ProtectUnprotect\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

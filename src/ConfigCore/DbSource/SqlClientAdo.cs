@@ -11,8 +11,6 @@ namespace ConfigCore.DbSource
     public interface ISqlClientAdo
     {
         List<ConfigSetting> GetDbRows();
-
-
     }
 
     public class SqlClientAdo : ISqlClientAdo
@@ -48,12 +46,7 @@ namespace ConfigCore.DbSource
                     }
                     con.Close();
                 }
-           
-            
-
             return retList;
         }
-
-      
     }
 }

@@ -1,0 +1,12 @@
+{
+  "ConfigOptions": {
+    "ApiSource": {
+      "AuthType": "Anon",
+      "AuthSecret": null,
+      "ConfigUrlKey": null,
+      "ConfigUrl": "https://developers.google.com",
+      "AppId": null
+    }
+    }
+  }
+

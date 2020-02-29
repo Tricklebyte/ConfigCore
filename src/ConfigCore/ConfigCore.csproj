@@ -19,10 +19,11 @@ Encrypt and Decrypt settings in all configuration sources</PackageReleaseNotes>
     <StartupObject />
     <PackageTags>Configuration</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="4.1.1" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.1" />

@@ -1,0 +1,14 @@
+[
+  {
+    "SettingKey": "ConfigError:ApiSource:ConfigUrl",
+    "SettingValue": "https://developers.google.com/testhost"
+  },
+  {
+    "SettingKey": "ConfigError:ApiSource:ExceptionMessage",
+    "SettingValue": "Response status code does not indicate success: 404 (Not Found)."
+  },
+  {
+    "SettingKey": "ConfigError:ApiSource:ResponseStatusCode",
+    "SettingValue": "NotFound"
+  }
+]

@@ -18,28 +18,28 @@ namespace ConfigCore.Extensions
 
 
         // Convar optional
-        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar, bool optional=false)
+        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar, bool optional = false)
         {
             return builder.Add(new DbConfigSource(builder, connEnvVar, null, 0, optional));
         }
 
 
         // Convar, appId, optional
-        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar, string appId, bool optional=false)
+        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar, string appId, bool optional = false)
         {
             return builder.Add(new DbConfigSource(builder, connEnvVar, appId, 0, optional));
         }
 
 
         // Convar, sqlTimeout,optional
-        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar, int sqlCommandTimeout, bool optional=false)
+        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar, int sqlCommandTimeout, bool optional = false)
         {
             return builder.Add(new DbConfigSource(builder, connEnvVar, null, sqlCommandTimeout, optional));
         }
 
 
         // Convar, appId,sqlTimeout,optional
-        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar, string appId, int sqlCommandTimeout, bool optional=false)
+        public static IConfigurationBuilder AddDbSource(this IConfigurationBuilder builder, string connEnvVar, string appId, int sqlCommandTimeout, bool optional = false)
         {
             return builder.Add(new DbConfigSource(builder, connEnvVar, appId, sqlCommandTimeout, optional));
         }
@@ -54,86 +54,80 @@ namespace ConfigCore.Extensions
 
         #endregion
 
-        #region API ConfigSource - OPT Params - ANON and WINDOWS AUTH
+        #region API ConfigSource -Default AUTH (WinAnon) 
 
-
-
-        //URL,OPTIONAL
-        //API Source Override with Single parameter for ConfigURL - used with Windows Auth and Default AppId
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, bool optional=false)
+        //Default Route Params
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, "", optional));
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, new string[] { "" }, optional));
+        }
+
+        //Specified Route Params
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string[] routeParams, bool optional = false)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, routeParams, optional));
         }
 
 
-        //URL,APPID,OPTIONAL
-        //API Source Override with parameters for ConfigURL and App Id- used with Windows Auth and custom App Id 
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string appId, bool optional=false)
-        {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, appId, optional));
-        }
-        #endregion
-
-        #region Api Config Source - OPT Params - CERTIFICATE and API AUTH
-
-        //URL,AUTHT,AUTHS,OPTIONAL
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, bool optional = false)
-        {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, "", optional));
-        }
-
-        //URL,AUTHT,AUTHS,APPID,OPTIONAL
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, string appId, bool optional=false)
-        {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, appId, optional));
-        }
-
-
-
-        #endregion
-
-        #region Api Config Source - OPT Params - BEARER TOKEN AUTH
-       
-
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, BearerConfig bConfig, bool optional =false)
-        {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, bConfig, "",optional));
-        }
-
-
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, BearerConfig bConfig, string appId, bool optional = false)
-        {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, bConfig, appId, optional));
-        }
-
-
-        #endregion
-
-        #region Api Config Source Query String Params  
-       
-        //URL,PARAMS,OPTIONAL
+        //Specified Query Params
         public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, Dictionary<string, string> qParams, bool optional = false)
         {
             return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, qParams, optional));
         }
 
-       
-        //URL,AUTHT,ATHS,PARAMS,OPTIONAL
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, Dictionary<string, string> qParams, bool optional=false)
+        #endregion
+
+        #region Api Config Source - CERTIFICATE and API AUTH 
+        //Default Route Params 
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, bool optional = false)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, new string[] { "" }, optional));
+        }
+
+        //Specified Route Params
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, string[] routeParams, bool optional = false)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, routeParams, optional));
+        }
+
+        //Specified Query Params
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, Dictionary<string, string> qParams, bool optional = false)
         {
             return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, qParams, optional));
         }
+
         #endregion
 
+        #region Api Config Source - JWTBEARER AUTH 
 
+        //- Default Route Params 
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authority, string clientId, string clientSecret, string scope, bool optional = false)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, authority, clientId, clientSecret, scope, new string[] { "" }, optional));
+        }
 
+        //Specified Route Params
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authority, string clientId, string clientSecret, string scope, string[] routeParams, bool optional = false)
+        {
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, authority, clientId, clientSecret, scope, routeParams, optional));
+        }
 
+        //JWTBearer , Query Parameters
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authority, string clientId, string clientSecret, string scope, Dictionary<string, string> qParams, bool optional = false)
+        {
+
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, authority, clientId, clientSecret, scope, qParams, optional));
+        }
+
+        #endregion
+
+        #region Api Config Source - IConfiguration Object
         //Api Source with Configuration object parameter. Uses configuration settings 
         public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, IConfiguration config, bool optional = false)
         {
             return builder.Add(new ApiClientSource(builder, config, optional));
         }
 
-
+        #endregion
     }
 }

@@ -1,0 +1,24 @@
+[
+  {
+    "Key": "ConfigURL-Win",
+    // "Value": "https://localhost:44343/iapi/ConfigSettings"
+    "Value": "https://localhost:5003/iapi/ConfigSettings"
+  },
+  {
+    "Key": "ConfigURL-Anon",
+    "Value": "https://localhost:5001/iapi/ConfigSettings"
+  },
+
+  {
+    "Key": "ConfigApi-WrongUrl",
+    "Value": "https://developers.google.com/"
+  },
+  {
+    "Key": "ConfigApi-InvalidUrl",
+    "Value": "https://localhost:x/"
+  },
+  {
+    "Key": "ConfigAuth-Key",
+    "Value": "F56A8B8D2EF57B7D"
+  }
+] 

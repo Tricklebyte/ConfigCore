@@ -18,20 +18,22 @@ namespace ConfigApi_Anon.Controllers
     [Route("iapi/[controller]")]
     public class ConfigSettingsController : ControllerBase
     {
-        List<ConfigEntity> _listSettings; 
+        IEnumerable<ConfigEntity> _settings; 
 
         IConfiguration _config;
         public ConfigSettingsController(IConfiguration config) {
             _config = config;
-            _listSettings= DataFactory.GetSettingList();
+            _settings = DataFactory.GetSettingList();
         }
 
         [HttpGet]
-        public ActionResult<List<ConfigSetting>> Get([FromQuery(Name ="AppId")] string appId)
+        public ActionResult<List<ConfigSetting>> Get(string appId, string idList)
         {
-            // returns configsettings for this appId only
+            // Test multiple query parameters
             List<ConfigSetting> retList = new List<ConfigSetting>();
-            retList = _listSettings.Where(x => x.AppId == appId).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
+            string[] ids = idList.Split(",");
+
+        retList = _settings.Where(x => x.AppId == appId && ids.Contains(x.Id.ToString())).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
             return retList;
         }
 
@@ -39,7 +41,7 @@ namespace ConfigApi_Anon.Controllers
         /// <summary>
         /// Simplified API example for demonstration and testing purposes only
         /// Uses an in-memory list populated by the data factory.
-        /// 
+
         ///
         /// </summary>
         /// <param name="appId"></param>
@@ -49,7 +51,7 @@ namespace ConfigApi_Anon.Controllers
         {
             // returns configsettings for this appId only
             List<ConfigSetting> retList = new List<ConfigSetting>();
-            retList = _listSettings.Where(x=>x.AppId==appId).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
+            retList = _settings.Where(x=>x.AppId==appId).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
             return retList;
         }
     }

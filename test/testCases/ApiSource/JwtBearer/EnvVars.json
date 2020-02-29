@@ -1,0 +1,15 @@
+[
+ 
+  {
+    "Key": "ConfigURL-JwtBearer",
+    "Value": "https://localhost:5009/iapi/ConfigSettings"
+  },
+  {
+    "Key": "ConfigApi-WrongUrl",
+    "Value": "https://developers.google.com/"
+  },
+  {
+    "Key": "ConfigApi-InvalidUrl",
+    "Value": "https://localhost:x/"
+  }
+] 

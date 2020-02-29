@@ -1,0 +1,16 @@
+{
+  "ConfigOptions": {
+    "ApiSource": {
+      "AuthType": "Anon",
+      "AuthSecret": null,
+      "ConfigUrlKey": null,
+      "ConfigUrl": "https://localhost:5001/iapi/ConfigSettings/",
+      "QueryParams": [
+
+      ],
+      "RouteParams": [
+        "testhost"
+      ]
+    }
+  }
+}

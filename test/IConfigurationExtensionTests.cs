@@ -32,10 +32,6 @@ namespace ConfigCore.Tests
            
             Assert.True(TestHelper.SettingsAreEqual(listExpected, listActual));
 
-            // get expected settings list
-
-            // assert
-
 
         }
         //Decrypt

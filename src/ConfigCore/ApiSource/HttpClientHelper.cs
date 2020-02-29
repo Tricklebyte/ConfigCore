@@ -47,7 +47,7 @@ namespace ConfigCore.ApiSource
 
                 case "Bearer":
                     returnClient = new HttpClient() { BaseAddress = baseAddress };
-                    returnClient.SetBearerToken(GetBearerToken(options.BearerConfig));
+                    returnClient.SetBearerToken(GetBearerToken(options.JWTBearerOptions));
                     
                     break;
                 case "Windows":
@@ -93,7 +93,7 @@ namespace ConfigCore.ApiSource
 
         }
 
-         static string GetBearerToken(BearerConfig bConfig) {
+         static string GetBearerToken(JWTBearerOptions bConfig) {
             var client = new HttpClient();
             var disco = client.GetDiscoveryDocumentAsync(bConfig.Authority).Result;
             if (disco.IsError)
