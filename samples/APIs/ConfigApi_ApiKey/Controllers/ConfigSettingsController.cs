@@ -21,7 +21,6 @@ namespace ConfigApi_ApiKey.Controllers
             _config = config;
             _listSettings= DataFactory.GetSettingList();
         }
-
         /// <summary>
         /// Simplified API example for demonstration and testing purposes only
         /// Uses an in-memory list populated by the data factory.
@@ -35,7 +34,19 @@ namespace ConfigApi_ApiKey.Controllers
         {
             // returns configsettings for this appId only
             List<ConfigSetting> retList = new List<ConfigSetting>();
-            retList = _listSettings.Where(x=>x.AppId==appId).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
+            retList = _listSettings.Where(x => x.AppId == appId).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
+            return retList;
+        }
+
+        // Query parameter action for testing support
+        [HttpGet]
+        public ActionResult<List<ConfigSetting>> Get(string appId, string idList)
+        {
+            // Test multiple query parameters
+            List<ConfigSetting> retList = new List<ConfigSetting>();
+            string[] ids = idList.Split(",");
+
+            retList = _listSettings.Where(x => x.AppId == appId && ids.Contains(x.Id.ToString())).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
             return retList;
         }
     }

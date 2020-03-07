@@ -1,0 +1,6 @@
+[
+  {
+    "SettingKey": "ConfigurationMetaData:ApiSource:ExceptionMessage",
+    "SettingValue": "Unable to create ApiSourceOptions, Auth secret environment variable name not specified"
+  }
+]

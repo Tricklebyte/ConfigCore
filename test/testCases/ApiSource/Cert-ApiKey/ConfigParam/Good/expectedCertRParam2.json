@@ -4,8 +4,16 @@
     "settingvalue": "Setting 1 - Value for CustomAppName"
   },
   {
+    "settingkey": "Setting2",
+    "settingvalue": "Setting 2 - Value for CustomAppName"
+  },
+  {
     "settingkey": "Setting3",
     "settingvalue": "Setting 3 - Value for CustomAppName"
+  },
+  {
+    "settingkey": "Setting4",
+    "settingvalue": "Setting 4 - Value for CustomAppName"
   },
   {
     "settingkey": "Setting5",

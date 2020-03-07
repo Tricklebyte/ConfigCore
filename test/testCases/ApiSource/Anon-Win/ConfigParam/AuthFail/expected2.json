@@ -1,10 +1,10 @@
 [
   {
     "SettingKey": "ConfigurationMetaData:ApiSource:RequestURI",
-    "SettingValue": "https://localhost:5005/iapi/ConfigSettings/testhost"
+    "SettingValue": "https://localhost:5003/iapi/ConfigSettings/testhost"
   },
   {
     "SettingKey": "ConfigurationMetaData:ApiSource:ExceptionMessage",
-    "SettingValue": "One or more errors occurred. (An error occurred while sending the request.)"
+    "SettingValue": "Response status code does not indicate success: 401 (Unauthorized)."
   }
 ]

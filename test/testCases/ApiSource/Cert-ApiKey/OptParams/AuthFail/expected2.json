@@ -1,7 +1,7 @@
 [
   {
     "SettingKey": "ConfigurationMetaData:ApiSource:RequestURI",
-    "SettingValue": "https://localhost:5003/iapi/ConfigSettings/testhost"
+    "SettingValue": "https://localhost:5007/iapi/ConfigSettings/testhost"
   },
   {
     "SettingKey": "ConfigurationMetaData:ApiSource:ExceptionMessage",

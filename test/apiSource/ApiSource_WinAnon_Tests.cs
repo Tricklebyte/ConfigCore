@@ -45,12 +45,12 @@ namespace ConfigCore.Tests
         /// <param name="appId"></param>
         /// <param name="optional"></param>
         /// <param name="testCase"></param>
-        [InlineData("ConfigURL-Anon", "Anon", null, null, true, "1")]
-        [InlineData("ConfigURL-Anon", "Anon", null, null, false, "1")]
+        [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "" }, true, "1")]
+        [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "" }, false, "1")]
         [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "CustomAppName" }, true, "2")]
         [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "CustomAppName" }, false, "2")]
-        [InlineData("ConfigURL-Win", "Windows", null, null, true, "1")]
-        [InlineData("ConfigURL-Win", "Windows", null, null, false, "1")]
+        [InlineData("ConfigURL-Win", "Windows", null, new string[] { "" }, true, "1")]
+        [InlineData("ConfigURL-Win", "Windows", null, new string[] { "" }, false, "1")]
         [InlineData("ConfigURL-Win", "Windows", null, new string[] { "CustomAppName" }, true, "2")]
         [InlineData("ConfigURL-Win", "Windows", null, new string[] { "CustomAppName" }, false, "2")]
 
@@ -81,7 +81,9 @@ namespace ConfigCore.Tests
 
         //Overload with single required parameter for the URL of the API and one optional parameter for Optional. Uses Windows Auth by default.
         [InlineData("ConfigURL-Win", true, "1")]
+        [InlineData("ConfigURL-Win", false, "1")]
         [InlineData("ConfigURL-Anon", true, "1")]
+        [InlineData("ConfigURL-Anon", false, "1")]
         [Theory]
         public void RouteParams_WinDefOptional_Good(string configUrlVar, bool optional, string testCase)
         {
@@ -277,30 +279,30 @@ namespace ConfigCore.Tests
         
         
         [Theory]
-        [InlineData("ConfigURL-Anon", "Anon", "appId", "testhost", "idList", "1,3,5,", "1", true)]
-        [InlineData("ConfigURL-Anon", "Anon", "appId", "testhost", "idList", "1,3,5,", "1", false)]
-        [InlineData("ConfigURL-Anon", "Anon", "appId", "CustomAppName", "idList", "6,8,10", "2", true)]
-        [InlineData("ConfigURL-Anon", "Anon", "appId", "CustomAppName", "idList", "6,8,10", "2", false)]
+        [InlineData("ConfigURL-Anon", "Anon", "appId", "testhost", "idList", null, "1", true)]
+        [InlineData("ConfigURL-Anon", "Anon", "appId", "testhost", "idList", null, "1", false)]
+        [InlineData("ConfigURL-Anon", "Anon", "appId", "CustomAppName", "idList", null, "2", true)]
+        [InlineData("ConfigURL-Anon", "Anon", "appId", "CustomAppName", "idList", null, "2", false)]
         public void QueryParams_InvalidParams(string configUrlVar, string authType, string param1Name, string param1Value, string param2Name, string param2Value, string testCase, bool optional)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
-                Dictionary<string, string> dictParams = new Dictionary<string, string>();
-                dictParams.Add(param1Name, param1Value);
-                dictParams.Add(param2Name, param2Value);
+            Dictionary<string, string> dictParams = new Dictionary<string, string>();
+            dictParams.Add(param1Name, null);
+            dictParams.Add(param2Name, "");
 
             if (optional)
             {
-                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Anon-Win\\OptParams\\InvalidUrl\\expected{testCase}.json"));
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Anon-Win\\QueryParams\\InvalidUrl\\expected{testCase}.json"));
 
+                //   builder.AddApiSource(configUrlVar, authType, null, dictParams, optional);
                 builder.AddApiSource(configUrlVar, authType, null, dictParams, optional);
-              
                 actual = builder.Build();
                 var listActual = actual.GetConfigSettings();
                 Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
             }
             else
-                Assert.Throws<System.UriFormatException>(() => builder.AddApiSource(configUrlVar, authType, null,dictParams, optional));
+                Assert.Throws<System.ArgumentNullException>(() => builder.AddApiSource(configUrlVar, authType, null,dictParams, optional));
         }
 
 
@@ -311,16 +313,13 @@ namespace ConfigCore.Tests
         #region AddApiSource Overloads with IConfiguration Parameter
         // Loads settings from Configuration section "ConfigOptions:ApiSource" to override default comm and auth settings for the HTTP Client.
         // Two good test cases for each authentication type, tested for optional true and false
-        [InlineData("AnonGood", "1", true)]
-        [InlineData("AnonGood", "1", false)]
-        [InlineData("AnonGood", "2", true)]
-        [InlineData("AnonGood", "2", false)]
-        [InlineData("WinGood", "1", true)]
-        [InlineData("WinGood", "1", false)]
-        [InlineData("WinGood", "2", true)]
-        [InlineData("WinGood", "2", false)]
+        [InlineData( "1", true)]
+        [InlineData( "1", false)]
+        [InlineData("2", true)]
+        [InlineData( "2", false)]
+
         [Theory]
-        public void Config_Good(string testAuthType, string testCase, bool optional)
+        public void Config_Good(string testCase, bool optional)
         {
             // Create path to appsettings file
             string jsonPath = $"TestCases\\ApiSource\\Anon-Win\\ConfigParam\\Good\\input{testCase}.json";
@@ -342,7 +341,7 @@ namespace ConfigCore.Tests
             var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\ConfigParam\\Good\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
-
+        // TODO: test case 2 above has mixed up hostname
 
         //Environment Variable for ConfigURL not found. Will fail on adding ApiSource
         [InlineData("1", true)]
@@ -378,7 +377,6 @@ namespace ConfigCore.Tests
         //Assigns a valid, incorrect Url. Will fail on connect, so error will be thrown on build.
         [InlineData("1", true)]
         [InlineData("1", false)]
-
         [Theory]
         public void Config_ConnectFail(string testCase, bool optional)
         {
@@ -439,10 +437,10 @@ namespace ConfigCore.Tests
         }
 
 
-        [InlineData("Win", true)]
-        [InlineData("Win", false)]
-        [InlineData("Anon", true)]
-        [InlineData("Anon", false)]
+        [InlineData("1", true)]
+        [InlineData("1", false)]
+        [InlineData("2", true)]
+        [InlineData("2", false)]
         [Theory]
         public void Config_AuthFail(string testCase, bool optional)
         {
@@ -466,7 +464,7 @@ namespace ConfigCore.Tests
             }
             else
             {
-                Assert.Throws<System.AggregateException>(() => actualConfig = builder.Build());
+                Assert.Throws<System.Net.Http.HttpRequestException>(() => actualConfig = builder.Build());
             }
         }
 

@@ -37,5 +37,18 @@ namespace ConfigApi_Certificate.Controllers
             retList = _listSettings.Where(x=>x.AppId==appId).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
             return retList;
         }
+
+        // Query parameter action for testing support
+        [HttpGet]
+        public ActionResult<List<ConfigSetting>> Get(string appId, string idList)
+        {
+            // Test multiple query parameters
+            List<ConfigSetting> retList = new List<ConfigSetting>();
+            string[] ids = idList.Split(",");
+
+            retList = _listSettings.Where(x => x.AppId == appId && ids.Contains(x.Id.ToString())).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
+            return retList;
+        }
+
     }
 }

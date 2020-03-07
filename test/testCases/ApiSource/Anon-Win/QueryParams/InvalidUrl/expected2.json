@@ -1,0 +1,7 @@
+[
+  {
+    "SettingKey": "ConfigurationMetaData:ApiSource:ExceptionMessage",
+    "SettingValue": "Value cannot be null. (Parameter 'value')"
+   
+  }
+]

@@ -41,7 +41,7 @@ namespace ConfigCore.Tests
     public class ApiSource_CertKey_Tests : IClassFixture<ApiSource_CertKey_Fixture>
     {
 
-        #region AddApiSource Overloads with options parameters
+        #region AddApiSource Overloads with route parameters
         /// <summary>
         /// Test parameters ConfigUrlVar, AuthSecretVar, AuthType, AppId
         /// </summary>
@@ -53,120 +53,175 @@ namespace ConfigCore.Tests
         /// <param name="testCase"></param>
        
       
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", null, true, "1")]
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", null, false, "1")]
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "CustomAppName", true, "2")]
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "CustomAppName", false, "2")]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", null, true, "1")]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", null, false, "1")]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "CustomAppName", true, "2")]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "CustomAppName", false, "2")]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "1")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key",  "1")]
         [Theory]
-        public void OptParams_Good(string configUrlVar, string authType, string authSecretVar, string appId, bool optional, string testCase)
+        public void RouteParams_DefAppId_Good(string configUrlVar, string authType, string authSecretVar,   string testCase)
         {
             var builder = new ConfigurationBuilder();
 
 
-            IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar, new string[] {appId}, optional).Build();
+            IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar).Build();
 
             var listActual = actual.GetConfigSettings();
             var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
+
+
+        // Overload with parameters for URL environment variable name, auth settings, and non-default Application Id
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", new string[] { "CustomAppName" }, "2")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", new string[] { "CustomAppName" }, "2")]
+        [Theory]
+        public void RouteParams_AppId_Good(string configUrlVar, string authType, string authSecretVar, string[] routeParams, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams).Build();
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+        // Overload with parameters for URL environment variable name, auth settings,non-default Application Id, optional parameter
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", new string[] { "CustomAppName" }, true, "2")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", new string[] { "CustomAppName" }, true, "2")]
+        [Theory]
+        public void RouteParams_AppIdOptional_Good(string configUrlVar, string authType, string authSecretVar, string[] routeParams, bool optional, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams, optional).Build();
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
         #endregion
 
 
-        #region API Cient Authentication with options parameters
+        //Assigns a valid, incorrect Url. Will fail on connect, so error will be thrown on build.
+        [InlineData("ConfigApi-WrongUrl", "Certificate", "ConfigAuth-Cert", new string[] { "" }, true, "1")]
+        [InlineData("ConfigApi-WrongUrl", "Certificate", "ConfigAuth-Cert", new string[] { "" }, false, "1")]
+        [InlineData("ConfigApi-WrongUrl", "ApiKey", "ConfigAuth-Key", new string[] { "CustomAppName" }, true, "2")]
+        [InlineData("ConfigApi-WrongUrl", "ApiKey", "ConfigAuth-Key", new string[] { "CustomAppName" }, false, "2")]
+        [Theory]
+        public void RouteParams_WrongUrl(string configUrlVar, string authType, string authSecretVar, string[] routeParams, bool optional, string testCase) //FAIL ON BUILD
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams, optional);
 
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-CertFail", null, true)]
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-CertFail", null, false)]
+            if (optional)
+            {
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Cert-ApiKey\\OptParams\\WrongUrl\\expected{testCase}.json"));
+
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+            }
+            else
+
+                Assert.Throws<System.Net.Http.HttpRequestException>(() => actual = builder.Build());
+        }
+
+
+        #region API Cient Auth Fail
+
+        // Cert Auth fail
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-CertFail", new string[] { "" }, true, "1")]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-CertFail", new string[] { "" }, false, "1")]
         [Theory]
         // uses a Certificate that is installed on the client but not accepted by the Host
-        public void OptParams_Cert_AuthFail(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
+        public void RouteParams_Cert_AuthFail(string configUrlVar, string authType, string authSecretVar, string[] routeParams, bool optional,string testCase)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
-            builder.AddApiSource(configUrlVar, authType, authSecretVar, new string[] { appId }, optional);
+            builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams, optional);
 
             if (optional)
             {
                 actual = builder.Build();
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\OptParams\\AuthFail\\expected{testCase}.json"));
                 var listActual = actual.GetConfigSettings();
-                Assert.True(listActual.Count == 0);
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
             }
             else
                 Assert.Throws<System.AggregateException>(() => actual = builder.Build());
         }
 
-
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, true)]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", null, false)]
-        [Theory]
-        // Auth Secret parameter does not identify a locally installed Certificate
-        public void OptParams_Cert_NotInstalled(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
-        {
-            IConfiguration actual;
-            var builder = new ConfigurationBuilder();
-
-
-            if (optional)
-            {
-                builder.AddApiSource(configUrlVar, authSecretVar, authType, new string[] { appId }, optional);
-                actual = builder.Build();
-                var listActual = actual.GetConfigSettings();
-                Assert.True(listActual.Count == 0);
-            }
-            else
-                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authSecretVar, authType, new string[] { appId }, optional));
-        }
-
-
-        // Auth Secret parameter not supplied
-        [InlineData("ConfigURL-Cert", "Certificate", "", null, true)]
-        [InlineData("ConfigURL-Cert", "Certificate", "", null, false)]
-        [Theory]
-        public void OptParams_CertNoSecret(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
-        {
-            IConfiguration actual;
-            var builder = new ConfigurationBuilder();
-            if (optional)
-            {
-                builder.AddApiSource(configUrlVar, authType, authSecretVar, new string[] { appId }, optional);
-                actual = builder.Build();
-                var listActual = actual.GetConfigSettings();
-                Assert.True(listActual.Count == 0);
-            }
-            else
-                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authType, authSecretVar, new string[] { appId }, optional));
-        }
-
-
-        [InlineData("ConfigURL-Key", "ConfigAuth-KeyFail", "ApiKey", null, true)]
-        [InlineData("ConfigURL-Cert", "ConfigAuth-KeyFail", "ApiKey", null, false)]
+        // Key Auth Fail
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-KeyFail", new string[] { "" }, true,"2")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-KeyFail",new string[] { "" }, false,"2")]
         [Theory]
         // Fails authentication with an invalid key value
-        public void OptParams_Key_AuthFail(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
+        public void RouteParams_Key_AuthFail(string configUrlVar, string authType, string authSecretVar, string[] routeParams, bool optional, string testCase)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
-            builder.AddApiSource(configUrlVar, authSecretVar, authType, new string[] { appId }, optional);
+            builder.AddApiSource(configUrlVar, authSecretVar, authType, routeParams, optional);
 
             if (optional)
             {
                 actual = builder.Build();
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\OptParams\\AuthFail\\expected{testCase}.json"));
                 var listActual = actual.GetConfigSettings();
-                Assert.True(listActual.Count == 0);
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
             }
             else
-                Assert.Throws<System.AggregateException>(() => actual = builder.Build());
+                Assert.Throws<System.Net.Http.HttpRequestException>(() => actual = builder.Build());
         }
 
 
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", new string[] { "" }, true,"1")]
+        [InlineData("ConfigURL-Cert", "ConfigAuth-CertNotFound", "Certificate", new string[] { "" }, false,"1")]
         [Theory]
-        [InlineData("ConfigURL-ApiKey", "ApiKey", null, null, true)]
-        [InlineData("ConfigURL-ApiKey", "ApiKey", null, null, false)]
+        // Auth Secret parameter does not identify a locally installed Certificate
+        public void RouteParams_Cert_NotInstalled(string configUrlVar, string authType, string authSecretVar, string[] routeParams, bool optional,string testCase)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+
+            if (optional)
+            {
+                builder.AddApiSource(configUrlVar, authSecretVar, authType, routeParams, optional);
+                actual = builder.Build();
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\OptParams\\CertNotInstalled\\expected{testCase}.json"));
+
+                var listActual = actual.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authSecretVar, authType, routeParams, optional));
+        }
+
+        // Auth Secret parameter not supplied
+        [InlineData("ConfigURL-Cert", "Certificate", "", new string[] { "" }, true, "1")]
+        [InlineData("ConfigURL-Cert", "Certificate", "", new string[] { "" }, false, "1")]
+        [Theory]
+        public void RouteParams_CertNoSecret(string configUrlVar, string authType, string authSecretVar, string[] routeParams, bool optional,string testCase)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+          
+            if (optional)
+            {
+                builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams, optional);
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\OptParams\\CertNoSecret\\expected{testCase}.json"));
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams, optional));
+        }
+
+            
+
+        [Theory]
+        [InlineData("ConfigURL-Key", "ApiKey", "", new string[] { "" }, true,"1")]
+        [InlineData("ConfigURL-Key", "ApiKey", "", new string[] { "" }, false,"1")]
         // No parameter value supplied for Auth Secret
-        public void OptParams_Key_NoSecret(string configUrlVar, string authType, string authSecretVar, string appId, bool optional)
+        public void RouteParams_Key_NoSecret(string configUrlVar, string authType, string authSecretVar, string [] routeParams, bool optional,string testCase)
         {
             IConfiguration actual;
             var builder = new ConfigurationBuilder();
@@ -174,35 +229,109 @@ namespace ConfigCore.Tests
 
             if (optional)
             {
-                builder.AddApiSource(configUrlVar, authType, authSecretVar, new string[] { appId }, optional);
+                builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams, optional);
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\OptParams\\KeyNoSecret\\expected{testCase}.json"));
+
                 actual = builder.Build();
                 var listActual = actual.GetConfigSettings();
-                Assert.True(listActual.Count == 0);
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
             }
             else
-                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authType, authSecretVar, new string[] { appId }, optional));
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams, optional));
         }
         #endregion
 
-        
+
+        #region AddApiSource Overloads with Query String Parameters
+
+        [Theory]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "testhost", "idList", "1,3,5,", "1", true)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "testhost", "idList", "1,3,5,", "1", false)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "CustomAppName", "idList", "6,8,10", "2", true)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "CustomAppName", "idList", "6,8,10", "2", false)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "testhost", "idList", "1,3,5,", "1", true)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "testhost", "idList", "1,3,5,", "1", false)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "CustomAppName", "idList", "6,8,10", "2", true)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "CustomAppName", "idList", "6,8,10", "2", false)]
+        //TODO: ADD WIN TEST CASES
+        public void QueryParams_Good(string configUrlVar, string authType, string authSecret, string param1Name, string param1Value, string param2Name, string param2Value, string testCase, bool optional)
+        {
+            var builder = new ConfigurationBuilder();
+            Dictionary<string, string> dictParams = new Dictionary<string, string>();
+            dictParams.Add(param1Name, param1Value);
+            dictParams.Add(param2Name, param2Value);
+
+            IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecret, dictParams, optional).Build();
+
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\QueryParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+
+        [Theory]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "testhost", "idList", null, "1", true)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "testhost", "idList", null, "1", false)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "CustomAppName", "idList", null, "2", true)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "CustomAppName", "idList", null, "2", false)]
+
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "testhost", "idList", null, "1", true)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "testhost", "idList", null, "1", false)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "CustomAppName", "idList", null, "2", true)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "CustomAppName", "idList", null, "2", false)]
+        public void QueryParams_InvalidParams(string configUrlVar, string authType,string authSecret, string param1Name, string param1Value, string param2Name, string param2Value, string testCase, bool optional)
+        {
+            IConfiguration actual;
+            var builder = new ConfigurationBuilder();
+            Dictionary<string, string> dictParams = new Dictionary<string, string>();
+            dictParams.Add(param1Name, null);
+            dictParams.Add(param2Name, "");
+
+            if (optional)
+            {
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Anon-Win\\QueryParams\\InvalidUrl\\expected{testCase}.json"));
+
+                //   builder.AddApiSource(configUrlVar, authType, null, dictParams, optional);
+                builder.AddApiSource(configUrlVar, authType, null, dictParams, optional);
+                actual = builder.Build();
+                var listActual = actual.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+            }
+            else
+                Assert.Throws<System.ArgumentNullException>(() => builder.AddApiSource(configUrlVar, authType, null, dictParams, optional));
+        }
+
+
+
+
+        #endregion
+
+
+        #region Api Client Authentication with Query String Parameters
+
+
+
+        #endregion
+
+
         #region AddApiSource Overloads with IConfiguration Parameter
         // Loads settings from Configuration section "ConfigOptions:ApiSource" to override default comm and auth settings for the HTTP Client.
         // Two good test cases for each authentication type, tested for optional true and false
-       
-        [InlineData("CertGood", "1", true)]
-        [InlineData("CertGood", "1", false)]
-        [InlineData("CertGood", "2", true)]
-        [InlineData("CertGood", "2", false)]
-        [InlineData("KeyGood", "1", true)]
-        [InlineData("KeyGood", "1", false)]
-        [InlineData("KeyGood", "2", true)]
-        [InlineData("KeyGood", "2", false)]
-     
+
+        [InlineData("CertRParam", "1", true)]
+        [InlineData("CertRParam", "1", false)]
+        [InlineData("CertRParam", "2", true)]
+        [InlineData("CertRParam", "2", false)]
+        [InlineData("CertQParam", "1", true)]
+        [InlineData("CertQParam", "1", false)]
+        [InlineData("CertQParam", "2", true)]
+        [InlineData("CertQParam", "2", false)]
         [Theory]
-        public void Config_Good(string testAuthType, string testCase, bool optional)
+        public void Config_Good(string testArgType, string testCase,  bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\Config\\Good\\{testAuthType}{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\Good\\input{testArgType}{testCase}.json";
 
             // Get initial config containing non-default database settings
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -218,7 +347,7 @@ namespace ConfigCore.Tests
 
             // Convert to lists and compare
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Config\\Good\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\Good\\expected{testArgType}{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
@@ -230,7 +359,7 @@ namespace ConfigCore.Tests
         public void Config_SectionNotFound(string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\Config\\SectionNotFound\\appsettings{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\SectionNotFound\\input{testCase}.json";
 
             // Get initial config containing non-default database settings
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -241,11 +370,12 @@ namespace ConfigCore.Tests
 
             if (optional)
             {
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Anon-Win\\ConfigParam\\SectionNotFound\\expected{testCase}.json"));
                 builder.AddApiSource(initConfig, optional);
                 IConfiguration actualConfig;
                 actualConfig = builder.Build();
-                var actualList = actualConfig.GetConfigSettings();
-                Assert.True(actualList.Count == 0);
+                var listActual = actualConfig.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
             }
             else
             {
@@ -254,12 +384,12 @@ namespace ConfigCore.Tests
         }
 
         //Assigns a valid, incorrect Url. Will fail on connect, so error will be thrown on build.
-    
+
         [InlineData("CertConnFail", true)]
         [InlineData("CertConnFail", false)]
         [InlineData("KeyConnFail", true)]
         [InlineData("KeyConnFail", false)]
-     
+
         [Theory]
         public void Config_ConnectFail(string testCase, bool optional)
         {
@@ -286,7 +416,7 @@ namespace ConfigCore.Tests
             }
         }
 
-      
+
 
         #endregion
 
@@ -296,7 +426,7 @@ namespace ConfigCore.Tests
 
         [InlineData("CertAuthFail", true)]
         [InlineData("CertAuthFail", false)]
-     
+
         [Theory]
         public void Cert_AuthFail(string testCase, bool optional)
         {
@@ -392,48 +522,6 @@ namespace ConfigCore.Tests
         //Bearer Create Request Fail
 
 
-        #endregion
-
-
-        #region AddApiSource Overloads with Query String Parameters
-        // Exact Match, AND
-
-        //URL, Dict
-        [Theory]
-        [InlineData("ConfigURL-Anon", "Anon", null, "1", true)]
-        [InlineData("ConfigURL-Anon", "Anon", null, "1", false)]
-        [InlineData("ConfigURL-Anon", "Anon", null, "2", true)]
-        [InlineData("ConfigURL-Anon", "Anon", null, "2", false)]
-        public void QParams_Good(string configUrlVar, string authType, string authSecret, string testCase, bool optional)
-        {
-            var builder = new ConfigurationBuilder();
-            //  var listParams = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\QueryStringParams\\Good\\input{testCase}.json"));
-            Dictionary<string, string> dictParams = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\QueryParams\\Good\\input{testCase}.json"));
-
-            IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecret, dictParams, optional).Build();
-
-            var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\QueryParams\\Good\\expected{testCase}.json"));
-            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
-        }
-
-
-        //QParams_BadParameterName -  invalid parameter name
-        //QParams_BadParameterValue - invalid parameter value
-        //QParams_EmptyParamDictionary 
-
-        //
-
-
-
-
-        #endregion
-
-
-        #region Api Client Authentication with Query String Parameters
-        
-        
-        
         #endregion
 
 

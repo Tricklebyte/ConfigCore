@@ -77,28 +77,85 @@
     <None Update="testCases\ApiSource\Anon-Win\QueryParams\Good\input2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\AuthFail\AnonAuthFail.json">
+    <None Update="testCases\ApiSource\Anon-Win\QueryParams\InvalidUrl\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\AuthFail\WinAuthFail.json">
+    <None Update="testCases\ApiSource\Anon-Win\QueryParams\InvalidUrl\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\ConnectFail\AnonConnFail.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\AuthFail\AnonAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\ConnectFail\WinConnFail.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\AuthFail\WinAuthFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\InvalidURL\AnonInvalidUrl.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\ConnectFail\AnonConnFail.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParameter\SectionNotFound\appsettings1.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\ConnectFail\WinConnFail.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\expectedCertRParam2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\expectedCertRParam1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\expectedCertQParam1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\expectedCertQParam2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\inputKeyQParam1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\inputCertQParam1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\inputKeyQParam2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\inputKeyRParam1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\inputCertRParam1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\inputCertQParam2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\inputKeyRParam2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\Good\inputCertRParam2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\InvalidURL\AnonInvalidUrl.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\SectionNotFound\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\ConfigParam\SectionNotFound\input1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="testCases\ApiSource\Cert-ApiKey\EnvVars.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\AuthFail\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\AuthFail\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\KeyNoSecret\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\CertNoSecret\expected1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\CertNotInstalled\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\ConnectFail\expected1.json">
@@ -107,7 +164,10 @@
     <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\EnvVarNotFound\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\WrongUrl\WrongUrlExpected.json">
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\WrongUrl\expected2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testCases\ApiSource\Cert-ApiKey\OptParams\WrongUrl\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="testCases\ApiSource\Cert-ApiKey\QueryParams\Good\expected1.json">
@@ -529,10 +589,8 @@
     <Folder Include="testCases\ApiSource\Anon-Win\QueryParams\AuthFail\" />
     <Folder Include="testCases\ApiSource\Anon-Win\QueryParams\WrongUrl\" />
     <Folder Include="testCases\ApiSource\Anon-Win\QueryParams\ConnectFail\" />
-    <Folder Include="testCases\ApiSource\Anon-Win\QueryParams\InvalidUrl\" />
-    <Folder Include="testCases\ApiSource\Cert-ApiKey\ConfigParameter\CreateRequestFail\" />
-    <Folder Include="testCases\ApiSource\Cert-ApiKey\ConfigParameter\Good\" />
-    <Folder Include="testCases\ApiSource\Cert-ApiKey\ConfigParameter\WrongUrl\" />
+    <Folder Include="testCases\ApiSource\Cert-ApiKey\ConfigParam\CreateRequestFail\" />
+    <Folder Include="testCases\ApiSource\Cert-ApiKey\ConfigParam\WrongUrl\" />
     <Folder Include="testCases\ApiSource\Cert-ApiKey\OptParams\InvalidURL\" />
     <Folder Include="testCases\ApiSource\Certificate\ConfigParameter\Good\" />
     <Folder Include="testCases\ApiSource\Certificate\ConfigParameter\WrongUrl\" />

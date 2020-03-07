@@ -4,8 +4,7 @@
       "AuthType": "Anon",
       "AuthSecret": null,
       "ConfigUrlKey": null,
-      "ConfigUrl": "https://developers.google.com",
-      "AppId": null
+      "ConfigUrl": "https://developers.google.com"
     }
     }
   }
