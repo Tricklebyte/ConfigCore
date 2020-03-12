@@ -1,0 +1,16 @@
+[
+  {
+    "SettingKey": "Setting1",
+    "SettingValue": "Setting 1 - Value for CustomAppName"
+  },
+
+  {
+    "SettingKey": "Setting3",
+    "SettingValue": "Setting 3 - Value for CustomAppName"
+  },
+
+  {
+    "SettingKey": "Setting5",
+    "SettingValue": "Setting 5 - Value for CustomAppName"
+  }
+]

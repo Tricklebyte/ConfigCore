@@ -1,8 +1,8 @@
 {
   "ConfigOptions": {
     "ApiSource": {
-      "AuthType": "Certificate",
-      "AuthSecret": "471249a6cbd7444ca239cdaecf63e3245a9fa6fd",
+      "AuthType": "ApiKey",
+      "AuthSecret": "F56A8B8D2EF57B7D",
       "ConfigUrlKey": null,
       "ConfigUrl": "https://localhost:5001/iapi/ConfigSettings/",
       "QueryParams": [

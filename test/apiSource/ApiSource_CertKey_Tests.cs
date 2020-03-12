@@ -96,9 +96,7 @@ namespace ConfigCore.Tests
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
-        #endregion
-
-
+ #endregion
         //Assigns a valid, incorrect Url. Will fail on connect, so error will be thrown on build.
         [InlineData("ConfigApi-WrongUrl", "Certificate", "ConfigAuth-Cert", new string[] { "" }, true, "1")]
         [InlineData("ConfigApi-WrongUrl", "Certificate", "ConfigAuth-Cert", new string[] { "" }, false, "1")]
@@ -123,7 +121,7 @@ namespace ConfigCore.Tests
 
                 Assert.Throws<System.Net.Http.HttpRequestException>(() => actual = builder.Build());
         }
-
+ 
 
         #region API Cient Auth Fail
 
@@ -319,19 +317,27 @@ namespace ConfigCore.Tests
         // Loads settings from Configuration section "ConfigOptions:ApiSource" to override default comm and auth settings for the HTTP Client.
         // Two good test cases for each authentication type, tested for optional true and false
 
-        [InlineData("CertRParam", "1", true)]
-        [InlineData("CertRParam", "1", false)]
-        [InlineData("CertRParam", "2", true)]
-        [InlineData("CertRParam", "2", false)]
-        [InlineData("CertQParam", "1", true)]
-        [InlineData("CertQParam", "1", false)]
-        [InlineData("CertQParam", "2", true)]
-        [InlineData("CertQParam", "2", false)]
+        [InlineData("Cert","RParam", "1", true)]
+        [InlineData("Cert", "RParam", "1", false)]
+        [InlineData("Cert", "RParam", "2", true)]
+        [InlineData("Cert", "RParam", "2", false)]
+        [InlineData("Cert", "QParam", "1", true)]
+        [InlineData("Cert", "QParam", "1", false)]
+        [InlineData("Cert", "QParam", "2", true)]
+        [InlineData("Cert", "QParam", "2", false)]
+        [InlineData("Key", "RParam", "1", true)]
+        [InlineData("Key", "RParam", "1", false)]
+        [InlineData("Key", "RParam", "2", true)]
+        [InlineData("Key", "RParam", "2", false)]
+        [InlineData("Key", "QParam", "1", true)]
+        [InlineData("Key", "QParam", "1", false)]
+        [InlineData("Key", "QParam", "2", true)]
+        [InlineData("Key", "QParam", "2", false)]
         [Theory]
-        public void Config_Good(string testArgType, string testCase,  bool optional)
+        public void Config_Good(string testAuthType, string testArgType, string testCase,  bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\Good\\input{testArgType}{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\Good\\input{testAuthType}{testArgType}{testCase}.json";
 
             // Get initial config containing non-default database settings
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -352,11 +358,11 @@ namespace ConfigCore.Tests
         }
 
 
-        //Environment Variable for ConfigURL not found. Will fail on adding ApiSource
+        //Configuration section for ConfigOptions not found. Will fail on adding ApiSource
         [InlineData("1", true)]
-        [InlineData("1", false)]
+        [InlineData( "1", false)]
         [Theory]
-        public void Config_SectionNotFound(string testCase, bool optional)
+        public void Config_SectionNotFound( string testCase, bool optional)
         {
             // Create path to appsettings file
             string jsonPath = $"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\SectionNotFound\\input{testCase}.json";
@@ -370,7 +376,7 @@ namespace ConfigCore.Tests
 
             if (optional)
             {
-                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Anon-Win\\ConfigParam\\SectionNotFound\\expected{testCase}.json"));
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\SectionNotFound\\expected{testCase}.json"));
                 builder.AddApiSource(initConfig, optional);
                 IConfiguration actualConfig;
                 actualConfig = builder.Build();
@@ -394,7 +400,7 @@ namespace ConfigCore.Tests
         public void Config_ConnectFail(string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\Config\\ConnectFail\\{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\ConnectFail\\{testCase}.json";
 
             // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -406,9 +412,10 @@ namespace ConfigCore.Tests
 
             if (optional)
             {
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\ConnectFail\\expected.json"));
                 actualConfig = builder.Build();
-                var actualList = actualConfig.GetConfigSettings();
-                Assert.True(actualList.Count == 0);
+                var listActual = actualConfig.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
             }
             else
             {
@@ -427,11 +434,12 @@ namespace ConfigCore.Tests
         [InlineData("CertAuthFail", true)]
         [InlineData("CertAuthFail", false)]
 
+
         [Theory]
-        public void Cert_AuthFail(string testCase, bool optional)
+        public void Config_Cert_AuthFail(string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\Config\\AuthFail\\{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\AuthFail\\{testCase}.json";
 
             // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -443,13 +451,15 @@ namespace ConfigCore.Tests
 
             if (optional)
             {
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\AuthFail\\expected{testCase}.json"));
                 actualConfig = builder.Build();
-                var actualList = actualConfig.GetConfigSettings();
-                Assert.True(actualList.Count == 0);
+                var listActual = actualConfig.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
             }
             else
             {
-                Assert.Throws<System.Net.Http.HttpRequestException>(() => actualConfig = builder.Build());
+                
+                Assert.Throws<System.AggregateException>(() => actualConfig = builder.Build());
             }
         }
 
@@ -459,10 +469,10 @@ namespace ConfigCore.Tests
         [InlineData("KeyAuthFail", true)]
         [InlineData("KeyAuthFail", false)]
         [Theory]
-        public void ApiKey_AuthFail(string testCase, bool optional)
+        public void Config_ApiKey_AuthFail(string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\Config\\AuthFail\\{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\AuthFail\\{testCase}.json";
 
             // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -474,13 +484,14 @@ namespace ConfigCore.Tests
 
             if (optional)
             {
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\AuthFail\\expected{testCase}.json"));
                 actualConfig = builder.Build();
-                var actualList = actualConfig.GetConfigSettings();
-                Assert.True(actualList.Count == 0);
+                var listActual = actualConfig.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
             }
             else
             {
-                Assert.Throws<System.AggregateException>(() => actualConfig = builder.Build());
+                Assert.Throws<System.Net.Http.HttpRequestException>(() => actualConfig = builder.Build());
             }
         }
 
@@ -489,15 +500,15 @@ namespace ConfigCore.Tests
         // will fail on AddApiSource
         [InlineData("CertNoSecret", true)]
         [InlineData("CertNoSecret", false)]
-        [InlineData("CertNotInstalled", true)]
-        [InlineData("CertNotInstalled", false)]
+        [InlineData("CertNotFound", true)]
+        [InlineData("CertNotFound", false)]
         [InlineData("KeyNoSecret", true)]
         [InlineData("KeyNoSecret", false)]
         [Theory]
         public void Config_Auth_CreateRequestFail(string testCase, bool optional)
         {
             // Create path to appsettings file
-            string jsonPath = $"TestCases\\ApiSource\\Config\\CreateRequestFail\\{testCase}.json";
+            string jsonPath = $"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\CreateRequestFail\\{testCase}.json";
 
             // Get initial config containing api connection and authentication info
             var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
@@ -508,18 +519,18 @@ namespace ConfigCore.Tests
 
             if (optional)
             {
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"testCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\CreateRequestFail\\expected{testCase}.json"));
+
                 builder.AddApiSource(initConfig, optional);
                 actualConfig = builder.Build();
                 var listActual = actualConfig.GetConfigSettings();
-                Assert.True(listActual.Count == 0);
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
             }
             else
                 Assert.Throws<System.Exception>(() => builder.AddApiSource(initConfig, optional));
         }
 
 
-        //Bearer Auth Fail
-        //Bearer Create Request Fail
 
 
         #endregion

@@ -45,7 +45,7 @@ namespace ConfigCore.ApiSource
                     returnClient = new HttpClient() { BaseAddress = baseAddress };
                     break;
 
-                case "Bearer":
+                case "JwtBearer":
                     returnClient = new HttpClient() { BaseAddress = baseAddress };
                     returnClient.SetBearerToken(GetBearerToken(options.JWTBearerOptions));
                     

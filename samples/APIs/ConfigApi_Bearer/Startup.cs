@@ -1,3 +1,4 @@
+using IdentityModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -57,6 +58,7 @@ namespace ConfigApi_Bearer
             {
                 endpoints.MapControllers();
             });
+           
         }
     }
 }

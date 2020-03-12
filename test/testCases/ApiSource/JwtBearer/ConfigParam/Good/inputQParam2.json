@@ -1,0 +1,18 @@
+{
+  "ConfigOptions": {
+    "ApiSource": {
+      "AuthType": "JwtBearer",
+      "Authority": "https://demo.identityserver.io",
+      "Clientid": "m2m.short",
+      "ClientSecret": "secret",
+      "Scope": "api",
+      "ConfigUrlKey": null,
+      "ConfigUrl": "https://localhost:5009/iapi/ConfigSettings/",
+      "QueryParams": {
+        "AppId": "CustomAppName",
+        "IdList": "6,8,10"
+      },
+      "RouteParams": []
+    }
+  }
+}

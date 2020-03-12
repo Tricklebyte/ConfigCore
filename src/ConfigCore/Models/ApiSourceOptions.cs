@@ -64,7 +64,7 @@ namespace ConfigCore.Models
         {
             _optional = optional;
             JWTBearerOptions = bConfig;
-            AuthType = "Bearer";
+            AuthType = "JwtBearer";
             _routeParams = rParams;
             SetDefaults();
             SetConfigUrlFromEnvVar(configUrlVar);
@@ -77,6 +77,16 @@ namespace ConfigCore.Models
         {
             _optional = optional;
             _queryParams = qParams;
+
+            JWTBearerOptions = bConfig;
+            AuthType = "JwtBearer";
+
+            SetDefaults();
+            SetConfigUrlFromEnvVar(configUrlVar);
+            SetQueryParameters();
+
+            ValidateBearerConfig();
+
         }
 
 
@@ -89,7 +99,6 @@ namespace ConfigCore.Models
         /// <param name="optional"></param>
         public ApiSourceOptions(IConfiguration config, bool optional)
         {
-
             //Bearer Auth
             //TODO Query Params
             IConfigurationSection apiSection = config.GetSection("ConfigOptions:ApiSource");
@@ -97,25 +106,35 @@ namespace ConfigCore.Models
             {
                 throw new Exception("ApiSource section not found in configuration");
             }
-            // assign user setting options based on AuthType
 
             ConfigUrlKey = apiSection["ConfigUrlKey"];
             ConfigUrl = config[ConfigUrlKey];
-            // AppId = apiSection["AppId"];
+            AuthType = apiSection["AuthType"];
 
-            if (AuthType != "JWTBearer")
+            // SET and validate Auth Secret for Cert and Api Key
+            if (AuthType == "Certificate" || AuthType == "ApiKey")
             {
-                AuthType = apiSection["AuthType"];
                 AuthSecret = apiSection["AuthSecret"];
-
+                if (string.IsNullOrEmpty(AuthSecret))
+                {
+                    throw new Exception($"Authentication secret not found in configuration setting - 'ConfigOptions:ApiSource:AuthSecret'");
+                }
             }
-            else
+
+            // Set and validate IDP options for JWTBearer
+            if (AuthType == "JwtBearer")
             {
-                string errMsg = ValidateBearerConfig();
-                if (!string.IsNullOrEmpty(errMsg))
-                    throw new Exception(errMsg);
-            }
+                {
+                    JWTBearerOptions = new JWTBearerOptions(
+                    apiSection["Authority"],
+                    apiSection["ClientId"],
+                    apiSection["ClientSecret"],
+                    apiSection["Scope"]
+                    );
 
+                    ValidateBearerConfig();
+                }
+            }
 
             //Add defaults for any required values that were not supplied
             SetDefaults();
@@ -126,19 +145,12 @@ namespace ConfigCore.Models
             if (string.IsNullOrEmpty(ConfigUrl))
                 throw new Exception($"Configuration setting not found: '{ConfigUrlKey}'");
 
-            // Check if Authorization secret is required and present
-            if (AuthType == "Certificate" || AuthType == "ApiKey")
-            {
-                if (string.IsNullOrEmpty(AuthSecret))
-                {
-                    throw new Exception($"Authentication secret not found in configuration setting - 'ConfigOptions:ApiSource:AuthSecret'");
-                }
-            }
+
 
             //Set QueryParameter member from configuration section first before checking if the default Route Parameter should  be added
-         //   IConfigurationSection qParamSection = config.GetSection("ConfigOptions:ApiSource:QueryParams");
-           // if (qParamSection != null)
-                _queryParams = config.GetSection("ConfigOptions:ApiSource:QueryParams")?.GetChildren().ToDictionary(x => x.Key, x => x.Value);
+            //   IConfigurationSection qParamSection = config.GetSection("ConfigOptions:ApiSource:QueryParams");
+            // if (qParamSection != null)
+            _queryParams = config.GetSection("ConfigOptions:ApiSource:QueryParams")?.GetChildren().ToDictionary(x => x.Key, x => x.Value);
 
             //  var children = qParamSection?.GetChildren();
             // IF the query parameters section has values, convert to dictionary for SetQueryParameters Method
@@ -158,18 +170,18 @@ namespace ConfigCore.Models
 
             //if (rParamSection != null)
             //{
-                _routeParams = rParamSection?.Get<string[]>();
+            _routeParams = rParamSection?.Get<string[]>();
 
             //}
             // Set Route Parameters if present, or default route parameter if needed
             SetRouteParametersWithDefault();
 
-           
-
         }
 
 
-        public string ValidateBearerConfig()
+
+
+        public void ValidateBearerConfig()
         {
             string errMsg = "";
             if (string.IsNullOrEmpty(JWTBearerOptions.Authority))
@@ -188,7 +200,8 @@ namespace ConfigCore.Models
             {
                 errMsg = "JwtBearer Scope not found";
             }
-            return errMsg;
+            if (!string.IsNullOrEmpty(errMsg))
+                throw new Exception(errMsg);
         }
 
         // Configuration API URL - by Environment Variable name
@@ -209,13 +222,12 @@ namespace ConfigCore.Models
 
         public void SetAuthSecretFromEnvVar(string authSecretVar)
         {
-            // Get Defaults must have already been called.
-            if (string.IsNullOrEmpty(authSecretVar))
-                throw new Exception("Unable to create ApiSourceOptions, Auth secret environment variable name not specified");
-
             // If the authentication type requires a secret, verify the secret is there
             if (AuthType == "ApiKey" || AuthType == "Certificate")
             {
+                if (string.IsNullOrEmpty(authSecretVar))
+                    throw new Exception("Unable to create ApiSourceOptions, Auth secret environment variable name not specified");
+
                 AuthSecret = Environment.GetEnvironmentVariable(authSecretVar);
 
                 if (AuthSecret == null)
@@ -240,7 +252,7 @@ namespace ConfigCore.Models
         // Add Query String Parameters
         public void SetQueryParameters()
         {
-            if (_queryParams == null || _queryParams.Count==0)
+            if (_queryParams == null || _queryParams.Count == 0)
                 return;
 
             var newUrl = new Uri(QueryHelpers.AddQueryString(ConfigUrl, _queryParams));
@@ -254,11 +266,11 @@ namespace ConfigCore.Models
 
             // when the default appId is being used, there will be one parameter with zero length.
             // Assign the default value before adding the URI
-            if (_routeParams == null && (_queryParams==null||_queryParams?.Count == 0))
+            if (_routeParams == null && (_queryParams == null || _queryParams?.Count == 0))
                 _routeParams = new string[] { "" };
 
             // Add default appId route if there are no query parameters and there is the single empty route parameter (indicating default route)
-            if ((_queryParams==null||_queryParams?.Count == 0) && _routeParams.Length == 1 && _routeParams[0] == "")
+            if ((_queryParams == null || _queryParams?.Count == 0) && _routeParams.Length == 1 && _routeParams[0] == "")
                 _routeParams[0] = System.Reflection.Assembly.GetEntryAssembly().GetName().Name;
 
             //Add route params (supplied or default) to the Configuration URL

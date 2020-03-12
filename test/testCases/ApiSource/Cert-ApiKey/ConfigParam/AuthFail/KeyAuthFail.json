@@ -1,8 +1,8 @@
 {
   "ConfigOptions": {
     "ApiSource": {
-      "AuthType": "Windows",
-      "AuthSecret": null,
+      "AuthType": "ApiKey",
+      "AuthSecret": "F",
       "ConfigUrlKey": null,
       "ConfigUrl": "https://localhost:5007/iapi/ConfigSettings/",
       "AppId": null

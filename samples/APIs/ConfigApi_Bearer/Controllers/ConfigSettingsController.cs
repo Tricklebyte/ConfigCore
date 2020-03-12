@@ -27,12 +27,15 @@ namespace ConfigApi_Bearer.Controllers
             _listSettings= DataFactory.GetSettingList();
         }
 
+        // Query parameter action for testing support
         [HttpGet]
-        public ActionResult<List<ConfigSetting>> Get([FromQuery(Name ="AppId")] string appId)
+        public ActionResult<List<ConfigSetting>> Get(string appId, string idList)
         {
-            // returns configsettings for this appId only
+            // Test multiple query parameters
             List<ConfigSetting> retList = new List<ConfigSetting>();
-            retList = _listSettings.Where(x => x.AppId == appId).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
+            string[] ids = idList.Split(",");
+
+            retList = _listSettings.Where(x => x.AppId == appId && ids.Contains(x.Id.ToString())).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
             return retList;
         }
 

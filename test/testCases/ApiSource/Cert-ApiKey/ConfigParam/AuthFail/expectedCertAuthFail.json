@@ -1,0 +1,10 @@
+[
+  {
+    "SettingKey": "ConfigurationMetaData:ApiSource:RequestURI",
+    "SettingValue": "https://localhost:5005/iapi/ConfigSettings/testhost"
+  },
+  {
+    "SettingKey": "ConfigurationMetaData:ApiSource:ExceptionMessage",
+    "SettingValue": "One or more errors occurred. (An error occurred while sending the request.)"
+  }
+]

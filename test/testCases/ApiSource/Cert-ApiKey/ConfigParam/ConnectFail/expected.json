@@ -1,0 +1,11 @@
+[
+  {
+    "SettingKey": "ConfigurationMetaData:ApiSource:RequestURI",
+    "SettingValue": "https://localhost:5555/iapi/ConfigSettings/testhost"
+  },
+  {
+    "SettingKey": "ConfigurationMetaData:ApiSource:ExceptionMessage",
+    "SettingValue": "One or more errors occurred. (No connection could be made because the target machine actively refused it.)"
+  }
+]
+

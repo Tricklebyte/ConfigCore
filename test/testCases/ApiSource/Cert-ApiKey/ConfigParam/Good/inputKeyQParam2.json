@@ -1,15 +1,14 @@
 {
   "ConfigOptions": {
     "ApiSource": {
-      "AuthType": "Anon",
-      "AuthSecret": null,
+      "AuthType": "ApiKey",
+      "AuthSecret": "F56A8B8D2EF57B7D",
       "ConfigUrlKey": null,
       "ConfigUrl": "https://localhost:5001/iapi/ConfigSettings/",
-      "QueryParams": 
-        {
-          "AppId": "CustomAppName",
-          "IdList": "6,8,10"
-        },
+      "QueryParams": {
+        "AppId": "CustomAppName",
+        "IdList": "6,8,10"
+      },
       "RouteParams": []
     }
   }

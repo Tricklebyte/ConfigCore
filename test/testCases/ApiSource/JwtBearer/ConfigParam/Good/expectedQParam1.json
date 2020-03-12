@@ -1,0 +1,14 @@
+[
+  {
+    "SettingKey": "Setting1",
+    "SettingValue": "Setting 1 - Value for testhost"
+  },
+  {
+    "SettingKey": "Setting3",
+    "SettingValue": "Setting 3 - Value for testhost"
+  },
+  {
+    "SettingKey": "Setting5",
+    "SettingValue": "Setting 5 - Value for testhost"
+  }
+]

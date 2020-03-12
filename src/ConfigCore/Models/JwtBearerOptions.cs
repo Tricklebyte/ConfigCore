@@ -27,6 +27,15 @@ namespace ConfigCore.Models
 
             if (ErrMsg.Length > 1)
                 throw (new System.ArgumentException(ErrMsg));
+
+            Authority = authority;
+            ClientId = clientId;
+            ClientSecret = clientSecret;
+            Scope = scope;
+
+        
+        
+        
         }
     }
 }

@@ -1,0 +1,11 @@
+{
+  "ConfigOptions": {
+    "ApiSource": {
+      "AuthType": "Certificate",
+      "AuthSecret": "A38CDB31C6F3D1D68E8439CB82DED1C6B3321FC8",
+      "ConfigUrlKey": null,
+      "ConfigUrl": "https://localhost:5005/iapi/ConfigSettings/",
+      "AppId": null
+    }
+  }
+}

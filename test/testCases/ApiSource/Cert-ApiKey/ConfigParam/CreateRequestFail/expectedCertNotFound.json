@@ -1,0 +1,6 @@
+[
+  {
+    "SettingKey": "ConfigurationMetaData:ApiSource:ExceptionMessage",
+    "SettingValue": "Certificate not found for thumbprint: 12345BadThumbprint12345"
+  }
+]

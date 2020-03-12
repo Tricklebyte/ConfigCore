@@ -20,7 +20,7 @@ namespace ConfigCore.Tests
 
         public ApiSource_JwtBearer_Fixture()
         {
-            string path = Environment.CurrentDirectory + "\\TestCases\\ApiSource\\JwtBearerEnvVars.json";
+            string path = Environment.CurrentDirectory + "\\TestCases\\ApiSource\\JwtBearer\\EnvVars.json";
             _envVarList = JsonConvert.DeserializeObject<List<EnvVar>>(File.ReadAllText(path));
             TestHelper.CreateEnvVars(_envVarList);
         }
@@ -35,12 +35,87 @@ namespace ConfigCore.Tests
 
     public class ApiSource_JwtBearer_Tests : IClassFixture<ApiSource_JwtBearer_Fixture>
     {
-        [InlineData("ConfigURL-Bearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "testhost", "1", true)]
-        [InlineData("ConfigURL-Bearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "testhost", "1", false)]
+
+        #region Route Parameter Data tests
+        // Default param
+        // Route param
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "1")]
         [Theory]
-        public void JwtBearer_OptParams_Good(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string appId, string testCase, bool optional)
+        public void JwtBearer_RParam_Default_Good(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string testCase)
         {
-   
+
+            // Create the  builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+
+            // Add the DBSource to the final builder
+            builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope);
+
+            // Build the final config
+            var actual = builder.Build();
+
+            // Convert to lists and compare
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\OptParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "1", true)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "1", false)]
+
+        [Theory]
+        public void JwtBearer_RParam_Default_Good_Optional(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string testCase, bool optional)
+        {
+
+            // Create the  builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+
+            // Add the DBSource to the final builder
+            builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope, optional);
+
+            // Build the final config
+            var actual = builder.Build();
+
+            // Convert to lists and compare
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\OptParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "", "1")]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "testhost", "1")]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "CustomAppName", "2")]
+        [Theory]
+        public void JwtBearer_RParam_Good(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string appId, string testCase)
+        {
+
+            // Create the  builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+
+            // Add the DBSource to the final builder
+            builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope, new string[] { appId });
+
+            // Build the final config
+            var actual = builder.Build();
+
+            // Convert to lists and compare
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\OptParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "", "1", true)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "", "1", false)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "testhost", "1", true)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "testhost", "1", false)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "CustomAppName", "2", true)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "CustomAppName", "2", false)]
+        [Theory]
+        public void JwtBearer_RParam_Good_Optional(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string appId, string testCase, bool optional)
+        {
+
             // Create the  builder 
             IConfigurationBuilder builder = new ConfigurationBuilder();
 
@@ -52,17 +127,196 @@ namespace ConfigCore.Tests
 
             // Convert to lists and compare
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Config\\Good\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\OptParams\\Good\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
-        //JwtBearer ConfigParams Good
-                    
-       
+        #endregion
 
-        //JwtBearer QParam Good
+        #region Query Parameter Data Tests
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "appId", "testhost", "idList", "1,3,5", "1")]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "appId", "CustomAppName", "idList", "6,8,10", "2")]
+        [Theory]
+        public void JwtBearer_QParam_Good(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string param1Name, string param1Value, string param2Name, string param2Value, string testCase)
+        {
+            var builder = new ConfigurationBuilder();
+            Dictionary<string, string> dictParams = new Dictionary<string, string>();
+            dictParams.Add(param1Name, param1Value);
+            dictParams.Add(param2Name, param2Value);
 
+            IConfiguration actual = builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope, dictParams).Build();
+
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\QueryParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+        [InlineData("ConfigURL-Bearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "appId", "testhost", "idList", "1,3,5,", "1", true)]
+        [InlineData("ConfigURL-Bearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "appId", "testhost", "idList", "1,3,5,", "1", false)]
+        [InlineData("ConfigURL-Bearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "appId", "testhost", "idList", "1,3,5,", "2", true)]
+        [InlineData("ConfigURL-Bearer", "https://demo.identityserver.io", "m2m.short", "secret", "api", "appId", "testhost", "idList", "1,3,5,", "2", false)]
+        public void JwtBearer_QParam_Good_Optional(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string param1Name, string param1Value, string param2Name, string param2Value, string testCase, bool optional)
+        {
+            var builder = new ConfigurationBuilder();
+            Dictionary<string, string> dictParams = new Dictionary<string, string>();
+            dictParams.Add(param1Name, param1Value);
+            dictParams.Add(param2Name, param2Value);
+
+            IConfiguration actual = builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope, dictParams, optional).Build();
+
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\QueryParams\\Good\\expected{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+        #endregion
+
+        #region ConfigParam Data Tests
+
+        [InlineData("RParam", "1", true)]
+        [InlineData("RParam", "1", false)]
+        [InlineData("RParam", "2", true)]
+        [InlineData("RParam", "2", false)]
+        [InlineData("QParam", "1", true)]
+        [InlineData("QParam", "1", false)]
+        [InlineData("QParam", "2", true)]
+        [InlineData("QParam", "2", false)]
+        [Theory]
+        public void JwtBearer_ConfigParam_Good(string testArgType, string testCase, bool optional)
+        {
+            // Create path to appsettings file
+            string jsonPath = $"TestCases\\ApiSource\\JwtBearer\\ConfigParam\\Good\\input{testArgType}{testCase}.json";
+
+            // Get initial config containing non-default database settings
+            var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
+
+            // Create the final builder 
+            IConfigurationBuilder finalBuilder = new ConfigurationBuilder();
+
+            // Add the DBSource to the final builder
+            finalBuilder.AddApiSource(initConfig, optional);
+
+            // Build the final config
+            var actual = finalBuilder.Build();
+
+            // Convert to lists and compare
+            var listActual = actual.GetConfigSettings();
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\ConfigParam\\Good\\expected{testArgType}{testCase}.json"));
+            Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+        }
+
+
+
+        #endregion
+
+
+        #region IDP Fail tests
+
+        //AuthConnectFail
+        [Theory]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.org", "m2m.short", "secret", "api", "1", true)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.org", "m2m.short", "secret", "api", "1", false)]
+        public void JwtBearer_BadAuthority(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string testCase, bool optional)
+        {
+            IConfiguration actual;
+            // Create the  builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+
+            if (optional)
+            {
+                builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope, optional);
+                actual = builder.Build();
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\OptParams\\BadAuthority\\expected{testCase}.json"));
+                var listActual = actual.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope, optional));
+        }
+
+        //AuthFailScope
+        [Theory]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "apo", "1", true)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "secret", "apo", "1", false)]
+
+        public void JwtBearer_BadScope(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string testCase, bool optional)
+        {
+            IConfiguration actual;
+            // Create the  builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+
+            if (optional)
+            {
+                builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope,optional);
+                actual = builder.Build();
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\OptParams\\BadScope\\expected{testCase}.json"));
+                var listActual = actual.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope, optional));
+        }
+
+
+        //AuthFail Client Id
+        [Theory]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "Xm2m.short", "secret", "api", "1", true)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "Xm2m.short", "secret", "api", "1", false)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "Xsecret", "api", "1", true)]
+        [InlineData("ConfigURL-JwtBearer", "https://demo.identityserver.io", "m2m.short", "Xsecret", "api", "1", false)]
+
+        public void JwtBearer_BadClient(string configUrlVar, string authority, string clientId, string clientSecret, string scope, string testCase, bool optional)
+        {
+            IConfiguration actual;
+            // Create the  builder 
+            IConfigurationBuilder builder = new ConfigurationBuilder();
+
+   
+
+            if (optional)
+            {
+            
+                builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope, optional);
+                actual = builder.Build();
+                var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\JwtBearer\\OptParams\\BadClient\\expected{testCase}.json"));
+                var listActual = actual.GetConfigSettings();
+                Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
+            }
+            else
+                Assert.Throws<System.Exception>(() => builder.AddApiSource(configUrlVar, authority, clientId, clientSecret, scope, optional));
+        }
+
+      
+        #endregion
+
+      
         
+
+        //WrongURL
+        //AuthFail
+        //AuthConnectFail
+        //AuthMissing
+        //ClientId Missing
+        //Incorrect Client Id
+        //ClientSecret Missing
+        //Incorrect Client Secret
+        //Client scope missing
+        //Incorrect Client Scope
+
+
+        //JwtBearer - CONFIG PARAM Good
+        //WrongURL
+        //AuthFail
+        //AuthConnectFail
+        //AuthMissing
+        //ClientId Missing
+        //Incorrect Client Id
+        //ClientSecret Missing
+        //Incorrect Client Secret
+        //Client scope missing
+        //Incorrect Client Scope
+
+
     }
 
 
@@ -167,7 +421,7 @@ namespace ConfigCore.Tests
 
 
 
-  //  #endregion
+    //  #endregion
 
 
 
