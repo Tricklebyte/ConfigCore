@@ -23,6 +23,7 @@ namespace ConfigCore.Models
         bool _optional;
         string[] _routeParams;
         Dictionary<string, string> _queryParams;
+      
 
 
         /// <summary>
@@ -60,36 +61,43 @@ namespace ConfigCore.Models
 
 
         // JwtBearer Authorization, Route Parameters
-        public ApiSourceOptions(string configUrlVar, JWTBearerOptions bConfig, string[] rParams, bool optional)
+        public ApiSourceOptions(string configUrlVar, string authVar, string clientIdVar, string clientSecretVar, string clientScopeVar, string[] rParams, bool optional)
         {
             _optional = optional;
-            JWTBearerOptions = bConfig;
+
+            JWTBearerOptions = new JWTBearerOptions(
+               Environment.GetEnvironmentVariable(authVar),
+               Environment.GetEnvironmentVariable(clientIdVar),
+               Environment.GetEnvironmentVariable(clientSecretVar),
+               Environment.GetEnvironmentVariable(clientScopeVar)
+            );
+            ValidateBearerConfig();
+
             AuthType = "JwtBearer";
             _routeParams = rParams;
             SetDefaults();
             SetConfigUrlFromEnvVar(configUrlVar);
             SetRouteParametersWithDefault();
-            ValidateBearerConfig();
+           
         }
 
         // JwtBearer Authorization, Query String Parameters
-        public ApiSourceOptions(string configUrlVar, JWTBearerOptions bConfig, Dictionary<string, string> qParams, bool optional)
+        public ApiSourceOptions(string configUrlVar, string authVar, string clientIdVar, string clientSecretVar, string clientScopeVar, Dictionary<string, string> qParams, bool optional)
         {
             _optional = optional;
             _queryParams = qParams;
-
-            JWTBearerOptions = bConfig;
             AuthType = "JwtBearer";
-
+            JWTBearerOptions = new JWTBearerOptions(
+            Environment.GetEnvironmentVariable(authVar),
+            Environment.GetEnvironmentVariable(clientIdVar),
+            Environment.GetEnvironmentVariable(clientSecretVar),
+            Environment.GetEnvironmentVariable(clientScopeVar)
+         );
+            ValidateBearerConfig();
             SetDefaults();
             SetConfigUrlFromEnvVar(configUrlVar);
             SetQueryParameters();
-
-            ValidateBearerConfig();
-
         }
-
-
 
 
         /// <summary>
@@ -179,8 +187,6 @@ namespace ConfigCore.Models
         }
 
 
-
-
         public void ValidateBearerConfig()
         {
             string errMsg = "";
@@ -234,8 +240,6 @@ namespace ConfigCore.Models
                     throw new Exception($"Environment Variable: '{authSecretVar}' was not found.");
             }
         }
-
-
 
 
 

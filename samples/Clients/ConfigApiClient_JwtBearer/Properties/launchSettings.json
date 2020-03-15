@@ -13,6 +13,13 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ConfigURL-JwtBearer": "https://localhost:5009/iapi/ConfigSettings",
+        "ConfigApi-JwtBearerAuthority":  "https://demo.identityserver.io",
+        "ConfigApi-JwtBearerClientId": "m2m.short",
+        "ConfigApi-JwtBearerClientSecret": "secret",
+        "ConfigApi-JwtBearerClientScope": "api",
+
+
+
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

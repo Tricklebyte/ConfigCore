@@ -7,11 +7,20 @@
     <Description>Secure, centralized, configuration for ASPNET.CORE applications.</Description>
     <RepositoryUrl>https://github.com/Tricklebyte/ConfigCore</RepositoryUrl>
     <RepositoryType>github</RepositoryType>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0</Version>
-    <PackageReleaseNotes>New Cryptograpy Features!
-Encrypt and Decrypt settings in all configuration sources</PackageReleaseNotes>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
+    <Version>3.0</Version>
+    <PackageReleaseNotes>ASPNET CORE 3.1
+Enhancements - 
+Now supports Bearer Token API Authentication
+Now supports multiple Route Parameters and Query String Parameters
+
+BREAKING CHANGES - 
+     - IConfigurationBuilder.AddApiSource 
+String parameter AppId has been changed to a string array that can be used to add multiple route parameters to the configuration base URL. To fix existing code, encase the appId string value in curly braces to form an array. 
+For example: change appId parameter value from "MyApp1" to {"MyApp1"}
+
+</PackageReleaseNotes>
     <PackageIcon>ConfigIcon.png</PackageIcon>
     <PackageIconUrl />
     <ApplicationIcon />
@@ -20,6 +29,7 @@ Encrypt and Decrypt settings in all configuration sources</PackageReleaseNotes>
     <PackageTags>Configuration</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Platforms>AnyCPU;x64</Platforms>
+    <Authors>ConfigCore</Authors>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="4.1.1" />

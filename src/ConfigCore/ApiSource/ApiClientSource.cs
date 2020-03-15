@@ -90,14 +90,13 @@ namespace ConfigCore.ApiSource
 
 
         // JwtBearer Authentication with Route Params
-        public ApiClientSource(IConfigurationBuilder builder, string configUrlVar, string authority, string clientId, string clientSecret, string scope, string[] routeParams = null, bool optional = false)
+        public ApiClientSource(IConfigurationBuilder builder, string configUrlVar, string authVar, string clientIdVar, string clientSecretVar, string clientScopeVar, string[] routeParams = null, bool optional = false)
         {
             _optional = optional;
             try
             {
-                JWTBearerOptions bConfig = new JWTBearerOptions(authority, clientId, clientSecret, scope);
-                //Create the apiOptions object
-                ApiSourceOptions apiOptions = new ApiSourceOptions(configUrlVar, bConfig, routeParams, optional);
+
+                ApiSourceOptions apiOptions = new ApiSourceOptions(configUrlVar, authVar, clientIdVar, clientSecretVar, clientScopeVar, routeParams, optional);
                 //Initialize the correct HTTP client for the Authentication type
                 _client = HttpClientHelper.GetHttpClient(apiOptions);
                 _request = HttpClientHelper.GetHttpRequest(apiOptions);
@@ -113,15 +112,14 @@ namespace ConfigCore.ApiSource
        
        
         // JwtBearer Authentication with Query String params
-        public ApiClientSource(IConfigurationBuilder builder, string configUrlVar, string authority, string clientId, string clientSecret, string scope, Dictionary<string, string> qParams,bool optional =false)
+        public ApiClientSource(IConfigurationBuilder builder, string configUrlVar, string authVar, string clientIdVar, string clientSecretVar, string clientScopeVar, Dictionary<string, string> qParams,bool optional =false)
         {
             _optional = optional;
 
             try
             {
-                JWTBearerOptions bConfig = new JWTBearerOptions(authority, clientId, clientSecret, scope);
-                //Create the apiOptions object
-                ApiSourceOptions apiOptions = new ApiSourceOptions(configUrlVar, bConfig, qParams, optional);
+               
+                ApiSourceOptions apiOptions = new ApiSourceOptions(configUrlVar,authVar, clientIdVar, clientSecretVar, clientScopeVar, qParams, optional);
                 //Initialize the correct HTTP client for the Authentication type
                 _client = HttpClientHelper.GetHttpClient(apiOptions);
                 _request = HttpClientHelper.GetHttpRequest(apiOptions);

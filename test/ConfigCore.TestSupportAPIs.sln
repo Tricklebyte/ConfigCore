@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Windows", "..\sam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Certificate", "..\samples\APIs\ConfigApi_Certificate\ConfigApi_Certificate.csproj", "{6C1C9990-E5B3-4433-97DF-EA75F551F2C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_Bearer", "..\samples\APIs\ConfigApi_Bearer\ConfigApi_Bearer.csproj", "{C66A253D-0114-4036-8382-9FBA4616B12C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_JwtBearer", "..\samples\APIs\ConfigApi_JwtBearer\ConfigApi_JwtBearer.csproj", "{74A19914-CF04-45AC-8F5D-ABE22B8DC863}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{6C1C9990-E5B3-4433-97DF-EA75F551F2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C1C9990-E5B3-4433-97DF-EA75F551F2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C1C9990-E5B3-4433-97DF-EA75F551F2C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C66A253D-0114-4036-8382-9FBA4616B12C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C66A253D-0114-4036-8382-9FBA4616B12C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C66A253D-0114-4036-8382-9FBA4616B12C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C66A253D-0114-4036-8382-9FBA4616B12C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74A19914-CF04-45AC-8F5D-ABE22B8DC863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74A19914-CF04-45AC-8F5D-ABE22B8DC863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74A19914-CF04-45AC-8F5D-ABE22B8DC863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74A19914-CF04-45AC-8F5D-ABE22B8DC863}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

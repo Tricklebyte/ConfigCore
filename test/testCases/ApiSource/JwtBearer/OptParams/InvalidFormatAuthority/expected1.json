@@ -2,6 +2,6 @@
 
   {
     "SettingKey": "ConfigurationMetaData:ApiSource:ExceptionMessage",
-    "SettingValue": "Get Discovery Document Error: No such host is known."
+    "SettingValue": "URI scheme 'hftps' is not supported"
   }
 ]

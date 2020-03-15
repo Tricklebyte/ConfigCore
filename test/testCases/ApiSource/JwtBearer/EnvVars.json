@@ -1,5 +1,5 @@
 [
- 
+
   {
     "Key": "ConfigURL-JwtBearer",
     "Value": "https://localhost:5009/iapi/ConfigSettings"
@@ -11,5 +11,41 @@
   {
     "Key": "ConfigApi-InvalidUrl",
     "Value": "https://localhost:x/"
+  },
+  {
+    "Key": "ConfigApi-JwtBearerAuthority",
+    "Value": "https://demo.identityserver.io"
+  },
+  {
+    "Key": "ConfigApi-JwtBearerClientId",
+    "Value": "m2m.short"
+  },
+  {
+    "Key": "ConfigApi-JwtBearerClientSecret",
+    "Value": "secret"
+  },
+  {
+    "Key": "ConfigApi-JwtBearerClientScope",
+    "Value": "api"
+  },
+  {
+    "Key": "ConfigApi-JwtBearerInvalidFormatAuthority",
+    "Value": "hftps://demo.identityserver.io"
+  },
+  {
+    "Key": "ConfigApi-JwtBearerInvalidAuthority",
+    "Value": "https://Xdemo.identityserver.io"
+  },
+  {
+    "Key": "ConfigApi-JwtBearerInvalidClientId",
+    "Value": "Xm2m.short"
+  },
+  {
+    "Key": "ConfigApi-JwtBearerInvalidSecret",
+    "Value": "Xsecret"
+  },
+  {
+    "Key": "ConfigApi-JwtBearerInvalidScope",
+    "Value": "Xapi"
   }
 ] 

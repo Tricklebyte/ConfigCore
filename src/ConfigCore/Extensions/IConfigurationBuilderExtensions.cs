@@ -100,10 +100,11 @@ namespace ConfigCore.Extensions
 
         #region Api Config Source - JWTBEARER AUTH 
 
+        //- Jwt Bearer Authorization Parameters are Environment Variable Names
         //- Default Route Params 
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authority, string clientId, string clientSecret, string scope, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string jbAuthVar, string jbClientIdVar, string jbClientSecretVar, string jbClientScopeVar, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authority, clientId, clientSecret, scope, new string[] { "" }, optional));
+            return builder.Add(new ApiClientSource(builder, urlKeyVar, jbAuthVar, jbClientIdVar, jbClientSecretVar, jbClientScopeVar, new string[] { "" }, optional));
         }
 
         //Specified Route Params

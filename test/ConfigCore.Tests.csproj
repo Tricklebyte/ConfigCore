@@ -215,7 +215,7 @@
     <None Update="testCases\ApiSource\JwtBearer\ConfigParam\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\JwtBearer\OptParams\BadAuthority\expected1.json">
+    <None Update="testCases\ApiSource\JwtBearer\OptParams\InvalidFormatAuthority\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="testCases\ApiSource\JwtBearer\OptParams\BadClient\expected1.json">
@@ -347,43 +347,7 @@
     <None Update="testCases\Old\ApiSource\CertKey\OptParams\Good\expected2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\AuthFail\AnonAuthFail.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\AuthFail\WinAuthFail.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\ConnectFail\AnonConnFail.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\ConnectFail\WinConnFail.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\InvalidURL\AnonInvalidUrl.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParameter\SectionNotFound\appsettings1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="testCases\ApiSource\JwtBearer\EnvVars.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\AuthFail\input1.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\ConnectFail\CertConnFail.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\ConnectFail\KeyConnFail.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\CreateRequestFail\CertNoSecret.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\CreateRequestFail\CertNotInstalled.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="testCases\ApiSource\JwtBearer\ConfigParam\CreateRequestFail\KeyNoSecret.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="testCases\ApiSource\Anon-Win\ConfigParam\AuthFail\input1.json">
@@ -524,7 +488,7 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="testCases\ApiSource\JwtBearer\OptParams\AuthFail\expected1.json">
+    <None Update="testCases\ApiSource\JwtBearer\OptParams\WrongAuthority\expected1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="testCases\ApiSource\JwtBearer\OptParams\ConnectFail\expected1.json">
@@ -647,9 +611,6 @@
     <Folder Include="testCases\Old\ApiSource\CertKey\QueryParams\AuthFail\" />
     <Folder Include="testCases\Old\ApiSource\CertKey\QueryParams\InvalidURL\" />
     <Folder Include="testCases\Old\ApiSource\CertKey\OptParams\InvalidURL\" />
-    <Folder Include="testCases\ApiSource\JwtBearer\ConfigParameter\CreateRequestFail\" />
-    <Folder Include="testCases\ApiSource\JwtBearer\ConfigParameter\WrongUrl\" />
-    <Folder Include="testCases\ApiSource\JwtBearer\ConfigParam\InvalidURL\" />
     <Folder Include="testCases\ApiSource\JwtBearer\OptParams\InvalidURL\" />
     <Folder Include="testCases\ApiSource\Anon-Win\OptParams\Good\" />
     <Folder Include="testCases\Old\ApiSource\inproc\Config\CreateRequestFail\" />
