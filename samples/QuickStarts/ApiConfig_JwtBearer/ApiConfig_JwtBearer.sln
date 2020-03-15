@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApi_JwtBearer", "Conf
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigApiClient_JwtBearer", "..\..\Clients\ConfigApiClient_JwtBearer\ConfigApiClient_JwtBearer.csproj", "{9A00784F-49F2-431F-8C92-7DC4737EDBF4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigCore", "..\..\..\src\ConfigCore\ConfigCore.csproj", "{3B92B5C7-57D6-4EA5-AB38-3BD2880E19C0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,14 +31,6 @@ Global
 		{9A00784F-49F2-431F-8C92-7DC4737EDBF4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A00784F-49F2-431F-8C92-7DC4737EDBF4}.Release|x64.ActiveCfg = Release|Any CPU
 		{9A00784F-49F2-431F-8C92-7DC4737EDBF4}.Release|x64.Build.0 = Release|Any CPU
-		{3B92B5C7-57D6-4EA5-AB38-3BD2880E19C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B92B5C7-57D6-4EA5-AB38-3BD2880E19C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B92B5C7-57D6-4EA5-AB38-3BD2880E19C0}.Debug|x64.ActiveCfg = Debug|x64
-		{3B92B5C7-57D6-4EA5-AB38-3BD2880E19C0}.Debug|x64.Build.0 = Debug|x64
-		{3B92B5C7-57D6-4EA5-AB38-3BD2880E19C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B92B5C7-57D6-4EA5-AB38-3BD2880E19C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B92B5C7-57D6-4EA5-AB38-3BD2880E19C0}.Release|x64.ActiveCfg = Release|x64
-		{3B92B5C7-57D6-4EA5-AB38-3BD2880E19C0}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

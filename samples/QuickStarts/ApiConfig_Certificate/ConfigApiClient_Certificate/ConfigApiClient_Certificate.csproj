@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ConfigCore" Version="1.1.0" />
+    <PackageReference Include="ConfigCore" Version="3.0.0" />
   </ItemGroup>
 
 </Project>

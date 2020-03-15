@@ -1,5 +1,6 @@
 using ConfigCore;
 using ConfigCore.Cryptography;
+using ConfigCore.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

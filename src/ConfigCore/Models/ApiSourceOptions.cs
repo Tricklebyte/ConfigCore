@@ -137,7 +137,7 @@ namespace ConfigCore.Models
                     apiSection["Authority"],
                     apiSection["ClientId"],
                     apiSection["ClientSecret"],
-                    apiSection["Scope"]
+                    apiSection["ClientScope"]
                     );
 
                     ValidateBearerConfig();

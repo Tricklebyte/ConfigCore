@@ -57,43 +57,43 @@ namespace ConfigCore.Extensions
         #region API ConfigSource -Default AUTH (WinAnon) 
 
         //Default Route Params
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string configUrlVar, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, new string[] { "" }, optional));
+            return builder.Add(new ApiClientSource(builder, configUrlVar, null, null, new string[] { "" }, optional));
         }
 
         //Specified Route Params
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string[] routeParams, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string configUrlVar, string[] routeParams, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, routeParams, optional));
+            return builder.Add(new ApiClientSource(builder, configUrlVar, null, null, routeParams, optional));
         }
 
 
         //Specified Query Params
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, Dictionary<string, string> qParams, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string configUrlVar, Dictionary<string, string> qParams, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, null, null, qParams, optional));
+            return builder.Add(new ApiClientSource(builder, configUrlVar, null, null, qParams, optional));
         }
 
         #endregion
 
         #region Api Config Source - CERTIFICATE and API AUTH 
         //Default Route Params 
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string configUrlVar, string authType, string authSecretVar, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, new string[] { "" }, optional));
+            return builder.Add(new ApiClientSource(builder, configUrlVar, authType, authSecretVar, new string[] { "" }, optional));
         }
 
         //Specified Route Params
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, string[] routeParams, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string configUrlVar, string authType, string authSecretVar, string[] routeParams, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, routeParams, optional));
+            return builder.Add(new ApiClientSource(builder, configUrlVar, authType, authSecretVar, routeParams, optional));
         }
 
         //Specified Query Params
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authType, string authSecretVar, Dictionary<string, string> qParams, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string configUrlVar, string authType, string authSecretVar, Dictionary<string, string> qParams, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authType, authSecretVar, qParams, optional));
+            return builder.Add(new ApiClientSource(builder, configUrlVar, authType, authSecretVar, qParams, optional));
         }
 
         #endregion
@@ -102,22 +102,22 @@ namespace ConfigCore.Extensions
 
         //- Jwt Bearer Authorization Parameters are Environment Variable Names
         //- Default Route Params 
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string jbAuthVar, string jbClientIdVar, string jbClientSecretVar, string jbClientScopeVar, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string configUrlVar, string authorityVar, string clientIdVar, string clientSecretVar, string clientScopeVar, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, jbAuthVar, jbClientIdVar, jbClientSecretVar, jbClientScopeVar, new string[] { "" }, optional));
+            return builder.Add(new ApiClientSource(builder, configUrlVar, authorityVar, clientIdVar, clientSecretVar, clientScopeVar, new string[] { "" }, optional));
         }
 
         //Specified Route Params
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authority, string clientId, string clientSecret, string scope, string[] routeParams, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string configUrlVar, string authorityVar, string clientIdVar, string clientSecretVar, string clientScopeVar, string[] routeParams, bool optional = false)
         {
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authority, clientId, clientSecret, scope, routeParams, optional));
+            return builder.Add(new ApiClientSource(builder, configUrlVar, authorityVar, clientIdVar, clientSecretVar, clientScopeVar, routeParams, optional));
         }
 
         //JWTBearer , Query Parameters
-        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string urlKeyVar, string authority, string clientId, string clientSecret, string scope, Dictionary<string, string> qParams, bool optional = false)
+        public static IConfigurationBuilder AddApiSource(this IConfigurationBuilder builder, string configUrlVar, string authorityVar, string clientIdVar, string clientSecretVar, string clientScopeVar, Dictionary<string, string> qParams, bool optional = false)
         {
 
-            return builder.Add(new ApiClientSource(builder, urlKeyVar, authority, clientId, clientSecret, scope, qParams, optional));
+            return builder.Add(new ApiClientSource(builder, configUrlVar, authorityVar, clientIdVar, clientSecretVar, clientScopeVar, qParams, optional));
         }
 
         #endregion
@@ -130,5 +130,6 @@ namespace ConfigCore.Extensions
         }
 
         #endregion
+
     }
 }

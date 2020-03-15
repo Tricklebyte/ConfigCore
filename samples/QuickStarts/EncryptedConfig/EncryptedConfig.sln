@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EncryptedConfigClient", "En
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigCore.CryptoConsole", "CryptoConsole\ConfigCore.CryptoConsole.csproj", "{3F4E1863-3AF5-49F2-8B81-64BA8BD53FBC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigCore", "..\..\..\src\ConfigCore\ConfigCore.csproj", "{62728B40-52B4-4541-AC52-93BD2D7893E9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{3F4E1863-3AF5-49F2-8B81-64BA8BD53FBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F4E1863-3AF5-49F2-8B81-64BA8BD53FBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F4E1863-3AF5-49F2-8B81-64BA8BD53FBC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62728B40-52B4-4541-AC52-93BD2D7893E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62728B40-52B4-4541-AC52-93BD2D7893E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62728B40-52B4-4541-AC52-93BD2D7893E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62728B40-52B4-4541-AC52-93BD2D7893E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

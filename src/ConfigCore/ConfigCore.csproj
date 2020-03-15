@@ -11,13 +11,13 @@
     <FileVersion>3.0.0.0</FileVersion>
     <Version>3.0</Version>
     <PackageReleaseNotes>ASPNET CORE 3.1
-Enhancements - 
-Now supports Bearer Token API Authentication
-Now supports multiple Route Parameters and Query String Parameters
+New Features:
+- Now supports Bearer Token API Authentication
+- Now supports multiple Route Parameters and Query String Parameters
 
 BREAKING CHANGES - 
      - IConfigurationBuilder.AddApiSource 
-String parameter AppId has been changed to a string array that can be used to add multiple route parameters to the configuration base URL. To fix existing code, encase the appId string value in curly braces to form an array. 
+String parameter AppId has been changed to a string array that can be used to add multiple route parameters to the configuration base URL. To fix existing code, encase the appId string value in curly brackets to form an array. 
 For example: change appId parameter value from "MyApp1" to {"MyApp1"}
 
 </PackageReleaseNotes>
