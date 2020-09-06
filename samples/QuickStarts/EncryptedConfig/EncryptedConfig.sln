@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EncryptedConfigClient", "En
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigCore.CryptoConsole", "CryptoConsole\ConfigCore.CryptoConsole.csproj", "{3F4E1863-3AF5-49F2-8B81-64BA8BD53FBC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigCore", "..\..\..\src\ConfigCore\ConfigCore.csproj", "{5A4BE235-B3ED-4FD3-9882-FACCFB54BCB5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,14 +31,6 @@ Global
 		{3F4E1863-3AF5-49F2-8B81-64BA8BD53FBC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3F4E1863-3AF5-49F2-8B81-64BA8BD53FBC}.Release|x64.ActiveCfg = Release|Any CPU
 		{3F4E1863-3AF5-49F2-8B81-64BA8BD53FBC}.Release|x64.Build.0 = Release|Any CPU
-		{5A4BE235-B3ED-4FD3-9882-FACCFB54BCB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A4BE235-B3ED-4FD3-9882-FACCFB54BCB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A4BE235-B3ED-4FD3-9882-FACCFB54BCB5}.Debug|x64.ActiveCfg = Debug|x64
-		{5A4BE235-B3ED-4FD3-9882-FACCFB54BCB5}.Debug|x64.Build.0 = Debug|x64
-		{5A4BE235-B3ED-4FD3-9882-FACCFB54BCB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A4BE235-B3ED-4FD3-9882-FACCFB54BCB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A4BE235-B3ED-4FD3-9882-FACCFB54BCB5}.Release|x64.ActiveCfg = Release|x64
-		{5A4BE235-B3ED-4FD3-9882-FACCFB54BCB5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

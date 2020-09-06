@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.29521.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigDbClient", "ConfigDbClient\ConfigDbClient.csproj", "{441D7DF4-4EF6-45C7-B429-31E529E3CDB2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConfigCore", "..\..\..\src\ConfigCore\ConfigCore.csproj", "{473144A3-9A46-4838-83D7-1CE401B6253D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,14 +21,6 @@ Global
 		{441D7DF4-4EF6-45C7-B429-31E529E3CDB2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{441D7DF4-4EF6-45C7-B429-31E529E3CDB2}.Release|x64.ActiveCfg = Release|Any CPU
 		{441D7DF4-4EF6-45C7-B429-31E529E3CDB2}.Release|x64.Build.0 = Release|Any CPU
-		{473144A3-9A46-4838-83D7-1CE401B6253D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{473144A3-9A46-4838-83D7-1CE401B6253D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{473144A3-9A46-4838-83D7-1CE401B6253D}.Debug|x64.ActiveCfg = Debug|x64
-		{473144A3-9A46-4838-83D7-1CE401B6253D}.Debug|x64.Build.0 = Debug|x64
-		{473144A3-9A46-4838-83D7-1CE401B6253D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{473144A3-9A46-4838-83D7-1CE401B6253D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{473144A3-9A46-4838-83D7-1CE401B6253D}.Release|x64.ActiveCfg = Release|x64
-		{473144A3-9A46-4838-83D7-1CE401B6253D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
