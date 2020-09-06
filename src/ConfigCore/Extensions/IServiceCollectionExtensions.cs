@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
-using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using Microsoft.AspNetCore.DataProtection;
 using ConfigCore.Cryptography;
@@ -13,11 +12,12 @@ namespace ConfigCore.Extensions
         public static void AddDataProtectionServices(this IServiceCollection services, IConfiguration config)
         {
             //Create Data Protection Service 
-
+            
             services.AddDataProtection()
                 .PersistKeysToFileSystem(new DirectoryInfo(config["ConfigOptions:Cryptography:KeyStore"]))
                 .ProtectKeysWithDpapi(true)
                 .SetApplicationName(config["ConfigOptions:Cryptography:ClientScope"]);
+            var serviceCollection = new ServiceCollection();
 
             // Get reference to Data ProtectionProvider Service to register ICryptoHelpert.
             var serviceProvider = services.BuildServiceProvider();

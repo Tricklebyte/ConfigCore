@@ -1,12 +1,8 @@
 ﻿using ConfigCore.Cryptography;
 using ConfigCore.Models;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace ConfigCore.Extensions
 {

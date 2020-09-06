@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Description>Secure, centralized, configuration for ASPNET.CORE applications.</Description>
@@ -10,15 +10,8 @@
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <FileVersion>3.0.0.0</FileVersion>
     <Version>3.0</Version>
-    <PackageReleaseNotes>ASPNET CORE 3.1
-New Features:
-- Now supports Bearer Token API Authentication
-- Now supports multiple Route Parameters and Query String Parameters
+    <PackageReleaseNotes>NET Standard 2.0
 
-BREAKING CHANGES - 
-     - IConfigurationBuilder.AddApiSource 
-String parameter AppId has been changed to a string array that can be used to add multiple route parameters to the configuration base URL. To fix existing code, encase the appId string value in curly brackets to form an array. 
-For example: change appId parameter value from "MyApp1" to {"MyApp1"}
 
 </PackageReleaseNotes>
     <PackageIcon>ConfigIcon.png</PackageIcon>
@@ -33,11 +26,18 @@ For example: change appId parameter value from "MyApp1" to {"MyApp1"}
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="4.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.7" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.1" />
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE.md">

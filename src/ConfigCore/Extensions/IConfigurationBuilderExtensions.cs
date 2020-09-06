@@ -1,10 +1,5 @@
-﻿using ConfigCore.Models;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Text;
 using ConfigCore.DbSource;
 using ConfigCore.ApiSource;
 

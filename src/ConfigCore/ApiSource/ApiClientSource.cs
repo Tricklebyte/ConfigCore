@@ -1,7 +1,4 @@
-﻿
-using ConfigCore;
-using Microsoft.Extensions.Hosting;
-using ConfigCore.Models;
+﻿using ConfigCore.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
