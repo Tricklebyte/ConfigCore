@@ -251,7 +251,7 @@ namespace ConfigCore.Tests
         [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "testhost", "idList", "1,3,5,", "1", false)]
         [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "CustomAppName", "idList", "6,8,10", "2", true)]
         [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "CustomAppName", "idList", "6,8,10", "2", false)]
-        //TODO: ADD WIN TEST CASES
+        
         public void QueryParams_Good(string configUrlVar, string authType, string authSecret, string param1Name, string param1Value, string param2Name, string param2Value, string testCase, bool optional)
         {
             var builder = new ConfigurationBuilder();
