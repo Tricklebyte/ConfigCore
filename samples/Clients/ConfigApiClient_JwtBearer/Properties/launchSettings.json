@@ -12,21 +12,18 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "ConfigURL-JwtBearer": "https://localhost:5009/iapi/ConfigSettings",
-        "ConfigApi-JwtBearerAuthority":  "https://demo.identityserver.io",
-        "ConfigApi-JwtBearerClientId": "m2m.short",
         "ConfigApi-JwtBearerClientSecret": "secret",
+        "ConfigApi-JwtBearerAuthority": "https://demo.identityserver.io",
         "ConfigApi-JwtBearerClientScope": "api",
-
-
-
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ConfigApi-JwtBearerClientId": "m2m.short",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ConfigURL-JwtBearer": "https://localhost:5009/iapi/ConfigSettings"
       }
     },
-    "ConfigApiClient_Anon": {
+    "ConfigApiClient_JwtBearer": {
       "commandName": "Project",
       "environmentVariables": {
-        "ConfigURL-JwtBearer": "https://localhost:5009/iapi/ConfigSettings",
+        "ConfigURL-Anon": "https://localhost:5001/iapi/ConfigSettings",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"

@@ -33,18 +33,18 @@ namespace ConfigApiClient_ApiKey
         // REQUIREMENTS
         // 1.) The configuration API must be running and available - see sample project ConfigApi for simple testing api
         // 2.) The following environment variables must be present in the client's host environment:
-        //          Name:  ConfigURL-Key
-        //          Value: https://localhost:5007/iapi/ConfigSettings  (url of sample project api)
+        //          Name:  CONFIG-URL
+        //          Value: https://localhost:44397/iapi/ConfigSettings/  (url of sample project api)
         //
-        //          Name:  ConfigAuth-Key
-        //          Value: F56A8B8D2EF57B7D (api key for sample api)
+        //          Name:  CONFIG-AUTHKEY
+        //          Value: F56A8B8D2EF57B7D
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).ConfigureAppConfiguration(config =>
             {                
                 // Build app configuration using AddApiSource(UrlVar, AuthType, AuthSecretVar).
                 // Note: In a real project, you would also include other configuration sources and order them for desired precedence.
-                config.AddApiSource("ConfigURL-Key", "ApiKey","ConfigAuth-Key");
+                config.AddApiSource("CONFIG-URL", "ApiKey","CONFIG-AUTHKEY");
 
 
             })

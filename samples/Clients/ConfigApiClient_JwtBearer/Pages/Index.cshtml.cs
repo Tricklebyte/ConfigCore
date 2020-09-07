@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace ConfigApiClient_Anon.Pages
+namespace ConfigApiClient_JwtBearer.Pages
 {
     public class IndexModel : PageModel
     {

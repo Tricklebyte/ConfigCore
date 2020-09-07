@@ -33,11 +33,9 @@ namespace ConfigClient_ApiDefault
         // REQUIREMENTS
         // 1.) The configuration API must be running and available - see sample project ConfigApi for simple testing api
         // 2.) The following environment variable must be present in the client's host environment:
-        //          Name:  ConfigURL-Cert
-        //          Value: https://localhost:5005/iapi/ConfigSettings (url of sample project api)
-        // 3.) The following environment variable must be present in the client's host environment:
-        //          Name:  ConfigAuth-Cert
-        //          Value: 471249a6cbd7444ca239cdaecf63e3245a9fa6fd (Certificate Thumbprint for sample project api)
+        //          Name:  CONFIGAPI-URL
+        //          Value: https://localhost:44397/iapi/ConfigSettings/  (url of sample project api)
+        // 
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args).ConfigureAppConfiguration(config =>

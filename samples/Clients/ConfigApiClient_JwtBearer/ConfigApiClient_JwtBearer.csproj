@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ConfigCore" Version="4.0.1" />
+    <ProjectReference Include="..\..\..\src\ConfigCore\ConfigCore.csproj" />
   </ItemGroup>
 
 </Project>

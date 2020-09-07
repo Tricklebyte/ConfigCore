@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace ConfigApiClient_Anon
+namespace ConfigApiClient_JwtBearer
 {
     public class Startup
     {

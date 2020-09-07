@@ -33,8 +33,8 @@ namespace ConfigApiClient_Anon
         // REQUIREMENTS
         // 1.) The configuration API must be running and available - see sample project ConfigApi for simple testing api
         // 2.) The following environment variable must be present in the client's host environment:
-        //          Name:  ConfigURL-Anon
-        //          Value: https://localhost:5001/iapi/ConfigSettings/  (url of sample project api)
+        //          Name:  CONFIGAPI-URL
+        //          Value: https://localhost:44397/iapi/ConfigSettings/  (url of sample project api)
         // 
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -45,7 +45,7 @@ namespace ConfigApiClient_Anon
                 config.AddApiSource("ConfigURL-Anon");
 
                 // There is also an overload that allows you to specify a non-default application name
-               //config.AddApiSource("ConfigURL-Anon","CustomAppName");
+               //config.AddApiSource("CONFIGAPI-URL","CustomAppName");
 
                 // For overriding all other default settings like authentication options, see sample projects ConfigClient_ApiCustom and ConfigClient_ApiStartup
 
