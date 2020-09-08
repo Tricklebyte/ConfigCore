@@ -5,7 +5,7 @@
       "AuthSecret": null,
       "ConfigUrlKey": null,
       "ConfigUrl": "https://localhost:5003/iapi/ConfigSettings/",
-      "AppId": "CustomAppName"
+      "AppId": "ConfigApiClient_Windows"
     }
   }
 }

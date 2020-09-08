@@ -17,11 +17,11 @@ namespace ConfigApi_Windows.Models
             new ConfigEntity(){Id=4,AppId="testhost",SettingKey="Setting4",SettingValue="Setting 4 - Value for testhost"},
             new ConfigEntity(){Id=5,AppId="testhost",SettingKey="Setting5",SettingValue="Setting 5 - Value for testhost"},
 
-            new ConfigEntity(){Id=6,AppId="CustomAppName",SettingKey="Setting1",SettingValue="Setting 1 - Value for CustomAppName"},
-            new ConfigEntity(){Id=7,AppId="CustomAppName",SettingKey="Setting2",SettingValue="Setting 2 - Value for CustomAppName"},
-            new ConfigEntity(){Id=8,AppId="CustomAppName",SettingKey="Setting3",SettingValue="Setting 3 - Value for CustomAppName"},
-            new ConfigEntity(){Id=9,AppId="CustomAppName",SettingKey="Setting4",SettingValue="Setting 4 - Value for CustomAppName"},
-            new ConfigEntity(){Id=10,AppId="CustomAppName",SettingKey="Setting5",SettingValue="Setting 5 - Value for CustomAppName"}
+            new ConfigEntity(){Id=6,AppId="ConfigApiClient_Windows",SettingKey="Setting1",SettingValue="Setting 1 - Value for ConfigApiClient_Windows"},
+            new ConfigEntity(){Id=7,AppId="ConfigApiClient_Windows",SettingKey="Setting2",SettingValue="Setting 2 - Value for ConfigApiClient_Windows"},
+            new ConfigEntity(){Id=8,AppId="ConfigApiClient_Windows",SettingKey="Setting3",SettingValue="Setting 3 - Value for ConfigApiClient_Windows"},
+            new ConfigEntity(){Id=9,AppId="ConfigApiClient_Windows",SettingKey="Setting4",SettingValue="Setting 4 - Value for ConfigApiClient_Windows"},
+            new ConfigEntity(){Id=10,AppId="ConfigApiClient_Windows",SettingKey="Setting5",SettingValue="Setting 5 - Value for ConfigApiClient_Windows"}
         };
 
         }

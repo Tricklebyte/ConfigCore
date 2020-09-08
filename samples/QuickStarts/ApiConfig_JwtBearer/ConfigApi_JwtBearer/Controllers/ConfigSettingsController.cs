@@ -27,18 +27,19 @@ namespace ConfigApi_Bearer.Controllers
             _listSettings= DataFactory.GetSettingList();
         }
 
-        // Query parameter action for testing support
         [HttpGet]
         public ActionResult<List<ConfigSetting>> Get(string appId, string idList)
         {
             // Test multiple query parameters
-            List<ConfigSetting> retList = new List<ConfigSetting>();
+            // Just check that the csv list of Ids contains three elements and return all by name
             string[] ids = idList.Split(",");
 
-            retList = _listSettings.Where(x => x.AppId == appId && ids.Contains(x.Id.ToString())).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
+            List<ConfigSetting> retList = new List<ConfigSetting>();
+            if (ids.Count() == 3)
+                retList = _listSettings.Where(x => x.AppId == appId).Select(s => new ConfigSetting() { SettingKey = s.SettingKey, SettingValue = s.SettingValue }).ToList();
+
             return retList;
         }
-
 
         /// <summary>
         /// Simplified API example for demonstration and testing purposes only

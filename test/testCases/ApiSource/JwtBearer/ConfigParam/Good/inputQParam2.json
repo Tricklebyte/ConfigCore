@@ -9,7 +9,7 @@
       "ConfigUrlKey": null,
       "ConfigUrl": "https://localhost:5009/iapi/ConfigSettings/",
       "QueryParams": {
-        "AppId": "CustomAppName",
+        "AppId": "ConfigApiClient_JwtBearer",
         "IdList": "6,8,10"
       },
       "RouteParams": []

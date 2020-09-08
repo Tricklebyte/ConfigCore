@@ -7,7 +7,7 @@
       "ConfigUrl": "https://localhost:5001/iapi/ConfigSettings/",
       "QueryParams": 
         {
-          "AppId": "CustomAppName",
+          "AppId": "ConfigApiClient_Anon",
           "IdList": "6,8,10"
         },
       "RouteParams": []

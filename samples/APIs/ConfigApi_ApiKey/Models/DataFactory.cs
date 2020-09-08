@@ -15,7 +15,14 @@ namespace ConfigApi_ApiKey.Models
             new ConfigEntity(){Id=2,AppId="ConfigApiClient_ApiKey",SettingKey="Setting2",SettingValue="Setting 2 - Api Configuration Client with API Key Authorization"},
             new ConfigEntity(){Id=3,AppId="ConfigApiClient_ApiKey",SettingKey="Setting3",SettingValue="Setting 3 - Api Configuration Client with API Key Authorization"},
             new ConfigEntity(){Id=4,AppId="ConfigApiClient_ApiKey",SettingKey="Setting4",SettingValue="Setting 4 - Api Configuration Client with API Key Authorization"},
-            new ConfigEntity(){Id=5,AppId="ConfigApiClient_ApiKey",SettingKey="Setting5",SettingValue="Setting 5 - Api Configuration Client with API Key Authorization"}
+            new ConfigEntity(){Id=5,AppId="ConfigApiClient_ApiKey",SettingKey="Setting5",SettingValue="Setting 5 - Api Configuration Client with API Key Authorization"},
+
+            new ConfigEntity(){Id=6,AppId="testhost",SettingKey="Setting1",SettingValue="Setting 1 - Value for testhost"},
+            new ConfigEntity(){Id=7,AppId="testhost",SettingKey="Setting2",SettingValue="Setting 2 - Value for testhost"},
+            new ConfigEntity(){Id=8,AppId="testhost",SettingKey="Setting3",SettingValue="Setting 3 - Value for testhost"},
+            new ConfigEntity(){Id=9,AppId="testhost",SettingKey="Setting4",SettingValue="Setting 4 - Value for testhost"},
+            new ConfigEntity(){Id=10,AppId="testhost",SettingKey="Setting5",SettingValue="Setting 5 - Value for testhost"}
+
         };
 
         }

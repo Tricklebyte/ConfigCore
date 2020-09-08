@@ -1,14 +1,22 @@
 [
   {
-    "settingkey": "Setting1",
-    "settingvalue": "Setting 1 - Value for CustomAppName"
+    "SettingKey": "Setting1",
+    "SettingValue": "Setting 1 - Api Configuration Client using JwtBearer Auth"
   },
   {
-    "settingkey": "Setting3",
-    "settingvalue": "Setting 3 - Value for CustomAppName"
+    "SettingKey": "Setting2",
+    "SettingValue": "Setting 2 - Api Configuration Client using JwtBearer Auth"
   },
   {
-    "settingkey": "Setting5",
-    "settingvalue": "Setting 5 - Value for CustomAppName"
+    "SettingKey": "Setting3",
+    "SettingValue": "Setting 3 - Api Configuration Client using JwtBearer Auth"
+  },
+  {
+    "SettingKey": "Setting4",
+    "SettingValue": "Setting 4 - Api Configuration Client using JwtBearer Auth"
+  },
+  {
+    "SettingKey": "Setting5",
+    "SettingValue": "Setting 5 - Api Configuration Client using JwtBearer Auth"
   }
 ]

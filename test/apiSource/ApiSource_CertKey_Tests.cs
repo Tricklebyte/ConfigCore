@@ -64,35 +64,35 @@ namespace ConfigCore.Tests
             IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar).Build();
 
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\OptParams\\Good\\expected{authType}{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
 
         // Overload with parameters for URL environment variable name, auth settings, and non-default Application Id
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", new string[] { "CustomAppName" }, "2")]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", new string[] { "CustomAppName" }, "2")]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", new string[] { "ConfigApiClient_Certificate" }, "2")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", new string[] { "ConfigApiClient_ApiKey" }, "2")]
         [Theory]
         public void RouteParams_AppId_Good(string configUrlVar, string authType, string authSecretVar, string[] routeParams, string testCase)
         {
             var builder = new ConfigurationBuilder();
             IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams).Build();
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\OptParams\\Good\\expected{authType}{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
 
         // Overload with parameters for URL environment variable name, auth settings,non-default Application Id, optional parameter
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", new string[] { "CustomAppName" }, true, "2")]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", new string[] { "CustomAppName" }, true, "2")]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", new string[] { "ConfigApiClient_Certificate" }, true, "2")]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", new string[] { "ConfigApiClient_ApiKey" }, true, "2")]
         [Theory]
         public void RouteParams_AppIdOptional_Good(string configUrlVar, string authType, string authSecretVar, string[] routeParams, bool optional, string testCase)
         {
             var builder = new ConfigurationBuilder();
             IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams, optional).Build();
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\OptParams\\Good\\expected{authType}{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
@@ -243,14 +243,14 @@ namespace ConfigCore.Tests
         #region AddApiSource Overloads with Query String Parameters
 
         [Theory]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "testhost", "idList", "1,3,5,", "1", true)]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "testhost", "idList", "1,3,5,", "1", false)]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "CustomAppName", "idList", "6,8,10", "2", true)]
-        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "CustomAppName", "idList", "6,8,10", "2", false)]
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "testhost", "idList", "1,3,5,", "1", true)]
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "testhost", "idList", "1,3,5,", "1", false)]
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "CustomAppName", "idList", "6,8,10", "2", true)]
-        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "CustomAppName", "idList", "6,8,10", "2", false)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "testhost", "idList", "1,3,5", "1", true)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "testhost", "idList", "1,3,5", "1", false)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "ConfigApiClient_ApiKey", "idList", "6,8,10", "3", true)]
+        [InlineData("ConfigURL-Key", "ApiKey", "ConfigAuth-Key", "appId", "ConfigApiClient_ApiKey", "idList", "6,8,10", "3", false)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "testhost", "idList", "1,3,5", "1", true)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "testhost", "idList", "1,3,5", "1", false)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "ConfigApiClient_Certificate", "idList", "6,8,10", "2", true)]
+        [InlineData("ConfigURL-Cert", "Certificate", "ConfigAuth-Cert", "appId", "ConfigApiClient_Certificate", "idList", "6,8,10", "2", false)]
         
         public void QueryParams_Good(string configUrlVar, string authType, string authSecret, string param1Name, string param1Value, string param2Name, string param2Value, string testCase, bool optional)
         {
@@ -262,7 +262,7 @@ namespace ConfigCore.Tests
             IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecret, dictParams, optional).Build();
 
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\QueryParams\\Good\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
@@ -353,7 +353,7 @@ namespace ConfigCore.Tests
 
             // Convert to lists and compare
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\Good\\expected{testArgType}{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Cert-ApiKey\\ConfigParam\\Good\\expected{testAuthType}{testArgType}{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 

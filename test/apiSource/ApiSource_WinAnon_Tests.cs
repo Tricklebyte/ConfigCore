@@ -47,12 +47,12 @@ namespace ConfigCore.Tests
         /// <param name="testCase"></param>
         [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "" }, true, "1")]
         [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "" }, false, "1")]
-        [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "CustomAppName" }, true, "2")]
-        [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "CustomAppName" }, false, "2")]
+        [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "ConfigApiClient_Anon" }, true, "2")]
+        [InlineData("ConfigURL-Anon", "Anon", null, new string[] { "ConfigApiClient_Anon" }, false, "2")]
         [InlineData("ConfigURL-Win", "Windows", null, new string[] { "" }, true, "1")]
         [InlineData("ConfigURL-Win", "Windows", null, new string[] { "" }, false, "1")]
-        [InlineData("ConfigURL-Win", "Windows", null, new string[] { "CustomAppName" }, true, "2")]
-        [InlineData("ConfigURL-Win", "Windows", null, new string[] { "CustomAppName" }, false, "2")]
+        [InlineData("ConfigURL-Win", "Windows", null, new string[] { "ConfigApiClient_Windows" }, true, "3")]
+        [InlineData("ConfigURL-Win", "Windows", null, new string[] { "ConfigApiClient_Windows" }, false, "3")]
 
         [Theory]
         public void RouteParams_Good(string configUrlVar, string authType, string authSecretVar, string[] routeParams, bool optional, string testCase)
@@ -61,7 +61,7 @@ namespace ConfigCore.Tests
 
             IConfiguration actual = builder.AddApiSource(configUrlVar, authType, authSecretVar, routeParams, optional).Build();
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
@@ -75,7 +75,7 @@ namespace ConfigCore.Tests
             var builder = new ConfigurationBuilder();
             IConfiguration actual = builder.AddApiSource(configUrlVar).Build();
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
@@ -91,34 +91,34 @@ namespace ConfigCore.Tests
             var builder = new ConfigurationBuilder();
             IConfiguration actual = builder.AddApiSource(configUrlVar, optional).Build();
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
 
         // Overload with parameters for URL environment variable name and non-default Application Id
-        [InlineData("ConfigURL-Win", new string[] { "CustomAppName" }, "2")]
-        [InlineData("ConfigURL-Anon", new string[] { "CustomAppName" }, "2")]
+        [InlineData("ConfigURL-Anon", new string[] { "ConfigApiClient_Anon" }, "2")]
+        [InlineData("ConfigURL-Win", new string[] { "ConfigApiClient_Windows" }, "3")]
         [Theory]
         public void RouteParams_WinAppId_Good(string configUrlVar, string[] routeParams, string testCase)
         {
             var builder = new ConfigurationBuilder();
             IConfiguration actual = builder.AddApiSource(configUrlVar, routeParams).Build();
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
         // Overload with parameters for URL environment variable name,  non-default Application Id, optional parameter
-        [InlineData("ConfigURL-Win", new string[] { "CustomAppName" }, true, "2")]
-        [InlineData("ConfigURL-Anon", new string[] { "CustomAppName" }, true, "2")]
+        [InlineData("ConfigURL-Anon", new string[] { "ConfigApiClient_Anon" }, true, "2")]
+        [InlineData("ConfigURL-Win", new string[] { "ConfigApiClient_Windows" }, true, "3")]
         [Theory]
         public void RouteParams_WinAppIdOptional_Good(string configUrlVar, string[] routeParams, bool optional, string testCase)
         {
             var builder = new ConfigurationBuilder();
             IConfiguration actual = builder.AddApiSource(configUrlVar, routeParams, optional).Build();
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
@@ -257,10 +257,10 @@ namespace ConfigCore.Tests
 
         //URL, Dict
         [Theory]
-        [InlineData("ConfigURL-Anon", "Anon", "appId","testhost","idList","1,3,5," ,"1", true)]
-        [InlineData("ConfigURL-Anon", "Anon", "appId", "testhost", "idList", "1,3,5,","1", false)]
-        [InlineData("ConfigURL-Anon", "Anon", "appId", "CustomAppName", "idList", "6,8,10", "2", true)]
-        [InlineData("ConfigURL-Anon", "Anon", "appId", "CustomAppName", "idList", "6,8,10", "2", false)]
+        [InlineData("ConfigURL-Anon", "Anon", "appId","testhost","idList","1,3,5" ,"1", true)]
+        [InlineData("ConfigURL-Anon", "Anon", "appId", "testhost", "idList", "1,3,5","1", false)]
+        [InlineData("ConfigURL-Anon", "Anon", "appId", "ConfigApiClient_Anon", "idList", "6,8,10", "2", true)]
+        [InlineData("ConfigURL-Anon", "Anon", "appId", "ConfigApiClient_Anon", "idList", "6,8,10", "2", false)]
         //TODO: ADD WIN TEST CASES
         public void QueryParams_Good(string configUrlVar, string authType,string param1Name, string param1Value, string param2Name, string param2Value, string testCase, bool optional)
         {
@@ -272,7 +272,7 @@ namespace ConfigCore.Tests
             IConfiguration actual = builder.AddApiSource(configUrlVar, authType, null, dictParams, optional).Build();
 
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\QueryParams\\Good\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
 
@@ -325,12 +325,15 @@ namespace ConfigCore.Tests
             string jsonPath = $"TestCases\\ApiSource\\Anon-Win\\ConfigParam\\Good\\input{testCase}.json";
 
             // Get initial config containing non-default database settings
-            var initConfig = new ConfigurationBuilder().AddJsonFile(jsonPath, false).Build();
+            var initConfigBuilder = new ConfigurationBuilder();
+            initConfigBuilder.SetBasePath(Directory.GetCurrentDirectory());
+            initConfigBuilder.AddJsonFile(jsonPath, false);
+            var initConfig = initConfigBuilder.Build();
 
             // Create the final builder 
             IConfigurationBuilder finalBuilder = new ConfigurationBuilder();
 
-            // Add the DBSource to the final builder
+            // Add the API source to the final builder
             finalBuilder.AddApiSource(initConfig, optional);
 
             // Build the final config
@@ -338,7 +341,7 @@ namespace ConfigCore.Tests
 
             // Convert to lists and compare
             var listActual = actual.GetConfigSettings();
-            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\ConfigParam\\Good\\expected{testCase}.json"));
+            var listExpected = JsonConvert.DeserializeObject<List<ConfigSetting>>(File.ReadAllText($"TestCases\\ApiSource\\Anon-Win\\expected{testCase}.json"));
             Assert.True(TestHelper.SettingsAreEqual(listActual, listExpected));
         }
         // TODO: test case 2 above has mixed up hostname

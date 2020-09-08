@@ -11,7 +11,7 @@
       "QueryParams": [
       ],
       "RouteParams": [
-        "CustomAppName"
+        "ConfigApiClient_JwtBearer"
       ]
     }
   }

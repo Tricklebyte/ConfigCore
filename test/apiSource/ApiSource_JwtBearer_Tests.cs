@@ -84,7 +84,7 @@ namespace ConfigCore.Tests
 
         [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "", "1")]
         [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope",  "testhost", "1")]
-        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "CustomAppName", "2")]
+        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "ConfigApiClient_JwtBearer", "2")]
         [Theory]
         public void JwtBearer_RParam_Good(string configUrlVar, string authorityVar, string clientIdVar, string clientSecretVar, string clientScopeVar, string appId, string testCase)
         {
@@ -109,8 +109,8 @@ namespace ConfigCore.Tests
         [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "", "1", false)]
         [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "testhost", "1", true)]
         [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "testhost", "1", false)]
-        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "CustomAppName", "2", true)]
-        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "CustomAppName", "2", false)]
+        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "ConfigApiClient_JwtBearer", "2", true)]
+        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "ConfigApiClient_JwtBearer", "2", false)]
         [Theory]
         public void JwtBearer_RParam_Good_Optional(string configUrlVar, string authorityVar, string clientIdVar, string clientSecretVar, string clientScopeVar, string appId, string testCase, bool optional)
         {
@@ -134,7 +134,7 @@ namespace ConfigCore.Tests
 
         #region Query Parameter Data Tests
         [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "testhost", "idList", "1,3,5", "1")]
-        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "CustomAppName", "idList", "6,8,10", "2")]
+        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "ConfigApiClient_JwtBearer", "idList", "6,8,10", "2")]
         [Theory]
         public void JwtBearer_QParam_Good(string configUrlVar, string authorityVar, string clientIdVar, string clientSecretVar, string clientScopeVar, string param1Name, string param1Value, string param2Name, string param2Value, string testCase)
         {
@@ -151,10 +151,11 @@ namespace ConfigCore.Tests
         }
 
 
-        [InlineData("ConfigURL-Bearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "testhost", "idList", "1,3,5,", "1", true)]
-        [InlineData("ConfigURL-Bearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "testhost", "idList", "1,3,5,", "1", false)]
-        [InlineData("ConfigURL-Bearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "testhost", "idList", "1,3,5,", "2", true)]
-        [InlineData("ConfigURL-Bearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "testhost", "idList", "1,3,5,", "2", false)]
+        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "testhost", "idList", "1,3,5", "1", true)]
+        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "testhost", "idList", "1,3,5", "1", false)]
+        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "ConfigApiClient_JwtBearer", "idList", "1,3,5", "2", true)]
+        [InlineData("ConfigURL-JwtBearer", "ConfigApi-JwtBearerAuthority", "ConfigApi-JwtBearerClientId", "ConfigApi-JwtBearerClientSecret", "ConfigApi-JwtBearerClientScope", "appId", "ConfigApiClient_JwtBearer", "idList", "1,3,5", "2", false)]
+        [Theory]
         public void JwtBearer_QParam_Good_Optional(string configUrlVar, string authorityVar, string clientIdVar, string clientSecretVar, string clientScopeVar, string param1Name, string param1Value, string param2Name, string param2Value, string testCase, bool optional)
         {
             var builder = new ConfigurationBuilder();
